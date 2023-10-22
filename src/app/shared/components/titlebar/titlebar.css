@@ -1,0 +1,30 @@
+.titlebar {
+    height: 2.5rem;
+    background-color: var(--background);
+    user-select: none;
+    display: flex;
+    justify-content: flex-end;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid var(--background-tone);
+}
+
+.titlebar_button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 2.5rem;
+    cursor: pointer;
+    transition: background-color .1s ease-in;
+}
+
+#titlebar-close:hover {
+    background-color: red;
+}
+
+.titlebar_button:hover {
+    background-color: var(--background-tone);
+}
