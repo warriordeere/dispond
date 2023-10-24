@@ -7,7 +7,10 @@ import { appWindow } from '@tauri-apps/api/window';
 
 export default function WindowTitlebar() {
   return (
-    <div data-tauri-drag-region className="titlebar" id='titlebar'>
+    <div className="titlebar" data-tauri-drag-region>
+      <div className="window-title" data-tauri-drag-region>
+        <span data-tauri-drag-region>Dispond</span>
+      </div>
       <div className="titlebar-ui-container">
         <div className="titlebar_button" id="titlebar-minimize" onClick={() => { appWindow.minimize() }}>
           <VscChromeMinimize />

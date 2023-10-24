@@ -1,37 +1,27 @@
-/* Normal theme dark https://www.realtimecolors.com/?colors=ffffff-02141d-eb580f-564906-f23655&fonts=Poppins-Poppins */
-/* Normal theme light https://www.realtimecolors.com/?colors=000000-e2f4fd-f05d14-f9eca9-c90d2c&fonts=Poppins-Poppins */
+/* https://colordesigner.io/#F00807-5F6273-A4ABBF-CCC9D1-E2E1E9 */
 
-/* autumn theme dark https://www.realtimecolors.com/?colors=fef9ec-140f00-ff8400-291f00-f86c30&fonts=Poppins-Poppins */
-/* autumn theme light https://www.realtimecolors.com/?colors=130e01-fffaeb-ff8400-fff5d6-cf4307&fonts=Poppins-Poppins */
-
-@import url('https://fonts.googleapis.com/css2?family=Inter&family=Poppins&family=Roboto+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Josefin+Sans&family=Poppins&family=Roboto+Mono&display=swap');
 /* font-family: 'Inter', sans-serif; */
+/* font-family: 'Josefin Sans', sans-serif; */
 /* font-family: 'Roboto Mono', monospace; */
 
 :root {
-    --text: rgb(255, 255, 255);
-    --background: rgb(2, 20, 29);
-    --primary: rgb(235, 88, 15);
-    --secondary: rgb(86, 73, 6);
-    --accent: rgb(242, 54, 85);
+    --background: rgb(255, 255, 255);
+    --background-shade: rgb(153, 153, 153);
+    --background-tone: rgb(204, 204, 204);
+    --text: rgb(226, 225, 233);
+    --text-alt: rgb(31, 31, 31);
+    --primary: rgb(240, 8, 7);
+    --primary-shade: rgb(192, 6, 6);
+    --secondary: rgb(204, 201, 209);
+    --accent: rgb(255, 140, 0);
 
-    --background-tone: rgb(12, 47, 64);
+    --window-bg: rgb(2, 20, 29);
+    --window-bg-tone: rgb(12, 47, 64);
+    --window-bg-shade: rgb(1, 10, 15);
 
-    --background-shade: rgb(1, 10, 15);
-}
-
-@media (prefers-color-scheme: light) {
-    :root {
-        --text: rgb(0, 0, 0);
-        --background: rgb(226, 244, 253);
-        --primary: rgb(240, 93, 20);
-        --secondary: rgb(249, 236, 169);
-        --accent: rgb(201, 13, 44);
-    }
-}
-
-* {
-    color: var(--text);
+    --green: rgb(7, 240, 124);
+    --blue: rgb(7, 123, 240);
 }
 
 html {
@@ -51,7 +41,7 @@ p {
 body {
     position: fixed;
     top: 2.5rem;
-    left: 0;
+    left: 4rem;
     right: 0;
     bottom: 0;
     height: calc(100dvh - 2.5rem);

@@ -1,14 +1,15 @@
-.titlebar {
+.titlebar{
     height: 2.5rem;
-    background-color: var(--background);
+    background-color: var(--window-bg);
     user-select: none;
-    display: flex;
-    justify-content: flex-end;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    border-bottom: 1px solid var(--background-tone);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    z-index: 99;
 }
 
 .titlebar_button {
@@ -18,6 +19,7 @@
     width: 3rem;
     height: 2.5rem;
     cursor: pointer;
+    background-color: var(--window-bg);
     transition: background-color .1s ease-in;
 }
 
@@ -26,5 +28,15 @@
 }
 
 .titlebar_button:hover {
-    background-color: var(--background-tone);
+    background-color: var(--window-bg-tone);
+}
+
+.window-title{
+    display: flex;
+    align-items: center;
+    padding: .75rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 500;
+    font-size: .75rem;
+    text-transform: uppercase;
 }

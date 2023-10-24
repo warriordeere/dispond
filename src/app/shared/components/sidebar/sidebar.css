@@ -1,0 +1,32 @@
+.sidebar {
+    position: fixed;
+    top: 2.5rem;
+    bottom: 0;
+    left: 0;
+    width: 4rem;
+    background-color: var(--primary);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sidebar-item {
+    height: 4rem;
+    width: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color .25s ease-in-out;
+}
+
+.sidebar-item:hover{
+    background-color: var(--primary-shade);
+}
+
+.sidebar-item svg {
+    height: 2rem;
+    width: 2rem;
+}
