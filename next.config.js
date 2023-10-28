@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-    output: 'export',
-}
+require('dotenv').config();
 
-module.exports = nextConfig
+module.exports =
+{
+    output: 'export',
+    env: {
+        TOMTOM_API_KEY: process.env.TOMTOM_API_KEY,
+    }
+}

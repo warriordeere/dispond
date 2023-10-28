@@ -1,20 +1,17 @@
-import Landing from "./shared/components/landing/page";
-import Sidebar from "./shared/components/sidebar/page";
-import WindowTitlebar from "./shared/components/titlebar/page";
+import WindowTitlebar from "./shared/components/titlebar/titlebar";
 
-export default function RootLayout() {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en">
       <body>
         <WindowTitlebar />
-        <Sidebar data={
-          {
-            renderCallsButton: false,
-            renderLocationButton: false
-          }
-        } />
-        <Landing />
+        {children}
       </body>
     </html>
   )
 }
+

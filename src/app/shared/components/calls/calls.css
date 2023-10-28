@@ -1,0 +1,70 @@
+.call-item {
+    border-radius: 1rem;
+    background-color: var(--secondary);
+    overflow: hidden;
+}
+
+.call-item {
+    padding: 1.5rem;
+    background-color: var(--primary-shade);
+    display: grid;
+    grid-template-columns: 2rem auto;
+    grid-template-rows: repeat(2, 1.125rem) .5rem repeat(2, 1.125rem) .5rem repeat(2, 1.125rem);
+    row-gap: .25rem;
+    column-gap: 1.5rem;
+}
+
+.location-icon svg,
+.call-icon svg,
+.caller-icon svg {
+    height: 2.25rem;
+    width: 2.25rem;
+}
+
+.call-icon {
+    grid-column: 1/2;
+    grid-row: 1/3;
+}
+
+.call-type {
+    grid-column: 2/3;
+    grid-row: 1/2;
+    font-weight: 600;
+}
+
+.call-specific {
+    grid-column: 2/3;
+    grid-row: 2/3;
+}
+
+.location-icon {
+    grid-column: 1/2;
+    grid-row: 4/6;
+}
+
+.location-main {
+    grid-column: 2/3;
+    grid-row: 4/5;
+    font-weight: 600;
+}
+
+.location-second {
+    grid-column: 2/3;
+    grid-row: 5/6;
+}
+
+.caller-icon {
+    grid-column: 1/2;
+    grid-row: 7/9;
+}
+
+.caller-name {
+    grid-column: 2/3;
+    grid-row: 7/8;
+    font-weight: 600;
+}
+
+.caller-date {
+    grid-column: 2/3;
+    grid-row: 8/9;
+}

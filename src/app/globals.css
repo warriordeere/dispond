@@ -13,15 +13,18 @@
     --text-alt: rgb(31, 31, 31);
     --primary: rgb(240, 8, 7);
     --primary-shade: rgb(192, 6, 6);
-    --secondary: rgb(204, 201, 209);
-    --accent: rgb(255, 140, 0);
+    --primary-tone: rgb(218, 31, 31);
+    --secondary: rgb(225, 220, 220);
+    --accent: rgb(179, 30, 0);
 
     --window-bg: rgb(2, 20, 29);
     --window-bg-tone: rgb(12, 47, 64);
     --window-bg-shade: rgb(1, 10, 15);
 
-    --green: rgb(7, 240, 124);
+    --light-green: rgb(7, 240, 124);
     --blue: rgb(7, 123, 240);
+
+    --boxshadow-dark: 0 0 1rem 0 var(--window-bg);
 }
 
 html {
@@ -29,6 +32,7 @@ html {
     font-family: 'Poppins', sans-serif;
     color: var(--text);
     background-color: var(--background);
+    user-select: none;
 }
 
 html,
@@ -45,5 +49,9 @@ body {
     right: 0;
     bottom: 0;
     height: calc(100dvh - 2.5rem);
-    padding: 3rem;
+}
+
+.react-icon-regular svg {
+    height: 2rem;
+    width: 2rem;
 }
