@@ -9,7 +9,7 @@
   },
   "package": {
     "productName": "Dispond",
-    "version": "0.1.2"
+    "version": "0.1.3"
   },
   "tauri": {
     "allowlist": {
@@ -24,6 +24,18 @@
         "unmaximize": true,
         "unminimize": true,
         "startDragging": true
+      },
+      "fs": {
+        "readFile": true,
+        "writeFile": true,
+        "createDir": true,
+        "scope": [
+          "$DOCUMENT/*",
+          "$DOCUMENT/Arcavigi Interactive/*",
+          "$DOCUMENT/Arcavigi Interactive/saves/*",
+          "$DOCUMENT/Arcavigi Interactive/saves/*/*",
+          "$DOCUMENT/Arcavigi Interactive/saves/*/*/*"
+        ]
       }
     },
     "bundle": {

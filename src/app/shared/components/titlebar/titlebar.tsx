@@ -3,7 +3,7 @@
 import { VscChromeClose, VscChromeMaximize, VscChromeMinimize, VscChromeRestore } from 'react-icons/vsc'
 import './titlebar.css';
 import '../../../globals.css';
-import { appWindow } from '@tauri-apps/api/window';
+import { appWindow } from "@tauri-apps/api/window";
 
 export default function WindowTitlebar() {
   return (

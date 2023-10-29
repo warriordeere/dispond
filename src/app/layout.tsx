@@ -1,4 +1,9 @@
-import WindowTitlebar from "./shared/components/titlebar/titlebar";
+'use client'
+
+import dynamic from "next/dynamic";
+import { cst_fs } from "./script/file/fs";
+
+const WindowTitlebar = dynamic(() => import("../app/shared/components/titlebar/titlebar"), { ssr: false })
 
 export default function RootLayout({
   children,
@@ -15,3 +20,4 @@ export default function RootLayout({
   )
 }
 
+cst_fs.setup_config()
