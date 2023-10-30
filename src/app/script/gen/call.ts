@@ -1,20 +1,25 @@
-import { callInterface, callerObject, locationObject, missionObject } from "@/app/shared/types/types";
+import { callInterface, callerObject, locationObject, missionObject, namesFile } from "@/app/shared/types/types";
+import { BaseDirectory, readTextFile } from "@tauri-apps/api/fs";
 
-export class call implements callInterface {
-
+export class call {
     id: string;
-    caller: callerObject;
-    location: locationObject;
+    caller: Promise<callerObject>;
+    location: { coords: number[]; };
     mission: missionObject;
-    constructor() {
-        function randomCaller(): callerObject {
 
-            return { first_name: '', last_name: '' };
-        }
+    constructor() {
 
         function randomMission(): missionObject {
-
             return { specific: 'brennt Mülleimer', type: "B1" };
+        }
+
+        function randomCaller() {
+            return new Promise<callerObject>(async (resolve) => {
+                const callerObject = JSON.parse(`${await readTextFile('Arcavigi Interactive/saves/MySave/assets/names.json', { dir: BaseDirectory.Document })}`);
+                const firstName = callerObject.first_names[Math.floor(Math.random())]
+                const lastName = callerObject.last_names[Math.floor(Math.random())]
+                resolve({ first_name: firstName, last_name: lastName });
+            })
         }
 
         this.id = '1';
