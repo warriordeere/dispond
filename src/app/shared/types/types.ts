@@ -4,12 +4,18 @@ export type sidebarRenderTypes = {
     data: {
         renderCallsButton: boolean,
         renderLocationButton: boolean,
-        extended_menu?: {
-            extended: boolean,
-            initiator: 'TYPE_CALLS'
-        }
+        renderManageButton: boolean,
+        extended_menu?: extendedSidebarMenuOptions
     }
 }
+
+export type extendedSidebar = {
+    data: {
+        extended_menu: extendedSidebarMenuOptions
+    }
+}
+
+export type extendedSidebarMenuOptions = 'MENU_CALLS' | 'MENU_MAP' | 'MENU_MANAGE'
 
 export interface savegame {
     id: string,
@@ -20,7 +26,8 @@ export interface callInterface {
     id: string,
     caller: callerObject,
     location: locationObject,
-    mission: missionObject
+    mission: missionObject,
+    time: number
 }
 
 export type callerObject = {
@@ -37,7 +44,22 @@ export type missionObject = {
     specific: string
 }
 
-export type missionTypes = 'B1' | 'B2' | 'B3'
+export type missionTypes = 'B1' | 'B2' | 'B2-MiG' | 'B3'
+
+export type missionTypesEqv = {
+    'B1': [
+        'Kleinbrand'
+    ],
+    'B2': [
+        'Feuer 2'
+    ],
+    'B2-MiG': [
+        'Feuer MiG'
+    ],
+    'B3': [
+        'Großbrand'
+    ]
+}
 
 export interface configFile {
     savegame: {

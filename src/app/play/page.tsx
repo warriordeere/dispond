@@ -8,7 +8,8 @@ export default function Game() {
     <>
       <Sidebar data={{
         renderCallsButton: true,
-        renderLocationButton: true
+        renderLocationButton: true,
+        renderManageButton: true
       }} />
       <Map />
     </>

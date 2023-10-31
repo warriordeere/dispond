@@ -1,6 +1,7 @@
 import { configFile } from '@/app/shared/types/types';
 import { writeTextFile, BaseDirectory, createDir } from '@tauri-apps/api/fs';
 import namesData from '@/app/shared/assets/names.json'
+import missionsData from '@/app/shared/assets/missions.json'
 
 export const cst_fs = new class cst_fs {
     async setup_config() {
@@ -21,7 +22,9 @@ export const cst_fs = new class cst_fs {
                     .then(async () => {
                         try {
                             const { } = namesData;
+                            const { } = missionsData;
                             await writeTextFile('Arcavigi Interactive/saves/MySave/assets/names.json', `${JSON.stringify(namesData)}`, { dir: BaseDirectory.Document });
+                            await writeTextFile('Arcavigi Interactive/saves/MySave/assets/missions.json', `${JSON.stringify(missionsData)}`, { dir: BaseDirectory.Document });
                         } catch (err: any) {
                             throw new Error(err)
                         }

@@ -2,25 +2,26 @@ import './calls.css';
 import '../../../globals.css';
 import { BsFire, BsPersonCircle } from "react-icons/bs";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { call } from '@/app/script/gen/call';
+import { Call } from '@/app/script/gen/call';
 
-export default function CallItem() {
+export default async function CallItem() {
+    const callData = await Call.generate();
     return (
         <div className="call-item">
             <span className="caller-icon">
                 <BsPersonCircle />
             </span>
-            <span className="caller-name">Günther Kleinlich</span>
-            <span className="caller-date">12. September 2024, 12:21</span>
+            <span className="caller-name">{callData.caller.first_name} {callData.caller.last_name}</span>
+            <span className="caller-date">{new Date(callData.time).toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'short' }).toString()}</span>
 
             <span className="call-icon">
                 <BsFire />
             </span>
             <span className="call-type">
-                B1 Kleinbrand
+                {callData.mission.type}
             </span>
             <span className="call-specific">
-                brennt Mülleimer
+                {callData.mission.specific}
             </span>
 
             <span className="location-icon">
@@ -35,7 +36,3 @@ export default function CallItem() {
         </div>
     )
 }
-
-const mission = new call();
-
-console.log(mission);

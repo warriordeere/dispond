@@ -10,7 +10,7 @@ export default function Calls() {
                 renderCallsButton: true,
                 renderLocationButton: true,
                 renderManageButton: true,
-                extended_menu: "MENU_CALLS"
+                extended_menu: "MENU_MANAGE"
             }} />
             <Map />
         </>

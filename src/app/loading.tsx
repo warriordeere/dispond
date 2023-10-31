@@ -7,7 +7,7 @@ export default function Loading() {
                 {/* TODO: Implement animated Logo instead*/}
                 <span className="animate-circle"></span>
             </div>
-            <p>Spiel wird geladen</p>
+            <p>Inhalt wird geladen</p>
             <p className="loading-hint">Hier könnte ein hilfreicher Tipp stehen</p>
         </div>
     )

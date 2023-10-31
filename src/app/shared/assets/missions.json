@@ -1,0 +1,24 @@
+[
+    [
+        {
+            "type": "B1",
+            "specific": "brennt Mülleimer"
+        },
+        {
+            "type": "B1",
+            "specific": "brennt Müllcontainer"
+        },
+        {
+            "type": "B1",
+            "specific": "brennt Bushäuschen"
+        },
+        {
+            "type": "B2",
+            "specific": "Küchenbrand"
+        },
+        {
+            "type": "B2-MiG",
+            "specific": "Küchenbrand MiG"
+        }
+    ]
+]
