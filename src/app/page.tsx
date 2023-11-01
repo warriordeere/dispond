@@ -6,7 +6,8 @@ export default function page() {
         <>
             <Sidebar data={{
                 renderCallsButton: false,
-                renderLocationButton: false
+                renderLocationButton: false,
+                renderManageButton: false
             }} />
             <Landing />
         </>

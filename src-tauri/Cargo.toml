@@ -1,11 +1,11 @@
 [package]
-name = "app"
-version = "0.1.0"
+name = "dispond"
+version = "0.1.3"
 description = "A Tauri App"
 authors = ["Warrior Deere"]
 license = ""
-repository = ""
-default-run = "app"
+repository = "https://github.com/WarriorDeere/dispond"
+default-run = "dispond"
 edition = "2021"
 rust-version = "1.60"
 

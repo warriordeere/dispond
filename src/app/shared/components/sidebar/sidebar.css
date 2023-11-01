@@ -13,6 +13,7 @@
 }
 
 button.sidebar-item {
+    position: relative;
     all: unset;
     height: 4rem;
     width: 4rem;
@@ -65,6 +66,73 @@ button.extsb-close:hover {
     background-color: var(--primary-shade);
 }
 
-.extsb-body{
+.extsb-body {
     padding: 1.5rem;
+}
+
+.extsb-btn {
+    all: unset;
+    position: relative;
+    height: 4rem;
+    width: 4rem;
+    background-color: var(--primary);
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: .5rem;
+    cursor: pointer;
+    transition: background-color .25s ease-in-out;
+}
+
+.extsb-btn:hover {
+    background-color: var(--primary-shade);
+}
+
+.extsb-btn-tt {
+    position: absolute;
+    left: 4.5rem;
+    background-color: var(--primary);
+    color: var(--text);
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: .5rem;
+    border-radius: .25rem;
+    text-wrap: nowrap;
+    visibility: collapse;
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: 0 0 .5rem 0 rgba(0, 0, 0, .4);
+    z-index: 99;
+    transition: background-color .25s ease-in-out, opacity .25s ease-in-out;
+}
+
+.extsb-btn:hover .extsb-btn-tt {
+    background-color: var(--primary-shade);
+    opacity: 1;
+    visibility: visible;
+}
+
+.sidebar-dropdown {
+    position: absolute;
+    left: 4rem;
+    top: 12rem;
+    background-color: var(--primary);
+    display: flex;
+    flex-direction: column;
+    height: 4rem;
+    overflow-y: visible;
+}
+
+.dpw-btn {
+    all: unset;
+    background-color: var(--primary);
+    cursor: pointer;
+    padding: .75rem;
+    transition: background-color .25s ease-in-out;
+}
+
+.dpw-btn:hover {
+    background-color: var(--primary-shade);
 }

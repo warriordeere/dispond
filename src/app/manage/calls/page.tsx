@@ -7,9 +7,9 @@ export default function Calls() {
     return (
         <>
             <Sidebar data={{
-                renderCallsButton: true,
-                renderLocationButton: true,
-                renderManageButton: true,
+                renderCallsButton: false,
+                renderLocationButton: false,
+                renderManageButton: false,
                 extended_menu: "MENU_CALLS"
             }} />
             <Map />

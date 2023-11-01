@@ -1,4 +1,5 @@
 import { LngLatLike } from "@tomtom-international/web-sdk-maps"
+import React from "react"
 
 export type sidebarRenderTypes = {
     data: {
@@ -9,13 +10,21 @@ export type sidebarRenderTypes = {
     }
 }
 
-export type extendedSidebar = {
+export type extendedSidebarContent = {
     data: {
         extended_menu: extendedSidebarMenuOptions
     }
 }
 
-export type extendedSidebarMenuOptions = 'MENU_CALLS' | 'MENU_MAP' | 'MENU_MANAGE'
+export type extendedSidebar = {
+    data: {
+        title: string
+        icon: React.JSX.Element
+        content: React.JSX.Element | string
+    }
+}
+
+export type extendedSidebarMenuOptions = 'MENU_CALLS' | 'MENU_MAP' | 'MENU_MANAGE_FLEET' | 'MENU_MANAGE_BUILDINGS'
 
 export interface savegame {
     id: string,
