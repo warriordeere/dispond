@@ -11,7 +11,7 @@ import CallItem from "../calls/calls";
 import './sidebar.css';
 import '../../../globals.css';
 import { useState } from "react";
-import { Resizable } from "re-resizable";
+import { BuildingMenu, AddBuildingMenu } from "../menus/buildingmenu";
 
 export default function Sidebar({ data }: sidebarRenderTypes) {
     return (
@@ -28,8 +28,8 @@ export default function Sidebar({ data }: sidebarRenderTypes) {
 }
 
 function SidebarContent({ data }: sidebarRenderTypes) {
-    const router = useRouter();
     const [isDropdownVisible, setDropdownVisible] = useState(false);
+    const router = useRouter();
 
     return (
         <nav className="sidebar">
@@ -81,7 +81,6 @@ function SidebarContent({ data }: sidebarRenderTypes) {
     )
 
     function SidebarDropdown() {
-        const router = useRouter();
         return (
             <div className="sidebar-dropdown" onMouseLeave={() => {
                 setDropdownVisible(false);
@@ -146,24 +145,19 @@ function ExtendedSidebarContent({ data }: extendedSidebarContent) {
         case 'MENU_MANAGE_BUILDINGS':
             return (
                 <ExtendedSidebar data={{
-                    title: "Gebäude",
+                    title: "Baumenü",
                     icon: <BsBuildingFillGear />,
                     content: <BuildingMenu />
                 }} />
             );
-    }
-}
 
-function BuildingMenu() {
-    return (
-        <>
-            <div className="extsb-interface">
-                <button className="extsb-btn react-icon-regular">
-                    <BsBuildingFillAdd />
-                    <span className="extsb-btn-tt">Neues Gebäude</span>
-                </button>
-            </div>
-            <div className="extsb-content"></div>
-        </>
-    )
+        case 'MENU_NEW_BUILDING':
+            return (
+                <ExtendedSidebar data={{
+                    title: "Neues Gebäude",
+                    icon: <BsBuildingFillAdd />,
+                    content: <AddBuildingMenu />
+                }} />
+            );
+    }
 }

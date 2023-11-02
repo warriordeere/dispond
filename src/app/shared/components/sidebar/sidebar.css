@@ -136,3 +136,10 @@ button.extsb-close:hover {
 .dpw-btn:hover {
     background-color: var(--primary-shade);
 }
+
+.extsb-advice{
+    font-size: large;
+    background-color: var(--background-shade);
+    padding: .75rem;
+    border-radius: .25rem;
+}
