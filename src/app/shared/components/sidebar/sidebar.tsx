@@ -14,11 +14,12 @@ import { useState } from "react";
 import { BuildingMenu, AddBuildingMenu } from "../menus/buildingmenu";
 
 export default function Sidebar({ data }: sidebarRenderTypes) {
+
     return (
         <>
             {
                 data.extended_menu ? (
-                    <ExtendedSidebarContent data={{ extended_menu: data.extended_menu }} />
+                    <ExtendedSidebarContent data={{ extended_menu: data.extended_menu, map_instance: data.map_instance }} />
                 ) : (
                     <SidebarContent data={data} />
                 )
@@ -97,7 +98,6 @@ function SidebarContent({ data }: sidebarRenderTypes) {
 }
 
 function ExtendedSidebarContent({ data }: extendedSidebarContent) {
-
     function ExtendedSidebar({ data }: extendedSidebar) {
         return (
             <nav className="sidebar-extended">
@@ -156,7 +156,8 @@ function ExtendedSidebarContent({ data }: extendedSidebarContent) {
                 <ExtendedSidebar data={{
                     title: "Neues Gebäude",
                     icon: <BsBuildingFillAdd />,
-                    content: <AddBuildingMenu />
+                    content: <AddBuildingMenu map_instance={data.map_instance} />,
+                    map_instance: data.map_instance
                 }} />
             );
     }

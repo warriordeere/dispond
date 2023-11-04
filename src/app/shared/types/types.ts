@@ -7,12 +7,14 @@ export type sidebarRenderTypes = {
         renderLocationButton: boolean,
         renderManageButton: boolean,
         extended_menu?: extendedSidebarMenuOptions
+        map_instance?: any
     }
 }
 
 export type extendedSidebarContent = {
     data: {
         extended_menu: extendedSidebarMenuOptions
+        map_instance?: any
     }
 }
 
@@ -21,6 +23,7 @@ export type extendedSidebar = {
         title: string
         icon: React.JSX.Element
         content: React.JSX.Element | string
+        map_instance?: any
     }
 }
 
@@ -82,4 +85,15 @@ export interface configFile {
 export interface namesFile {
     first_names: string[]
     last_names: string[]
+}
+
+export type MapStateType = {
+    mapLongitude: number;
+    mapLatitude: number;
+    mapZoom: number;
+    map: any;
+};
+
+export type MapInstance = {
+    map_instance: any
 }

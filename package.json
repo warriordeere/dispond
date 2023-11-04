@@ -10,8 +10,10 @@
     "tauri": "tauri"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.7",
     "@tauri-apps/api": "^1.5.1",
     "@tomtom-international/web-sdk-maps": "^6.25.0",
+    "@tomtom-international/web-sdk-plugin-searchbox": "^3.2.0",
     "@tomtom-international/web-sdk-services": "^6.25.0",
     "dotenv": "^16.3.1",
     "next": "^14.0.0",
