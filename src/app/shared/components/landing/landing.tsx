@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 
 export default function Landing() {
     const router = useRouter();
-    const savegameRoute = '/play';
+    const savegameRoute = '/game';
     return (
         <section className="landing">
             <div className="savegame-container">

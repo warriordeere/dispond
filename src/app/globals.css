@@ -91,11 +91,3 @@ body {
     opacity: 1;
     visibility: visible;
 }
-
-#map{
-    cursor: grab;
-}
-
-#map:active{
-    cursor: grabbing;
-}

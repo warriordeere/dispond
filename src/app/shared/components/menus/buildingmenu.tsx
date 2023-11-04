@@ -6,7 +6,6 @@ import { services } from "@tomtom-international/web-sdk-services";
 import { API_KEY } from "@/app/page";
 import { useEffect, useRef } from "react";
 import tt from "@tomtom-international/web-sdk-maps";
-import { MapInstance } from "../../types/types";
 
 export function BuildingMenu() {
     const router = useRouter();
@@ -15,7 +14,7 @@ export function BuildingMenu() {
             <div className="extsb-interface">
                 <button className="extsb-btn react-icon-regular"
                     onClick={() => {
-                        router.push('/new/building')
+                        router.push('./buildings/new')
                     }}>
                     <BsBuildingFillAdd />
                     <span className="extsb-btn-tt">Neues Gebäude</span>
@@ -26,7 +25,7 @@ export function BuildingMenu() {
     )
 }
 
-export function AddBuildingMenu({ map_instance }: MapInstance) {
+export function AddBuildingMenu() {
     return (
         <>
             <div className="extsb-content">
@@ -37,7 +36,7 @@ export function AddBuildingMenu({ map_instance }: MapInstance) {
                 </div>
             </div>
             <div className="extsb-interface" id="bm-interface">
-                <BMSearchBox map_instance={map_instance} />
+                <BMSearchBox />
                 <div className="bm-naming"></div>
                 <div className="bm-final"></div>
             </div>
@@ -45,7 +44,7 @@ export function AddBuildingMenu({ map_instance }: MapInstance) {
     )
 }
 
-function BMSearchBox({ map_instance }: MapInstance) {
+function BMSearchBox() {
 
     const BMInterfaceDOMRef = useRef<HTMLDivElement>(null);
 
@@ -72,10 +71,6 @@ function BMSearchBox({ map_instance }: MapInstance) {
             const marker = new tt.Marker({ draggable: true })
             const hint = new tt.Popup({ anchor: 'top' })
             const result = target.data.result;
-
-            if (map_instance) {
-                marker.addTo(map_instance);
-            }
         })
     })
 

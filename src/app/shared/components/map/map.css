@@ -1,4 +1,9 @@
-#map{
+#map {
     height: 100dvh;
     width: 100%;
+    cursor: grab;
+}
+
+#map:active {
+    cursor: grabbing;
 }
