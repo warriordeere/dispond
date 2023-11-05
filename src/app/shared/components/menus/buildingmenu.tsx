@@ -1,11 +1,13 @@
 import { useRouter } from "next/navigation";
-import { BsBuildingFillAdd, BsFillQuestionCircleFill } from "react-icons/bs"
+import { BsBuildingFillAdd } from "react-icons/bs"
 import '@tomtom-international/web-sdk-plugin-searchbox/dist/SearchBox.css';
 import SearchBox from '@tomtom-international/web-sdk-plugin-searchbox';
 import { services } from "@tomtom-international/web-sdk-services";
 import { API_KEY } from "@/app/page";
-import { useEffect, useRef } from "react";
+import { useContext, useEffect } from "react";
 import tt from "@tomtom-international/web-sdk-maps";
+import { TTMapContext } from "@/app/context";
+import { ttSearchboxResult } from "../../types/types";
 
 export function BuildingMenu() {
     const router = useRouter();
@@ -46,10 +48,16 @@ export function AddBuildingMenu() {
 
 function BMSearchBox() {
 
-    const BMInterfaceDOMRef = useRef<HTMLDivElement>(null);
+    const ttmap_inst = useContext(TTMapContext)!;
 
     useEffect(() => {
-        const BMInterface = document.querySelector('#bm-interface');
+        const BMInterface = document.querySelector('#bm-interface')!;
+
+        const existingSearchBox = BMInterface.querySelector('.tt-search-box');
+        if (existingSearchBox) {
+            existingSearchBox.remove();
+        }
+
         const searchBox = new SearchBox(services, {
             idleTimePress: 800,
             minNumberOfCharacters: 2,
@@ -70,7 +78,12 @@ function BMSearchBox() {
         searchBox.on('tomtom.searchbox.resultselected', (target) => {
             const marker = new tt.Marker({ draggable: true })
             const hint = new tt.Popup({ anchor: 'top' })
-            const result = target.data.result;
+            const result: any = target.data.result;
+
+            console.log(result.position);
+
+            marker.setLngLat(result.position);
+            marker.addTo(ttmap_inst);
         })
     })
 
