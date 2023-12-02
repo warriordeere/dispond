@@ -19,7 +19,7 @@ export default function Sidebar({ data }: sidebarRenderTypes) {
         <>
             {
                 data.extended_menu ? (
-                    <ExtendedSidebarContent data={{ extended_menu: data.extended_menu, map_instance: data.map_instance }} />
+                    <ExtendedSidebarContent data={{ extended_menu: data.extended_menu }} />
                 ) : (
                     <SidebarContent data={data} />
                 )
@@ -43,7 +43,7 @@ function SidebarContent({ data }: sidebarRenderTypes) {
                 {
                     data.renderCallsButton ? (
                         <button className="sidebar-item react-icon-regular" onClick={() => {
-                            router.push('/manage/calls')
+                            router.push('/game/calls')
                         }}>
                             <BiSolidPhoneCall />
                         </button>
@@ -52,7 +52,7 @@ function SidebarContent({ data }: sidebarRenderTypes) {
                 {
                     data.renderLocationButton ? (
                         <button className="sidebar-item react-icon-regular" onClick={() => {
-                            router.push('/play')
+                            router.push('/game')
                         }}>
                             <FaMap />
                         </button>
@@ -87,10 +87,10 @@ function SidebarContent({ data }: sidebarRenderTypes) {
                 setDropdownVisible(false);
             }}>
                 <button className="dpw-btn" onClick={() => {
-                    router.push('/manage/fleet')
+                    router.push('/game/fleet')
                 }}>Fahrzeugmenü</button>
                 <button className="dpw-btn" onClick={() => {
-                    router.push('/manage/buildings')
+                    router.push('/game/buildings')
                 }}>Baumenü</button>
             </div>
         )
@@ -156,8 +156,7 @@ function ExtendedSidebarContent({ data }: extendedSidebarContent) {
                 <ExtendedSidebar data={{
                     title: "Neues Gebäude",
                     icon: <BsBuildingFillAdd />,
-                    content: <AddBuildingMenu map_instance={data.map_instance} />,
-                    map_instance: data.map_instance
+                    content: <AddBuildingMenu />
                 }} />
             );
     }

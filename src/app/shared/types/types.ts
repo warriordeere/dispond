@@ -7,14 +7,12 @@ export type sidebarRenderTypes = {
         renderLocationButton: boolean,
         renderManageButton: boolean,
         extended_menu?: extendedSidebarMenuOptions
-        map_instance?: any
     }
 }
 
 export type extendedSidebarContent = {
     data: {
         extended_menu: extendedSidebarMenuOptions
-        map_instance?: any
     }
 }
 
@@ -23,7 +21,6 @@ export type extendedSidebar = {
         title: string
         icon: React.JSX.Element
         content: React.JSX.Element | string
-        map_instance?: any
     }
 }
 
@@ -87,13 +84,50 @@ export interface namesFile {
     last_names: string[]
 }
 
-export type MapStateType = {
-    mapLongitude: number;
-    mapLatitude: number;
-    mapZoom: number;
-    map: any;
-};
-
-export type MapInstance = {
-    map_instance: any
+export interface ttSearchboxResult {
+    type: string,
+    id: string,
+    score: number,
+    address: {
+        streetName: string,
+        municipalitySubdivision: string,
+        municipality: string,
+        countrySecondarySubdivision: string,
+        countrySubdivision: string,
+        countrySubdivisionName: string,
+        countrySubdivisionCode: string,
+        postalCode: number,
+        countryCode: string,
+        country: string,
+        countryCodeISO3: string,
+        freeformAddress: string,
+        localName: string
+    }
+    position: LngLatLike
+    viewport: {
+        topLeftPoint: LngLatLike
+        btmRightPoint: LngLatLike
+    }
+    __resultListIdx__: number
 }
+
+export type localDataParams = {
+    file_name: string,
+    file_path: string,
+    file_data: buildingObject
+}
+
+export interface buildingFile {
+    created_at: Date | number
+    last_modified: Date | number
+    items: buildingObject[]
+}
+
+export interface buildingObject {
+    id: string
+    position: LngLatLike,
+    name: string,
+    type: buildingTypes
+}
+
+export type buildingTypes = 'FIREBRIGADE' | 'VOLUNTEER_FIREBRIGADE'
