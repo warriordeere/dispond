@@ -56,19 +56,19 @@ body {
     width: 2rem;
 }
 
-.quma{
+.quma {
     position: relative;
     cursor: help;
     display: inline-block;
     text-decoration: underline dotted 1px var(--text);
 }
 
-.quma svg{
+.quma svg {
     height: 1rem;
     width: 1rem;
 }
 
-.quma-tt{
+.quma-tt {
     font-size: medium;
     position: absolute;
     text-wrap: nowrap;
@@ -90,4 +90,8 @@ body {
 .quma:hover .quma-tt {
     opacity: 1;
     visibility: visible;
+}
+
+#map>* {
+    color: black;
 }

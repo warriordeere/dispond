@@ -1,13 +1,16 @@
+'use client'
+
 import { useRouter } from "next/navigation";
 import { BsBuildingFillAdd } from "react-icons/bs"
 import '@tomtom-international/web-sdk-plugin-searchbox/dist/SearchBox.css';
 import SearchBox from '@tomtom-international/web-sdk-plugin-searchbox';
 import { services } from "@tomtom-international/web-sdk-services";
 import { API_KEY } from "@/app/page";
-import { useContext, useEffect } from "react";
 import tt from "@tomtom-international/web-sdk-maps";
-import { TTMapContext } from "@/app/context";
-import { ttSearchboxResult } from "../../types/types";
+import { useEffect } from "react";
+import { map_inst } from "../map/map";
+import { cst_fs } from "@/app/script/file/fs";
+import { postResult } from "@/app/actions";
 
 export function BuildingMenu() {
     const router = useRouter();
@@ -28,6 +31,7 @@ export function BuildingMenu() {
 }
 
 export function AddBuildingMenu() {
+
     return (
         <>
             <div className="extsb-content">
@@ -39,16 +43,26 @@ export function AddBuildingMenu() {
             </div>
             <div className="extsb-interface" id="bm-interface">
                 <BMSearchBox />
-                <div className="bm-naming"></div>
-                <div className="bm-final"></div>
+                <form action={postResult}>
+                    <div className="bm-naming">
+                        <input type="text" name="bm-name" id="bm-name-inp" required />
+                    </div>
+                    <div className="bm-type">
+                        <select name="bm-type" id="bm-type-inp">
+                            <option value="FIREBRIGADE">Feuerwehr</option>
+                            <option value="VOLUNTEER_FIREBRIGADE">Freiwillige Feuerwehr</option>
+                        </select>
+                    </div>
+                    <div className="bm-final">
+                        <button type="submit">Bauen</button>
+                    </div>
+                </form>
             </div>
         </>
     )
 }
 
 function BMSearchBox() {
-
-    const ttmap_inst = useContext(TTMapContext)!;
 
     useEffect(() => {
         const BMInterface = document.querySelector('#bm-interface')!;
@@ -75,17 +89,28 @@ function BMSearchBox() {
 
         BMInterface?.append(searchBox.getSearchBoxHTML());
 
+        const marker = new tt.Marker({ draggable: false, })
+        const popup = new tt.Popup({ anchor: 'top', closeButton: false });
+
         searchBox.on('tomtom.searchbox.resultselected', (target) => {
-            const marker = new tt.Marker({ draggable: true })
-            const hint = new tt.Popup({ anchor: 'top' })
             const result: any = target.data.result;
+            const freeFormAddress = result.address.freeformAddress
 
-            console.log(result.position);
+            // @ts-expect-error
+            // due to an incorect set up type definition in tomtoms api i'll get an error since the center property isn't defined properly,
+            // although it's implemnted and described within the offical docs: https://developer.tomtom.com/maps-sdk-web-js/documentation#Maps.Map
+            map_inst.flyTo({ center: result.position })
 
-            marker.setLngLat(result.position);
-            marker.addTo(ttmap_inst);
+            marker
+                .setLngLat(result.position)
+                .addTo(map_inst)
+
+            popup.setHTML(`<p>${freeFormAddress}</p>`);
+            popup.setLngLat(result.position);
+            marker.setPopup(popup);
+            marker.togglePopup();
         })
-    })
+    }, [])
 
     return (
         <div className="bm-searchbox" id="bm-searchbox"></div>

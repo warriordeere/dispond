@@ -110,3 +110,24 @@ export interface ttSearchboxResult {
     }
     __resultListIdx__: number
 }
+
+export type localDataParams = {
+    file_name: string,
+    file_path: string,
+    file_data: buildingObject
+}
+
+export interface buildingFile {
+    created_at: Date | number
+    last_modified: Date | number
+    items: buildingObject[]
+}
+
+export interface buildingObject {
+    id: string
+    position: LngLatLike,
+    name: string,
+    type: buildingTypes
+}
+
+export type buildingTypes = 'FIREBRIGADE' | 'VOLUNTEER_FIREBRIGADE'

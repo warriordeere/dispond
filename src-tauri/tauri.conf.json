@@ -29,12 +29,15 @@
         "readFile": true,
         "writeFile": true,
         "createDir": true,
+        "exists": true,
         "scope": [
           "$DOCUMENT/*",
           "$DOCUMENT/Arcavigi Interactive/*",
-          "$DOCUMENT/Arcavigi Interactive/saves/*",
-          "$DOCUMENT/Arcavigi Interactive/saves/*/*",
-          "$DOCUMENT/Arcavigi Interactive/saves/*/*/*"
+          "$DOCUMENT/Arcavigi Interactive/dispond/*",
+          "$DOCUMENT/Arcavigi Interactive/dispond/saves/*",
+          "$DOCUMENT/Arcavigi Interactive/dispond/saves/data/*",
+          "$DOCUMENT/Arcavigi Interactive/dispond/saves/*/*",
+          "$DOCUMENT/Arcavigi Interactive/dispond/saves/*/*/*"
         ]
       }
     },

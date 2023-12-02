@@ -1,9 +1,7 @@
 'use client'
 
-import dynamic from "next/dynamic";
 import TTMap from "../shared/components/map/map";
-
-const WindowTitlebar = dynamic(() => import("@/app/shared/components/titlebar/titlebar"), { ssr: false })
+import { useEffect, useState } from 'react';
 
 export default function RootLayout({
     children,
@@ -11,12 +9,9 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en">
-            <body>
-                <WindowTitlebar />
-                {children}
-                <TTMap />
-            </body>
-        </html>
+        <>
+            {children}
+            <TTMap />
+        </>
     )
 }

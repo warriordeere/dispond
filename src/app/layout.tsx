@@ -20,4 +20,4 @@ export default function RootLayout({
   )
 }
 
-cst_fs.setup_config()
+cst_fs.setupConfig()
