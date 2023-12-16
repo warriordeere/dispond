@@ -1,4 +1,6 @@
 import { LngLatLike } from "@tomtom-international/web-sdk-maps"
+import { Geometry, GeometrySearchResponse } from "@tomtom-international/web-sdk-services"
+import { DBSchema } from "idb"
 import React from "react"
 
 export type sidebarRenderTypes = {
@@ -125,9 +127,56 @@ export interface buildingFile {
 
 export interface buildingObject {
     id: string
-    position: LngLatLike,
-    name: string,
-    type: buildingTypes
+    name?: string
+    position?: LngLatLike
+    type?: buildingTypes
+    mission_area?: GeometryData
 }
 
 export type buildingTypes = 'FIREBRIGADE' | 'VOLUNTEER_FIREBRIGADE'
+
+export interface BuildingSchema extends DBSchema {
+    'buildings': {
+        key: string
+        value: buildingObject
+        indexes: { 'by-id': string, 'by-name': string }
+    };
+}
+
+export interface BuildingEvents {
+    on(eventName: 'set_name', handler: (data: { id: string, name: string }) => void): void
+    emit(eventName: 'set_name', data: { id: string, name: string }): void
+
+    on(eventName: 'set_position', handler: (data: { id: string, position: LngLatLike }) => void): void
+    emit(eventName: 'set_position', data: { id: string, position: LngLatLike }): void
+
+    on(eventName: 'set_type', handler: (data: { id: string, type: buildingTypes }) => void): void
+    emit(eventName: 'set_type', data: { id: string, type: buildingTypes }): void
+
+    on(eventName: 'set_mission_area', handler: (data: { id: string, mission_area: GeometryData }) => void): void
+    emit(eventName: 'set_mission_area', data: { id: string, mission_area: GeometryData }): void
+}
+
+export interface GeometryData {
+    type: string,
+    features: [
+        {
+            type: string,
+            geometry: {
+                type: 'Polygon',
+                coordinates: number[][][]
+            },
+            id: string
+        }
+    ]
+}
+
+export interface GameEvents {
+    on(eventName: 'start', handler: (savegame: string) => void): void
+    emit(eventName: 'start', savegame: string): void
+}
+
+export type MissionAreaObject = {
+    type: 'Municipality' | 'CountrySecondarySubdivision' | 'CountrySubdivision'
+    name: string
+}
