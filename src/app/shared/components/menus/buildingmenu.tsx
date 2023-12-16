@@ -7,10 +7,11 @@ import SearchBox from '@tomtom-international/web-sdk-plugin-searchbox';
 import { services } from "@tomtom-international/web-sdk-services";
 import { API_KEY } from "@/app/page";
 import tt from "@tomtom-international/web-sdk-maps";
-import { useEffect } from "react";
+import * as tts from "@tomtom-international/web-sdk-services"
+import { useEffect, useState } from "react";
 import { map_inst } from "../map/map";
-import { cst_fs } from "@/app/script/file/fs";
-import { postResult } from "@/app/actions";
+import { building } from "@/app/emitter";
+import { buildingTypes } from "../../types/types";
 
 export function BuildingMenu() {
     const router = useRouter();
@@ -32,6 +33,21 @@ export function BuildingMenu() {
 
 export function AddBuildingMenu() {
 
+    useEffect(() => {
+        const nameValue = document.querySelector('#bm-name-inp');
+        nameValue?.addEventListener('blur', (event: Event) => {
+            const target = event.target as HTMLInputElement
+            building.emit('set_name', { id: '1', name: target.value })
+        })
+
+        const typeValue = document.querySelector('#bm-type-inp');
+        typeValue?.addEventListener('change', (event: Event) => {
+            const target = event.target as HTMLInputElement
+            building.emit('set_type', { id: '1', type: target.value as buildingTypes })
+        })
+
+    }, [])
+
     return (
         <>
             <div className="extsb-content">
@@ -43,26 +59,23 @@ export function AddBuildingMenu() {
             </div>
             <div className="extsb-interface" id="bm-interface">
                 <BMSearchBox />
-                <form action={postResult}>
-                    <div className="bm-naming">
-                        <input type="text" name="bm-name" id="bm-name-inp" required />
-                    </div>
-                    <div className="bm-type">
-                        <select name="bm-type" id="bm-type-inp">
-                            <option value="FIREBRIGADE">Feuerwehr</option>
-                            <option value="VOLUNTEER_FIREBRIGADE">Freiwillige Feuerwehr</option>
-                        </select>
-                    </div>
-                    <div className="bm-final">
-                        <button type="submit">Bauen</button>
-                    </div>
-                </form>
+                <div className="bm-naming">
+                    <input type="text" name="bm-name" id="bm-name-inp" />
+                </div>
+                <div className="bm-type">
+                    <select name="bm-type" id="bm-type-inp">
+                        <option value="FIREBRIGADE">Feuerwehr</option>
+                        <option value="VOLUNTEER_FIREBRIGADE">Freiwillige Feuerwehr</option>
+                    </select>
+                </div>
             </div>
         </>
     )
 }
 
 function BMSearchBox() {
+
+    const [missionArea, setMissionArea] = useState<string[]>([]);
 
     useEffect(() => {
         const BMInterface = document.querySelector('#bm-interface')!;
@@ -89,12 +102,14 @@ function BMSearchBox() {
 
         BMInterface?.append(searchBox.getSearchBoxHTML());
 
-        const marker = new tt.Marker({ draggable: false, })
+        const marker = new tt.Marker({ draggable: false, color: '#ff0000' })
         const popup = new tt.Popup({ anchor: 'top', closeButton: false });
 
         searchBox.on('tomtom.searchbox.resultselected', (target) => {
             const result: any = target.data.result;
             const freeFormAddress = result.address.freeformAddress
+
+            building.emit('set_position', { id: '1', position: result.position })
 
             // @ts-expect-error
             // due to an incorect set up type definition in tomtoms api i'll get an error since the center property isn't defined properly,
@@ -109,6 +124,72 @@ function BMSearchBox() {
             popup.setLngLat(result.position);
             marker.setPopup(popup);
             marker.togglePopup();
+
+            console.log(result.address);
+
+            // setMissionArea(`\nKommune:${JSON.stringify(result.address.municipality)}\nLandkreis:${JSON.stringify(result.address.countrySecondarySubdivision)}\nBundesland:${JSON.stringify(result.address.countrySubdivision)}`)
+            setMissionArea
+
+            // draw area
+            const polygon_data = tts.services.reverseGeocode({
+                key: API_KEY as string,
+                position: result.position,
+                // entityType: 'CountrySubdivision' | 'CountrySecondarySubdivision' | 'Municipality'
+                entityType: 'CountrySecondarySubdivision'
+            })
+                .then((r) => {
+                    return r.addresses[0].dataSources.geometry.id;
+                })
+                .then((r) => {
+                    return tts.services.additionalData({
+                        key: API_KEY as string,
+                        geometries: [r],
+                        geometriesZoom: 22
+                    });
+                })
+                .then((r) => {
+                    map_inst.removeLayer('line')
+                    map_inst.removeLayer('polygon')
+
+                    const result = r.additionalData;
+                    for (let i = 0; i < result.length; i++) {
+                        const geo_json = result[0].geometryData
+                        building.emit("set_mission_area", { id: '1', mission_area: geo_json })
+                        map_inst.addLayer({
+                            id: 'polygon',
+                            type: 'fill',
+                            source: {
+                                type: 'geojson',
+                                data: geo_json
+                            },
+                            paint: {
+                                'fill-color': '#ff0000',
+                                'fill-opacity': .35
+                            }
+                        });
+
+                        map_inst.addLayer({
+                            id: 'line',
+                            type: 'line',
+                            source: {
+                                type: 'geojson',
+                                data: geo_json
+                            },
+                            paint: {
+                                'line-color': '#ff0000',
+                                'line-width': 1
+                            }
+                        });
+                    }
+                })
+
+        })
+
+        searchBox.on('tomtom.searchbox.resultscleared', () => {
+            popup.remove()
+            marker.remove()
+            map_inst.removeLayer('line')
+            map_inst.removeLayer('polygon')
         })
     }, [])
 

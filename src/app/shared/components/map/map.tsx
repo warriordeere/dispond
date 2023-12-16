@@ -1,13 +1,14 @@
 import './map.css';
 import '../../../globals.css';
 import "@tomtom-international/web-sdk-maps/dist/maps.css";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import tt from '@tomtom-international/web-sdk-maps';
 import { API_KEY } from '@/app/page';
 
 export let map_inst: tt.Map;
 
 export default function TTMap() {
+    const [mapInitialized, setMapInitialized] = useState(false)
 
     useEffect(() => {
 
@@ -25,7 +26,7 @@ export default function TTMap() {
 
             map_inst.addControl(new tt.NavigationControl());
             map_inst.addControl(new tt.GeolocateControl());
-            console.log('map added');
+            setMapInitialized(true);
         }
 
     }, [])
