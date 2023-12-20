@@ -1,15 +1,44 @@
-import { buildingFile, buildingObject, configFile, localDataParams } from '@/app/shared/types/types';
-import { writeTextFile, BaseDirectory, createDir, exists, readTextFile } from '@tauri-apps/api/fs';
+'use server'
+
+import { savegameInterface, buildingFile, configFile, localDataParams, cst_readInterface } from '@/app/shared/types/types';
+import { writeTextFile, BaseDirectory, createDir, exists, readTextFile, readDir, FileEntry } from '@tauri-apps/api/fs';
 import namesData from '@/app/shared/assets/names.json'
 import missionsData from '@/app/shared/assets/missions.json'
 
 export const cst_fs = new class cst_fs {
-    async setupConfig() {
-        if (await exists('Arcavigi Interactive/dispond/saves/MySave/config.json', { dir: BaseDirectory.Document })) {
-            const file_content = await this.getFileContent({ directory: BaseDirectory.Document, file_path: 'saves/MySave/config.json' })
-            const data: configFile = JSON.parse(file_content.toString());
-            data.savegame.last_modifed = Date.now();
-            await writeTextFile('Arcavigi Interactive/dispond/saves/MySave/config.json', JSON.stringify(data), { dir: BaseDirectory.Document })
+
+    async read(data: cst_readInterface): Promise<FileEntry[] | Error | String> {
+        if (data.file.name) {
+            const file = `Arcavigi Interactive/dispond/${data.file.path}/${data.file.name}`;
+            if (await exists(file, { dir: BaseDirectory.Document })) {
+                return await readTextFile(file, { dir: BaseDirectory.Document })
+            }
+            else {
+                return new Error('Invalid')
+            }
+        }
+        else {
+            const dir = `Arcavigi Interactive/dispond/${data.file.path}`;
+            if (await exists(`${dir}`, { dir: BaseDirectory.Document })) {
+                return await readDir(`${dir}`, { dir: BaseDirectory.Document })
+            }
+            else {
+                return new Error('Invalid')
+            }
+        }
+    }
+
+    async setupConfig(config_data: savegameInterface) {
+        if (await exists(`Arcavigi Interactive/dispond/saves/${config_data.auth.game_id}/config.json`, { dir: BaseDirectory.Document })) {
+            const file_content = await this.read({
+                file: {
+                    path: `saves/${config_data.auth.game_id}`,
+                    name: 'config.json'
+                }
+            })
+            const file_data: configFile = JSON.parse(file_content.toString());
+            file_data.savegame.last_modifed = Date.now();
+            await writeTextFile(`Arcavigi Interactive/dispond/saves/${config_data.auth.game_id}/config.json`, JSON.stringify(file_data), { dir: BaseDirectory.Document })
                 .catch((err) => {
                     throw new Error(err)
                 })
@@ -17,16 +46,17 @@ export const cst_fs = new class cst_fs {
         else {
             const configObject: configFile = {
                 savegame: {
-                    id: crypto.randomUUID(),
+                    id: config_data.auth.game_id,
                     created: Date.now(),
                     last_modifed: Date.now()
                 },
-                mods: false
+                mods: false,
+                config_version: 1
             }
 
-            await createDir('Arcavigi Interactive/dispond/saves/MySave', { dir: BaseDirectory.Document, recursive: true })
+            await createDir(`Arcavigi Interactive/dispond/saves/${config_data.auth.game_id}`, { dir: BaseDirectory.Document, recursive: true })
                 .then(async () => {
-                    await writeTextFile('Arcavigi Interactive/dispond/saves/MySave/config.json', `${JSON.stringify(configObject)}`, { dir: BaseDirectory.Document });
+                    await writeTextFile(`Arcavigi Interactive/dispond/saves/${config_data.auth.game_id}/config.json`, `${JSON.stringify(configObject)}`, { dir: BaseDirectory.Document });
                     await createDir('Arcavigi Interactive/dispond/saves/MySave/assets', { dir: BaseDirectory.Document, recursive: true })
                         .then(async () => {
                             try {
@@ -47,7 +77,12 @@ export const cst_fs = new class cst_fs {
             if (await exists(`Arcavigi Interactive/dispond/saves/MySave/${file_path}/${file_name}`, { dir: BaseDirectory.Document })) {
                 switch (file_name) {
                     case 'buildings.json':
-                        const file_content = await this.getFileContent({ file_path: `saves/MySave/data/buildings.json`, directory: BaseDirectory.Document })
+                        const file_content = await this.read({
+                            file: {
+                                path: `saves/MySave/data`,
+                                name: 'buildings.json'
+                            }
+                        })
                         const data: buildingFile = JSON.parse(file_content.toString());
                         data.last_modified = Date.now();
                         data.items.push(file_data);
@@ -72,15 +107,6 @@ export const cst_fs = new class cst_fs {
             }
         } catch (err: any) {
             throw new Error(err)
-        }
-    }
-
-    async getFileContent({ file_path, directory }: { file_path: string, directory: BaseDirectory }) {
-        if (await exists(`Arcavigi Interactive/dispond/${file_path}`, { dir: directory })) {
-            return await readTextFile(`Arcavigi Interactive/dispond/${file_path}`, { dir: directory })
-        }
-        else {
-            return Error('file does not exist')
         }
     }
 }

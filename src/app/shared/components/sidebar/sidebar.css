@@ -137,7 +137,7 @@ button.extsb-close:hover {
     background-color: var(--primary-shade);
 }
 
-.extsb-advice{
+.extsb-advice {
     font-size: large;
     background-color: var(--background-shade);
     padding: .75rem;

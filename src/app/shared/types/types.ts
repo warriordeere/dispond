@@ -3,6 +3,16 @@ import { Geometry, GeometrySearchResponse } from "@tomtom-international/web-sdk-
 import { DBSchema } from "idb"
 import React from "react"
 
+export interface savegameInterface {
+    auth: {
+        game_id: string
+        session_id?: string
+    }
+    game?: {
+        name: string
+    }
+}
+
 export type sidebarRenderTypes = {
     data: {
         renderCallsButton: boolean,
@@ -78,6 +88,7 @@ export interface configFile {
         created: number
         last_modifed: number
     }
+    config_version: 1
     mods: boolean
 }
 
@@ -172,11 +183,18 @@ export interface GeometryData {
 }
 
 export interface GameEvents {
-    on(eventName: 'start', handler: (savegame: string) => void): void
-    emit(eventName: 'start', savegame: string): void
+    on(eventName: 'start', handler: (savegame_id: string) => void): void
+    emit(eventName: 'start', savegame_id: string): void
 }
 
 export type MissionAreaObject = {
     type: 'Municipality' | 'CountrySecondarySubdivision' | 'CountrySubdivision'
     name: string
+}
+
+export interface cst_readInterface {
+    file: {
+        path: string
+        name?: string
+    }
 }

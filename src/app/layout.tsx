@@ -1,7 +1,6 @@
 'use client'
 
 import dynamic from "next/dynamic";
-import { cst_fs } from "./script/file/fs";
 
 const WindowTitlebar = dynamic(() => import("../app/shared/components/titlebar/titlebar"), { ssr: false })
 
@@ -19,5 +18,3 @@ export default function RootLayout({
     </html>
   )
 }
-
-cst_fs.setupConfig()

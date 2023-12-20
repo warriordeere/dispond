@@ -33,7 +33,3 @@ building.on('set_mission_area', async (data) => {
         mission_area: data.mission_area
     })
 })
-
-game.on('start', () => {
-    
-})

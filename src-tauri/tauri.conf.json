@@ -29,6 +29,7 @@
         "readFile": true,
         "writeFile": true,
         "createDir": true,
+        "readDir": true,
         "exists": true,
         "scope": [
           "$DOCUMENT/*",

@@ -1,7 +1,46 @@
 .landing {
-    width: 100%;
-    height: 100%;
+    width: calc(100%-3rem);
+    height: calc(100%-3rem);
     padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 3rem;
+    overflow-y: auto;
+}
+
+.front {
+    width: 100%;
+}
+
+.front-header {
+    color: var(--text-alt);
+}
+
+.front-body {
+    display: flex;
+    flex-direction: row;
+    column-gap: 1rem;
+    padding: 1rem 0;
+}
+
+.front-ui-item {
+    background-color: var(--primary);
+    padding: 1rem;
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.front-ui-item svg {
+    color: white;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.front-ui-item:hover {
+    background-color: var(--primary-shade);
 }
 
 .savegame-container {
@@ -89,12 +128,12 @@
     transition: opacity .2s ease-in-out, bottom .2s ease-in;
 }
 
-.savegame:hover .play-container{
+.savegame:hover .play-container {
     bottom: 2rem;
     opacity: 1;
 }
 
-.play-game{
+.play-game {
     all: unset;
     border-radius: 100%;
     background-color: var(--primary-shade);
@@ -107,12 +146,12 @@
     transition: background-color .25s ease-in-out, border .3s ease-in-out;
 }
 
-.play-game:hover{
+.play-game:hover {
     border: 2px var(--text) solid;
     background-color: var(--primary-tone);
 }
 
-.play-game svg{
+.play-game svg {
     height: 1.5rem;
     width: 1.5rem;
     color: var(--text);

@@ -27,6 +27,16 @@
     --boxshadow-dark: 0 0 1rem 0 var(--window-bg);
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+}
+
 html {
     font-size: 12pt;
     font-family: 'Poppins', sans-serif;
@@ -49,6 +59,12 @@ body {
     right: 0;
     bottom: 0;
     height: calc(100dvh - 2.5rem);
+}
+
+button {
+    all: unset;
+    transition: background-color .25s ease-in-out;
+    cursor: pointer;
 }
 
 .react-icon-regular svg {
