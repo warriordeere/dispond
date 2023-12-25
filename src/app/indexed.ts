@@ -2,7 +2,7 @@ import { openDB, IDBPDatabase } from 'idb';
 import { BuildingSchema, buildingObject } from './shared/types/types';
 
 function initDB(): Promise<IDBPDatabase<any>> {
-    return openDB<BuildingSchema>('data-SAVEGAME_NAME', 1, {
+    return openDB<BuildingSchema>('savegame_data', 1, {
         upgrade(db) {
             if (!db.objectStoreNames.contains('buildings')) {
                 const saved_buildings = db.createObjectStore('buildings', { keyPath: 'id' })
@@ -18,6 +18,8 @@ export async function db_save_name(data: buildingObject) {
     const tx = db.transaction('buildings', 'readwrite');
     const cnt: buildingObject = await tx.store.get(data.id)
     let bfr = cnt;
+    console.log(bfr);
+    console.log('test');
     bfr.name = data.name;
     const obj_sor = tx.objectStore('buildings');
     await obj_sor.put(bfr);

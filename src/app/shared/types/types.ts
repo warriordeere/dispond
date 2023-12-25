@@ -1,15 +1,13 @@
 import { LngLatLike } from "@tomtom-international/web-sdk-maps"
-import { Geometry, GeometrySearchResponse } from "@tomtom-international/web-sdk-services"
 import { DBSchema } from "idb"
 import React from "react"
 
 export interface savegameInterface {
-    auth: {
-        game_id: string
-        session_id?: string
-    }
-    game?: {
+    created: Number
+    modified: Number
+    game: {
         name: string
+        spawn: LngLatLike
     }
 }
 
@@ -18,6 +16,7 @@ export type sidebarRenderTypes = {
         renderCallsButton: boolean,
         renderLocationButton: boolean,
         renderManageButton: boolean,
+        renderHomeButton: boolean,
         extended_menu?: extendedSidebarMenuOptions
     }
 }
@@ -82,9 +81,9 @@ export type missionTypesEqv = {
     ]
 }
 
-export interface configFile {
+export interface gameConfigFile {
     savegame: {
-        id: string
+        name: string
         created: number
         last_modifed: number
     }
@@ -155,17 +154,41 @@ export interface BuildingSchema extends DBSchema {
 }
 
 export interface BuildingEvents {
-    on(eventName: 'set_name', handler: (data: { id: string, name: string }) => void): void
-    emit(eventName: 'set_name', data: { id: string, name: string }): void
+    on(eventName: 'EVENT_SET_BUILDING_NAME', handler: (data: {
+        id: string,
+        name: string
+    }) => void): void
+    emit(eventName: 'EVENT_SET_BUILDING_NAME', data: {
+        id: string,
+        name: string
+    }): void
 
-    on(eventName: 'set_position', handler: (data: { id: string, position: LngLatLike }) => void): void
-    emit(eventName: 'set_position', data: { id: string, position: LngLatLike }): void
+    on(eventName: 'EVENT_SET_BUILDING_POS', handler: (data: {
+        id: string,
+        position: LngLatLike
+    }) => void): void
+    emit(eventName: 'EVENT_SET_BUILDING_POS', data: {
+        id: string,
+        position: LngLatLike
+    }): void
 
-    on(eventName: 'set_type', handler: (data: { id: string, type: buildingTypes }) => void): void
-    emit(eventName: 'set_type', data: { id: string, type: buildingTypes }): void
+    on(eventName: 'EVENT_SET_BUILDING_TYPE', handler: (data: {
+        id: string,
+        type: buildingTypes
+    }) => void): void
+    emit(eventName: 'EVENT_SET_BUILDING_TYPE', data: {
+        id: string,
+        type: buildingTypes
+    }): void
 
-    on(eventName: 'set_mission_area', handler: (data: { id: string, mission_area: GeometryData }) => void): void
-    emit(eventName: 'set_mission_area', data: { id: string, mission_area: GeometryData }): void
+    on(eventName: 'EVENT_SET_MISSION_AREA', handler: (data: {
+        id: string,
+        mission_area: GeometryData
+    }) => void): void
+    emit(eventName: 'EVENT_SET_MISSION_AREA', data: {
+        id: string,
+        mission_area: GeometryData
+    }): void
 }
 
 export interface GeometryData {
@@ -183,8 +206,8 @@ export interface GeometryData {
 }
 
 export interface GameEvents {
-    on(eventName: 'start', handler: (savegame_id: string) => void): void
-    emit(eventName: 'start', savegame_id: string): void
+    on(eventName: 'EVENT_START', handler: (data: savegameInterface) => void): void
+    emit(eventName: 'EVENT_START', data: savegameInterface): void
 }
 
 export type MissionAreaObject = {
@@ -197,4 +220,12 @@ export interface cst_readInterface {
         path: string
         name?: string
     }
+}
+
+export interface cst_writeInterface {
+    file: {
+        path: string
+        name?: string
+    },
+    content: string
 }

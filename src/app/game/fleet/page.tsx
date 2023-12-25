@@ -9,6 +9,7 @@ export default function ManageFleet() {
                 renderCallsButton: false,
                 renderLocationButton: false,
                 renderManageButton: false,
+                renderHomeButton: false,
                 extended_menu: "MENU_MANAGE_FLEET"
             }} />
         </>

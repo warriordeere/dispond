@@ -37,13 +37,13 @@ export function AddBuildingMenu() {
         const nameValue = document.querySelector('#bm-name-inp');
         nameValue?.addEventListener('blur', (event: Event) => {
             const target = event.target as HTMLInputElement
-            building.emit('set_name', { id: '1', name: target.value })
+            building.emit('EVENT_SET_BUILDING_NAME', { id: '1', name: target.value })
         })
 
         const typeValue = document.querySelector('#bm-type-inp');
         typeValue?.addEventListener('change', (event: Event) => {
             const target = event.target as HTMLInputElement
-            building.emit('set_type', { id: '1', type: target.value as buildingTypes })
+            building.emit('EVENT_SET_BUILDING_TYPE', { id: '1', type: target.value as buildingTypes })
         })
 
     }, [])
@@ -109,7 +109,7 @@ function BMSearchBox() {
             const result: any = target.data.result;
             const freeFormAddress = result.address.freeformAddress
 
-            building.emit('set_position', { id: '1', position: result.position })
+            building.emit('EVENT_SET_BUILDING_POS', { id: '1', position: result.position })
 
             // @ts-expect-error
             // due to an incorect set up type definition in tomtoms api i'll get an error since the center property isn't defined properly,
@@ -128,7 +128,7 @@ function BMSearchBox() {
             console.log(result.address);
 
             // setMissionArea(`\nKommune:${JSON.stringify(result.address.municipality)}\nLandkreis:${JSON.stringify(result.address.countrySecondarySubdivision)}\nBundesland:${JSON.stringify(result.address.countrySubdivision)}`)
-            setMissionArea
+            // setMissionArea
 
             // draw area
             const polygon_data = tts.services.reverseGeocode({
@@ -154,7 +154,7 @@ function BMSearchBox() {
                     const result = r.additionalData;
                     for (let i = 0; i < result.length; i++) {
                         const geo_json = result[0].geometryData
-                        building.emit("set_mission_area", { id: '1', mission_area: geo_json })
+                        building.emit("EVENT_SET_MISSION_AREA", { id: '1', mission_area: geo_json })
                         map_inst.addLayer({
                             id: 'polygon',
                             type: 'fill',

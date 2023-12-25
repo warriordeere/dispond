@@ -35,11 +35,15 @@ function SidebarContent({ data }: sidebarRenderTypes) {
     return (
         <nav className="sidebar">
             <div className="sidebar-ui-container">
-                <button className="sidebar-item react-icon-regular" onClick={() => {
-                    router.push('/')
-                }}>
-                    <AiFillHome />
-                </button>
+                {
+                    data.renderHomeButton ? (
+                        <button className="sidebar-item react-icon-regular" onClick={() => {
+                            router.push('/')
+                        }}>
+                            <AiFillHome />
+                        </button>
+                    ) : null
+                }
                 {
                     data.renderCallsButton ? (
                         <button className="sidebar-item react-icon-regular" onClick={() => {

@@ -1,112 +1,120 @@
-'use server'
+// import { savegameInterface, buildingFile, gameConfigFile, localDataParams, cst_readInterface, cst_writeInterface } from '@/app/shared/types/types';
+// import { writeTextFile, BaseDirectory, createDir, exists, readTextFile, readDir, FileEntry } from '@tauri-apps/api/fs';
+// import namesData from '@/app/shared/assets/names.json'
+// import missionsData from '@/app/shared/assets/missions.json'
+// import * as path from 'path';
+// import * as os from 'os';
+// import { readFile } from 'fs/promises';
+// import { readFileSync } from 'fs';
 
-import { savegameInterface, buildingFile, configFile, localDataParams, cst_readInterface } from '@/app/shared/types/types';
-import { writeTextFile, BaseDirectory, createDir, exists, readTextFile, readDir, FileEntry } from '@tauri-apps/api/fs';
-import namesData from '@/app/shared/assets/names.json'
-import missionsData from '@/app/shared/assets/missions.json'
+// export const cst_fs = new class cst_fs {
+//     async write(data: cst_writeInterface): Promise<void | Error> {
+//         if (data.file.name) {
+//             const file = `Arcavigi Interactive/dispond/${data.file.path}/${data.file.name}`;
+//             if (await exists(file, { dir: BaseDirectory.Document })) {
+//                 return await writeTextFile(file, data.content, { dir: BaseDirectory.Document })
+//             }
+//             else {
+//                 return new Error('"writeTextFile" Operation failed')
+//             }
+//         }
+//         else {
+//             const dir = `Arcavigi Interactive/dispond/${data.file.path}`;
+//             if (await exists(`${dir}`, { dir: BaseDirectory.Document })) {
+//                 return await createDir(`${dir}`, { dir: BaseDirectory.Document })
+//             }
+//             else {
+//                 return new Error('"createDir" Operation failed')
+//             }
+//         }
+//     }
 
-export const cst_fs = new class cst_fs {
+//     setupSaves(data: savegameInterface) {
+//         console.log('[CST_FS]: setupSaves');
+//         // if (await exists(`Arcavigi Interactive/dispond/saves/saves.json`, { dir: BaseDirectory.Document })) {
+//         //     const file_content = await this.read({
+//         //         file: {
+//         //             path: `saves`,
+//         //             name: 'saves.json'
+//         //         }
+//         //     })
+//         //     const file_data: savegameInterface = JSON.parse(file_content.toString());
+//         //     file_data.modified = Date.now();
+//         //     await writeTextFile(`Arcavigi Interactive/dispond/saves/${data.game.name}/config.json`, JSON.stringify(file_data), { dir: BaseDirectory.Document })
+//         //         .catch((err) => {
+//         //             throw new Error(err)
+//         //         })
+//         // }
+//         // else {
+//         //     const savesFile: savegameInterface = {
+//         //         modified: data.modified,
+//         //         created: data.created,
+//         //         game: {
+//         //             name: data.game.name,
+//         //             spawn: data.game.spawn
+//         //         }
+//         //     }
 
-    async read(data: cst_readInterface): Promise<FileEntry[] | Error | String> {
-        if (data.file.name) {
-            const file = `Arcavigi Interactive/dispond/${data.file.path}/${data.file.name}`;
-            if (await exists(file, { dir: BaseDirectory.Document })) {
-                return await readTextFile(file, { dir: BaseDirectory.Document })
-            }
-            else {
-                return new Error('Invalid')
-            }
-        }
-        else {
-            const dir = `Arcavigi Interactive/dispond/${data.file.path}`;
-            if (await exists(`${dir}`, { dir: BaseDirectory.Document })) {
-                return await readDir(`${dir}`, { dir: BaseDirectory.Document })
-            }
-            else {
-                return new Error('Invalid')
-            }
-        }
-    }
+//         //     await createDir(`Arcavigi Interactive/dispond/saves`, { dir: BaseDirectory.Document, recursive: true })
+//         //         .then(async () => {
+//         //             await writeTextFile(`Arcavigi Interactive/dispond/saves/saves.json`, `${JSON.stringify(savesFile)}`, { dir: BaseDirectory.Document });
+//         //         })
+//         // }
+//     }
 
-    async setupConfig(config_data: savegameInterface) {
-        if (await exists(`Arcavigi Interactive/dispond/saves/${config_data.auth.game_id}/config.json`, { dir: BaseDirectory.Document })) {
-            const file_content = await this.read({
-                file: {
-                    path: `saves/${config_data.auth.game_id}`,
-                    name: 'config.json'
-                }
-            })
-            const file_data: configFile = JSON.parse(file_content.toString());
-            file_data.savegame.last_modifed = Date.now();
-            await writeTextFile(`Arcavigi Interactive/dispond/saves/${config_data.auth.game_id}/config.json`, JSON.stringify(file_data), { dir: BaseDirectory.Document })
-                .catch((err) => {
-                    throw new Error(err)
-                })
-        }
-        else {
-            const configObject: configFile = {
-                savegame: {
-                    id: config_data.auth.game_id,
-                    created: Date.now(),
-                    last_modifed: Date.now()
-                },
-                mods: false,
-                config_version: 1
-            }
+//     setupConfig(data: savegameInterface) {
+//         console.log('[CST_FS]: setupConfig');
+//         try {
+//             const file_path = path.join(os.homedir(), 'Documents', 'Arcavigi Interactive', 'dispond', 'saves', data.game.name, 'saves.json')
+//             const file_content = readFileSync()
 
-            await createDir(`Arcavigi Interactive/dispond/saves/${config_data.auth.game_id}`, { dir: BaseDirectory.Document, recursive: true })
-                .then(async () => {
-                    await writeTextFile(`Arcavigi Interactive/dispond/saves/${config_data.auth.game_id}/config.json`, `${JSON.stringify(configObject)}`, { dir: BaseDirectory.Document });
-                    await createDir('Arcavigi Interactive/dispond/saves/MySave/assets', { dir: BaseDirectory.Document, recursive: true })
-                        .then(async () => {
-                            try {
-                                const { } = namesData;
-                                const { } = missionsData;
-                                await writeTextFile('Arcavigi Interactive/dispond/saves/MySave/assets/names.json', `${JSON.stringify(namesData)}`, { dir: BaseDirectory.Document });
-                                await writeTextFile('Arcavigi Interactive/dispond/saves/MySave/assets/missions.json', `${JSON.stringify(missionsData)}`, { dir: BaseDirectory.Document });
-                            } catch (err: any) {
-                                throw new Error(err)
-                            }
-                        })
-                })
-        }
-    }
+//             // fs.readFile(file_path, () => {
+//             //     const file_content: gameConfigFile = {
+//             //         savegame: {
+//             //             name: data.game.name,
+//             //             created: Date.now(),
+//             //             last_modifed: Date.now()
+//             //         },
+//             //         mods: false,
+//             //         config_version: 1
+//             //     }
 
-    async localData({ file_data, file_name, file_path }: localDataParams) {
-        try {
-            if (await exists(`Arcavigi Interactive/dispond/saves/MySave/${file_path}/${file_name}`, { dir: BaseDirectory.Document })) {
-                switch (file_name) {
-                    case 'buildings.json':
-                        const file_content = await this.read({
-                            file: {
-                                path: `saves/MySave/data`,
-                                name: 'buildings.json'
-                            }
-                        })
-                        const data: buildingFile = JSON.parse(file_content.toString());
-                        data.last_modified = Date.now();
-                        data.items.push(file_data);
-                        console.log(data);
-                        await writeTextFile('Arcavigi Interactive/dispond/saves/MySave/data/buildings.json', JSON.stringify(data), { dir: BaseDirectory.Document })
-                            .catch((err) => {
-                                throw new Error(err)
-                            })
-                        return;
-                }
-            }
-            else {
-                await createDir(`Arcavigi Interactive/dispond/saves/MySave/${file_path}`, { dir: BaseDirectory.Document, recursive: true })
-                    .then(async () => {
-                        const file_base: buildingFile = {
-                            created_at: Date.now(),
-                            last_modified: Date.now(),
-                            items: [file_data]
-                        }
-                        await writeTextFile(`Arcavigi Interactive/dispond/saves/MySave/${file_path}/${file_name}`, JSON.stringify(file_base), { dir: BaseDirectory.Document })
-                    })
-            }
-        } catch (err: any) {
-            throw new Error(err)
-        }
-    }
-}
+//             //     const dir_path = path.join(os.homedir(), 'Documents', 'Arcavigi Interactive', 'dispond', 'saves', data.game.name)
+//             //     fs.mkdirSync(dir_path)
+//             //     fs.writeFileSync(file_path, JSON.stringify(file_content))
+//             // })
+
+//             // const file_content: gameConfigFile = JSON.parse(fs.readFileSync(file_path, 'utf-8').toString());
+//             // file_content.savegame.last_modifed = Date.now();
+//             // fs.writeFileSync(file_path, JSON.stringify(file_content))
+//         } catch (error: any) {
+//             throw new Error(error)
+//         }
+
+//         // if (fs.existsSync(file_path)) {
+//         //     console.log(`[CST_FS]: setupConfig - filepath: ${file_path} exists!`);
+//         //     console.log(`[CST_FS]: setupConfig - file: ${file_path}`, `content: ${file_content}`);
+
+//         //     file_content.savegame.last_modifed = Date.now();
+//         //     fs.writeFileSync(file_path, JSON.stringify(file_content))
+//         // }
+//         // else {
+
+//         //     // await createDir(`Arcavigi Interactive/dispond/saves/${data.game.name}`, { dir: BaseDirectory.Document, recursive: true })
+//         //     //     .then(async () => {
+//         //     //         await writeTextFile(`Arcavigi Interactive/dispond/saves/${data.game.name}/config.json`, `${JSON.stringify(configObject)}`, { dir: BaseDirectory.Document });
+//         //     //         await createDir('Arcavigi Interactive/dispond/saves/MySave/assets', { dir: BaseDirectory.Document, recursive: true })
+//         //     //             .then(async () => {
+//         //     //                 try {
+//         //     //                     const { } = namesData;
+//         //     //                     const { } = missionsData;
+//         //     //                     await writeTextFile('Arcavigi Interactive/dispond/saves/MySave/assets/names.json', `${JSON.stringify(namesData)}`, { dir: BaseDirectory.Document });
+//         //     //                     await writeTextFile('Arcavigi Interactive/dispond/saves/MySave/assets/missions.json', `${JSON.stringify(missionsData)}`, { dir: BaseDirectory.Document });
+//         //     //                 } catch (err: any) {
+//         //     //                     throw new Error(err)
+//         //     //                 }
+//         //     //             })
+//         //     //     })
+//         // }
+//     }
+// }

@@ -9,6 +9,7 @@ export default function Calls() {
                 renderCallsButton: false,
                 renderLocationButton: false,
                 renderManageButton: false,
+                renderHomeButton: false,
                 extended_menu: "MENU_CALLS"
             }} />
         </>

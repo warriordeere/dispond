@@ -1,6 +1,4 @@
 'use client'
-
-import { game } from "../emitter";
 import TTMap from "../shared/components/map/map";
 
 export default function RootLayout({
@@ -8,7 +6,6 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
-    game.emit('start', 'SAVEGAME_ID')
     return (
         <>
             {children}

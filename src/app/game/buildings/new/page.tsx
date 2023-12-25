@@ -6,6 +6,7 @@ export default function NewBuilding() {
             renderCallsButton: false,
             renderLocationButton: false,
             renderManageButton: false,
+            renderHomeButton: false,
             extended_menu: "MENU_NEW_BUILDING"
         }} />
     )

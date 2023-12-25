@@ -7,6 +7,7 @@ export default function page() {
     return (
         <>
             <Sidebar data={{
+                renderHomeButton: false,
                 renderCallsButton: false,
                 renderLocationButton: false,
                 renderManageButton: false
