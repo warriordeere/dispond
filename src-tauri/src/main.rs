@@ -1,6 +1,8 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+use std::{fs::File, io::Write};
+
 use serde::{Deserialize, Serialize};
 
 fn main() {
@@ -32,9 +34,14 @@ enum LngLatLike {
 
 #[tauri::command]
 fn setup(data: String) {
-    println!("{data}");
+    println!("{}", data);
     if let Ok(savegame) = serde_json::from_str::<SavegameInterface>(&data) {
         println!("{:?}", savegame);
+        if let Some(document_dir) = dirs::document_dir() {
+            let path = document_dir.join("Arcavigi Interactive/dispond/saves/saves.json");
+            let mut file = File::create(path).unwrap();
+            file.write_all(data.as_bytes()).unwrap();
+        }
     } else {
         eprintln!("Failed to deserialize JSON data");
     }
