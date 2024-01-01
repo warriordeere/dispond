@@ -41,7 +41,7 @@ export interface savegame {
     name: string
 }
 
-export interface callInterface {
+export interface MissionInterface {
     id: string,
     caller: callerObject,
     location: locationObject,
@@ -154,6 +154,11 @@ export interface BuildingSchema extends DBSchema {
         key: string
         value: buildingObject
         indexes: { 'by-id': string, 'by-name': string }
+    },
+    'active_missions': {
+        key: string
+        value: buildingObject
+        indexes: { 'by-id': string, 'by-name': string }
     };
 }
 
@@ -212,6 +217,11 @@ export interface GeometryData {
 export interface GameEvents {
     on(eventName: 'EVENT_START', handler: (data: savegameInterface) => void): void
     emit(eventName: 'EVENT_START', data: savegameInterface): void
+}
+
+export interface MissionEvents {
+    on(eventName: 'EVENT_MISSION_CREATE', handler: (data: MissionInterface) => void): void
+    emit(eventName: 'EVENT_MISSION_CREATE', data: MissionInterface): void
 }
 
 export type MissionAreaObject = {

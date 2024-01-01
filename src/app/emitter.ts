@@ -1,9 +1,10 @@
 import { db_save_area, db_save_name, db_save_position, db_save_type } from "./indexed";
-import { BuildingEvents, GameEvents, ReadFileInterface } from "./shared/types/types";
+import { BuildingEvents, GameEvents, MissionEvents, ReadFileInterface } from "./shared/types/types";
 var EventEmitter = require('events')
 
 export const building: BuildingEvents = new EventEmitter()
 export const game: GameEvents = new EventEmitter()
+export const msission: MissionEvents = new EventEmitter()
 
 building.on('EVENT_SET_BUILDING_NAME', async (data) => {
     db_save_name({

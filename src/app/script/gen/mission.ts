@@ -1,9 +1,10 @@
-import { callInterface, callerObject, missionObject } from "@/app/shared/types/types";
+import { msission as mission } from "@/app/emitter";
+import { MissionInterface, callerObject, missionObject } from "@/app/shared/types/types";
 import { BaseDirectory, readTextFile } from "@tauri-apps/api/fs";
 
-export const Call = new class call {
+export const Mission = new class call {
 
-    async generate(): Promise<callInterface> {
+    async create() {
 
         async function randomMission(): Promise<missionObject> {
             const missionObject = JSON.parse(`${await readTextFile('Arcavigi Interactive/dispond/saves/MySave/assets/missions.json', { dir: BaseDirectory.Document })}`);
@@ -19,12 +20,14 @@ export const Call = new class call {
             return { first_name: firstName, last_name: lastName }
         }
 
-        return {
+        const data: MissionInterface = {
             id: '1',
             caller: await randomCaller(),
             location: { coords: [1, 1] },
             mission: await randomMission(),
             time: Date.now()
         }
+
+        mission.emit('EVENT_MISSION_CREATE', data)
     }
 }
