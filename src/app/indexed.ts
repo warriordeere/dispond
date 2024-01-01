@@ -16,13 +16,15 @@ function initDB(): Promise<IDBPDatabase<any>> {
 export async function db_save_name(data: buildingObject) {
     const db = await initDB();
     const tx = db.transaction('buildings', 'readwrite');
-    const cnt: buildingObject = await tx.store.get(data.id)
-    let bfr = cnt;
-    console.log(bfr);
-    console.log('test');
-    bfr.name = data.name;
+    let cnt: buildingObject = await tx.store.get(data.id);
+    if (!cnt) {
+        cnt = { id: data.id, name: data.name }
+    }
+    else {
+        cnt.name = data.name;
+    }
     const obj_sor = tx.objectStore('buildings');
-    await obj_sor.put(bfr);
+    await obj_sor.put(cnt);
     await tx.done;
 }
 
@@ -57,4 +59,12 @@ export async function db_save_area(data: buildingObject) {
     bfr.mission_area = data.mission_area;
     await obj_sor.put(bfr);
     await tx.done;
+}
+
+export async function db_get_buildings(): Promise<buildingObject[]> {
+    const db = await initDB();
+    const tx = db.transaction('buildings', 'readonly');
+    const allData: buildingObject[] = await tx.store.getAll();
+    await tx.done;
+    return allData;
 }

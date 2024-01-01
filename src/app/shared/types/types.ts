@@ -1,6 +1,5 @@
 import { LngLatLike } from "@tomtom-international/web-sdk-maps"
 import { DBSchema } from "idb"
-import React from "react"
 
 export interface savegameInterface {
     created: Number
@@ -133,6 +132,11 @@ export interface buildingFile {
     created_at: Date | number
     last_modified: Date | number
     items: buildingObject[]
+}
+
+export interface ReadFileInterface {
+    file_path: string
+    base_dir: 'document_dir'
 }
 
 export interface buildingObject {

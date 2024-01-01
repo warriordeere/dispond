@@ -1,11 +1,22 @@
 'use client'
 
 import { game } from '@/app/emitter';
+import { init } from '@/app/script/setup';
 import Sidebar from '@/app/shared/components/sidebar/sidebar';
-import { invoke } from "@tauri-apps/api/tauri";
-import { savegameInterface } from "@/app/shared/types/types";
+import { useEffect } from 'react';
 
 export default function Page() {
+    useEffect(() => {
+        init();
+        const session = crypto.randomUUID()
+        const game_data = {
+            game_id: "My Save",
+            session_id: session
+        }
+        localStorage.setItem('game', JSON.stringify(game_data))
+        sessionStorage.setItem('game_session', session);
+    }, [])
+
     game.emit('EVENT_START', {
         created: Date.now(),
         modified: Date.now(),
@@ -15,16 +26,6 @@ export default function Page() {
         }
     })
 
-    const data: savegameInterface = {
-        created: Date.now(),
-        modified: Date.now(),
-        game: {
-            name: 'My Save',
-            spawn: [13.5, 52.5]
-        }
-    }
-
-    invoke('setup', { data: JSON.stringify(data) })
     return (
         <Sidebar data={{
             renderCallsButton: true,
