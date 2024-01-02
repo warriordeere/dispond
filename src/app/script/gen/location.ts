@@ -1,3 +1,8 @@
+import * as random from 'geojson-random';
+import { bbox, BBox, Polygon, Position } from '@turf/turf';
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
+import { GeometryData } from "@/app/shared/types/types";
+
 // import { map } from "../init/map.ts";
 
 // class location {
@@ -73,3 +78,16 @@
 // }
 
 // export const genLocation = new location();
+
+export async function createMissionLocation(data: GeometryData) {
+    const polygon: Polygon = data;
+    const box: BBox = bbox(polygon);
+    let random_pos: Position;
+
+    do {
+        random_pos = random.position(box);
+        booleanPointInPolygon
+    } while (!booleanPointInPolygon(random_pos, polygon));
+
+    console.log(random_pos);
+}

@@ -4,7 +4,7 @@ import { BaseDirectory, readTextFile } from "@tauri-apps/api/fs";
 
 export const Mission = new class call {
 
-    async create() {
+    async create(): Promise<MissionInterface> {
 
         async function randomMission(): Promise<missionObject> {
             const missionObject = JSON.parse(`${await readTextFile('Arcavigi Interactive/dispond/saves/MySave/assets/missions.json', { dir: BaseDirectory.Document })}`);
@@ -28,6 +28,7 @@ export const Mission = new class call {
             time: Date.now()
         }
 
-        mission.emit('EVENT_MISSION_CREATE', data)
+        mission.emit('EVENT_MISSION_CREATE', data);
+        return data;
     }
 }

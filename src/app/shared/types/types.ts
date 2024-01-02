@@ -228,18 +228,3 @@ export type MissionAreaObject = {
     type: 'Municipality' | 'CountrySecondarySubdivision' | 'CountrySubdivision'
     name: string
 }
-
-export interface cst_readInterface {
-    file: {
-        path: string
-        name?: string
-    }
-}
-
-export interface cst_writeInterface {
-    file: {
-        path: string
-        name?: string
-    },
-    content: string
-}
