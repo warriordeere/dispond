@@ -1,6 +1,6 @@
 'use client'
 
-import { game } from '@/app/emitter';
+import { GameEmitter } from '@/app/emitter';
 import { init } from '@/app/script/setup';
 import Sidebar from '@/app/shared/components/sidebar/sidebar';
 import { useEffect } from 'react';
@@ -15,16 +15,16 @@ export default function Page() {
         }
         localStorage.setItem('game', JSON.stringify(game_data))
         sessionStorage.setItem('game_session', session);
-    }, [])
 
-    game.emit('EVENT_START', {
-        created: Date.now(),
-        modified: Date.now(),
-        game: {
-            name: 'My Save',
-            spawn: [13.5, 52.5]
-        }
-    })
+        GameEmitter.emit('EVENT_START', {
+            created: Date.now(),
+            modified: Date.now(),
+            game: {
+                name: 'My Save',
+                spawn: [13.5, 52.5]
+            }
+        })
+    }, [])
 
     return (
         <Sidebar data={{

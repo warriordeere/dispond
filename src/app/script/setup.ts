@@ -1,23 +1,19 @@
 import { invoke } from "@tauri-apps/api/tauri";
-import { game } from "../emitter";
+import { GameEmitter } from "../emitter";
 import { buildingObject } from "../shared/types/types";
 import { db_get_buildings } from "../indexed";
 import { map_inst } from "../shared/components/map/map";
-import tt, { LngLatBounds, LngLatLike } from "@tomtom-international/web-sdk-maps";
-import { GeometryData } from "@/app/shared/types/types";
-import * as turf_bbox from '@turf/bbox';
-import * as turf_boolean_point_in_polygon from '@turf/boolean-point-in-polygon';
-import * as turf_random from '@turf/random'
-import * as truf_helpers from "@turf/helpers";
+import tt, { LngLatBounds } from "@tomtom-international/web-sdk-maps";
+import { Mission, generateMissionData } from "./gen/mission";
 
 export function init() {
-    game.on('EVENT_START', async (data) => {
+    GameEmitter.on('EVENT_START', async (data) => {
 
         const buildingData = await db_get_buildings();
 
         readSetupData();
         spawnBuildings();
-        const createMissionInterval = setInterval(startMissionGen, 30000);
+        const createMissionInterval = setInterval(startMissionGen, 20000);
 
         function readSetupData() {
             if (data) {
@@ -49,7 +45,7 @@ export function init() {
                     marker.setPopup(popup);
                 }
                 else {
-                    throw new Error(`corupted data, 'position | name' of 'building' is '${bld_item.position} | ${bld_item.name}' (invalid)`);
+                    throw new Error(`corrupted data, 'position | name' of 'building' is '${bld_item.position} | ${bld_item.name}' (invalid)`);
                 }
             })
             for (let i = 0; i < buildingData.length; i++) {
@@ -65,33 +61,15 @@ export function init() {
             buildingData.forEach(async (bld: buildingObject) => {
                 const area = bld.mission_area
                 if (area) {
+                    const newMissionData = await generateMissionData(area);
+                    const newMission = new Mission(newMissionData);
                     const marker = new tt.Marker({ draggable: false, color: 'orange' });
-                    await createMissionLocation(area)
-                        .then((r: LngLatLike) => {
-                            marker.setLngLat(r);
-                            marker.addTo(map_inst);
-                        })
-                        .catch((err) => {
-                            throw new Error(err)
-                        })
+                    marker.setLngLat(newMission.data.location.coords);
+                    marker.addTo(map_inst);
                 } else {
-                    throw new Error(`corupted data, 'mission_area' of 'building' is '${area}' (invalid)`)
+                    throw new Error(`corrupted data, 'mission_area' of 'building' is '${area}' (invalid)`)
                 }
             })
         }
     })
-}
-
-async function createMissionLocation(data: GeometryData): Promise<LngLatLike> {
-    let fp: LngLatLike | undefined;
-
-    while (!fp) {
-        const p = truf_helpers.polygon(data.features[0].geometry.coordinates);
-        const b = turf_bbox.bbox(p);
-        const rp = turf_random.randomPosition(b) as number[];
-        const bp = turf_boolean_point_in_polygon.booleanPointInPolygon(rp, p);
-        fp = bp ? (rp as LngLatLike) : undefined;
-    }
-
-    return fp;
 }

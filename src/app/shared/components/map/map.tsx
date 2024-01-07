@@ -1,3 +1,5 @@
+'use client'
+
 import './map.css';
 import '../../../globals.css';
 import "@tomtom-international/web-sdk-maps/dist/maps.css";
@@ -8,8 +10,6 @@ import { API_KEY } from '@/app/page';
 export let map_inst: tt.Map;
 
 export default function TTMap() {
-    const [mapInitialized, setMapInitialized] = useState(false)
-
     useEffect(() => {
 
         // used to make sure the map is added only once, I encountered an issue where the map was added multiple times.
@@ -26,7 +26,6 @@ export default function TTMap() {
 
             map_inst.addControl(new tt.NavigationControl());
             map_inst.addControl(new tt.GeolocateControl());
-            setMapInitialized(true);
         }
 
     }, [])

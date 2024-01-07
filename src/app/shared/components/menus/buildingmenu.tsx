@@ -10,7 +10,7 @@ import tt from "@tomtom-international/web-sdk-maps";
 import * as tts from "@tomtom-international/web-sdk-services"
 import { useEffect, useState } from "react";
 import { map_inst } from "../map/map";
-import { building } from "@/app/emitter";
+import { BuildingEmitter } from "@/app/emitter";
 import { buildingTypes } from "../../types/types";
 
 const db_id = crypto.randomUUID()
@@ -39,13 +39,13 @@ export function AddBuildingMenu() {
         const nameValue = document.querySelector('#bm-name-inp');
         nameValue?.addEventListener('blur', (event: Event) => {
             const target = event.target as HTMLInputElement
-            building.emit('EVENT_SET_BUILDING_NAME', { id: db_id, name: target.value })
+            BuildingEmitter.emit('EVENT_SET_BUILDING_NAME', { id: db_id, name: target.value })
         })
 
         const typeValue = document.querySelector('#bm-type-inp');
         typeValue?.addEventListener('change', (event: Event) => {
             const target = event.target as HTMLInputElement
-            building.emit('EVENT_SET_BUILDING_TYPE', { id: db_id, type: target.value as buildingTypes })
+            BuildingEmitter.emit('EVENT_SET_BUILDING_TYPE', { id: db_id, type: target.value as buildingTypes })
         })
 
     }, [])
@@ -77,7 +77,7 @@ export function AddBuildingMenu() {
 
 function BMSearchBox() {
 
-    const [missionArea, setMissionArea] = useState<string[]>([]);
+    // const [missionArea, setMissionArea] = useState<string[]>([]);
 
     useEffect(() => {
         const BMInterface = document.querySelector('#bm-interface')!;
@@ -111,7 +111,7 @@ function BMSearchBox() {
             const result: any = target.data.result;
             const freeFormAddress = result.address.freeformAddress
 
-            building.emit('EVENT_SET_BUILDING_POS', { id: db_id, position: result.position })
+            BuildingEmitter.emit('EVENT_SET_BUILDING_POS', { id: db_id, position: result.position })
 
             // @ts-expect-error
             // due to an incorect set up type definition in tomtoms api i'll get an error since the center property isn't defined properly,
@@ -156,7 +156,7 @@ function BMSearchBox() {
                     const result = r.additionalData;
                     for (let i = 0; i < result.length; i++) {
                         const geo_json = result[0].geometryData
-                        building.emit("EVENT_SET_MISSION_AREA", { id: db_id, mission_area: geo_json })
+                        BuildingEmitter.emit("EVENT_SET_MISSION_AREA", { id: db_id, mission_area: geo_json })
                         map_inst.addLayer({
                             id: 'polygon',
                             type: 'fill',
