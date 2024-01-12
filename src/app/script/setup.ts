@@ -1,15 +1,21 @@
 import { invoke } from "@tauri-apps/api/tauri";
 import { GameEmitter } from "../emitter";
-import { buildingObject } from "../shared/types/types";
-import { db_get_buildings } from "../indexed";
+import { BuildingInterface, DatabaseOptions } from "../shared/types/types";
+import { getDB } from "../indexed";
 import { map_inst } from "../shared/components/map/map";
 import tt, { LngLatBounds } from "@tomtom-international/web-sdk-maps";
 import { Mission, generateMissionData } from "./gen/mission";
 
 export function init() {
-    GameEmitter.on('EVENT_START', async (data) => {
+    GameEmitter.on('EVENT_GAME_START', async (data) => {
 
-        const buildingData = await db_get_buildings();
+        const getFromDBOptions: DatabaseOptions = {
+            database: 'DB_SAVEGAME_DATA',
+            store: 'DB_STORE_BUILDINGS',
+            schema: 'SCHEMA_SAVEGAME_DATA'
+        }
+
+        const buildingData: BuildingInterface[] = await getDB(getFromDBOptions);
 
         readSetupData();
         spawnBuildings();
@@ -34,7 +40,7 @@ export function init() {
         }
 
         function spawnBuildings() {
-            buildingData.forEach((bld_item: buildingObject) => {
+            buildingData.forEach((bld_item: BuildingInterface) => {
                 const marker = new tt.Marker({ draggable: false, color: '#ff0000' });
                 const popup = new tt.Popup({ anchor: 'top', closeButton: false })
                 if (bld_item.position && bld_item.name) {
@@ -57,19 +63,37 @@ export function init() {
             }
         }
 
-        function startMissionGen() {
-            buildingData.forEach(async (bld: buildingObject) => {
-                const area = bld.mission_area
-                if (area) {
-                    const newMissionData = await generateMissionData(area);
-                    const newMission = new Mission(newMissionData);
-                    const marker = new tt.Marker({ draggable: false, color: 'orange' });
-                    marker.setLngLat(newMission.data.location.coords);
-                    marker.addTo(map_inst);
-                } else {
-                    throw new Error(`corrupted data, 'mission_area' of 'building' is '${area}' (invalid)`)
-                }
-            })
+        async function startMissionGen() {
+            const options: DatabaseOptions = {
+                database: 'DB_SAVEGAME_DATA',
+                store: 'DB_STORE_ACTIVE_MISSIONS',
+                schema: 'SCHEMA_SAVEGAME_DATA'
+            }
+            const activeMissionData = await getDB(options)
+                .then((r) => {
+                    return r;
+                })
+                .catch((err) => {
+                    throw new Error(err);
+                });
+
+            if (activeMissionData && activeMissionData.length < 10) {
+                buildingData.forEach(async (bld: BuildingInterface) => {
+                    const area = bld.mission_area
+                    if (area) {
+                        const newMissionData = await generateMissionData(area);
+                        const newMission = new Mission(newMissionData);
+                        const marker = new tt.Marker({ draggable: false, color: 'orange' });
+                        marker.setLngLat(newMission.data.location.coords);
+                        marker.addTo(map_inst);
+                    } else {
+                        throw new Error(`corrupted data, 'mission_area' of 'building' is '${area}' (invalid)`)
+                    }
+                })
+                return;
+            }
+
+            return;
         }
     })
 }

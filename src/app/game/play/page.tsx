@@ -16,7 +16,7 @@ export default function Page() {
         localStorage.setItem('game', JSON.stringify(game_data))
         sessionStorage.setItem('game_session', session);
 
-        GameEmitter.emit('EVENT_START', {
+        GameEmitter.emit('EVENT_GAME_START', {
             created: Date.now(),
             modified: Date.now(),
             game: {

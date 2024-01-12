@@ -2,17 +2,29 @@ import './calls.css';
 import '../../../globals.css';
 import { BsFire, BsPersonCircle } from "react-icons/bs";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { db_get_active_missions } from '@/app/indexed';
+import { getDB } from '@/app/indexed';
 import React, { useEffect, useState } from 'react';
-import { MissionInterface } from '../../types/types';
+import { BuildingInterface, DatabaseOptions, MissionInterface } from '../../types/types';
 
 export default function CallItem() {
     const [missionData, setMissionData] = useState<MissionInterface[]>([]);
 
     useEffect(() => {
         async function fetchMissionData() {
-            const data = await db_get_active_missions();
-            setMissionData(data);
+            const getFromDBOptions: DatabaseOptions = {
+                database: 'DB_SAVEGAME_DATA',
+                store: 'DB_STORE_ACTIVE_MISSIONS',
+                schema: 'SCHEMA_SAVEGAME_DATA'
+            }
+
+            await getDB(getFromDBOptions)
+                .then((r) => {
+                    setMissionData(r as MissionInterface[]);
+                    return r;
+                })
+                .catch((err) => {
+                    console.error(err)
+                });
         };
 
         fetchMissionData();

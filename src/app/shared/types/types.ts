@@ -1,5 +1,5 @@
 import { LngLatLike } from "@tomtom-international/web-sdk-maps"
-import { DBSchema } from "idb"
+import { DBSchema, IndexKey } from "idb"
 
 export interface savegameInterface {
     created: Number
@@ -125,13 +125,13 @@ export interface ttSearchboxResult {
 export type localDataParams = {
     file_name: string,
     file_path: string,
-    file_data: buildingObject
+    file_data: BuildingInterface
 }
 
 export interface buildingFile {
     created_at: Date | number
     last_modified: Date | number
-    items: buildingObject[]
+    items: BuildingInterface[]
 }
 
 export interface ReadFileInterface {
@@ -139,7 +139,7 @@ export interface ReadFileInterface {
     base_dir: 'document_dir'
 }
 
-export interface buildingObject {
+export interface BuildingInterface {
     id: string
     name?: string
     position?: LngLatLike
@@ -149,54 +149,39 @@ export interface buildingObject {
 
 export type buildingTypes = 'FIREBRIGADE' | 'VOLUNTEER_FIREBRIGADE'
 
-export interface BuildingSchema extends DBSchema {
-    'buildings': {
+export interface SavegameDataSchema extends DBSchema {
+    'DB_STORE_BUILDINGS': {
         key: string
-        value: buildingObject
+        value: BuildingInterface
         indexes: { 'by-id': string, 'by-name': string }
     },
-    'active_missions': {
+    'DB_STORE_ACTIVE_MISSIONS': {
         key: string
-        value: buildingObject
+        value: BuildingInterface
         indexes: { 'by-id': string, 'by-name': string }
     };
 }
 
+export type DatabaseStores = 'DB_STORE_BUILDINGS' | 'DB_STORE_ACTIVE_MISSIONS'
+
+export interface DatabaseOptions {
+    database: 'DB_SAVEGAME_DATA'
+    store: DatabaseStores
+    schema: 'SCHEMA_SAVEGAME_DATA'
+}
+
+export interface DatabasePostOptions extends DatabaseOptions {
+    data: BuildingInterface | MissionInterface
+}
+
 export interface BuildingEvents {
-    on(eventName: 'EVENT_SET_BUILDING_NAME', handler: (data: {
+    on(eventName: 'EVENT_BUILDING_CREATE', handler: (data: {
         id: string,
         name: string
     }) => void): void
-    emit(eventName: 'EVENT_SET_BUILDING_NAME', data: {
+    emit(eventName: 'EVENT_BUILDING_CREATE', data: {
         id: string,
         name: string
-    }): void
-
-    on(eventName: 'EVENT_SET_BUILDING_POS', handler: (data: {
-        id: string,
-        position: LngLatLike
-    }) => void): void
-    emit(eventName: 'EVENT_SET_BUILDING_POS', data: {
-        id: string,
-        position: LngLatLike
-    }): void
-
-    on(eventName: 'EVENT_SET_BUILDING_TYPE', handler: (data: {
-        id: string,
-        type: buildingTypes
-    }) => void): void
-    emit(eventName: 'EVENT_SET_BUILDING_TYPE', data: {
-        id: string,
-        type: buildingTypes
-    }): void
-
-    on(eventName: 'EVENT_SET_MISSION_AREA', handler: (data: {
-        id: string,
-        mission_area: GeometryData
-    }) => void): void
-    emit(eventName: 'EVENT_SET_MISSION_AREA', data: {
-        id: string,
-        mission_area: GeometryData
     }): void
 }
 
@@ -215,8 +200,8 @@ export interface GeometryData {
 }
 
 export interface GameEvents {
-    on(eventName: 'EVENT_START', handler: (data: savegameInterface) => void): void
-    emit(eventName: 'EVENT_START', data: savegameInterface): void
+    on(eventName: 'EVENT_GAME_START', handler: (data: savegameInterface) => void): void
+    emit(eventName: 'EVENT_GAME_START', data: savegameInterface): void
 }
 
 export interface MissionEvents {
