@@ -56,6 +56,7 @@ export type callerObject = {
 
 export type locationObject = {
     coords: LngLatLike
+    text_address: string
 }
 
 export type missionObject = {
@@ -141,10 +142,10 @@ export interface ReadFileInterface {
 
 export interface BuildingInterface {
     id: string
-    name?: string
-    position?: LngLatLike
-    type?: buildingTypes
-    mission_area?: GeometryData
+    name: string
+    position: LngLatLike
+    type: buildingTypes
+    mission_area: GeometryData
 }
 
 export type buildingTypes = 'FIREBRIGADE' | 'VOLUNTEER_FIREBRIGADE'
@@ -153,12 +154,12 @@ export interface SavegameDataSchema extends DBSchema {
     'DB_STORE_BUILDINGS': {
         key: string
         value: BuildingInterface
-        indexes: { 'by-id': string, 'by-name': string }
+        indexes: { 'by-id': string }
     },
     'DB_STORE_ACTIVE_MISSIONS': {
         key: string
         value: BuildingInterface
-        indexes: { 'by-id': string, 'by-name': string }
+        indexes: { 'by-id': string }
     };
 }
 
@@ -174,16 +175,6 @@ export interface DatabasePostOptions extends DatabaseOptions {
     data: BuildingInterface | MissionInterface
 }
 
-export interface BuildingEvents {
-    on(eventName: 'EVENT_BUILDING_CREATE', handler: (data: {
-        id: string,
-        name: string
-    }) => void): void
-    emit(eventName: 'EVENT_BUILDING_CREATE', data: {
-        id: string,
-        name: string
-    }): void
-}
 
 export interface GeometryData {
     type: string,
@@ -197,6 +188,11 @@ export interface GeometryData {
             id: string
         }
     ]
+}
+
+export interface BuildingEvents {
+    on(eventName: 'EVENT_BUILDING_CREATE', handler: (data: BuildingInterface) => void): void
+    emit(eventName: 'EVENT_BUILDING_CREATE', data: BuildingInterface): void
 }
 
 export interface GameEvents {

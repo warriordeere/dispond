@@ -10,10 +10,8 @@ import tt, { LngLatLike } from "@tomtom-international/web-sdk-maps";
 import * as tts from "@tomtom-international/web-sdk-services"
 import { useEffect, useState } from "react";
 import { map_inst } from "../map/map";
-import { BuildingEmitter } from "@/app/emitter";
-import { buildingTypes } from "../../types/types";
-
-const db_id = crypto.randomUUID()
+import { BuildingInterface, DatabasePostOptions, GeometryData, buildingTypes } from "../../types/types";
+import { postDB } from "@/app/indexed_db";
 
 export function BuildingMenu() {
     const router = useRouter();
@@ -35,10 +33,11 @@ export function BuildingMenu() {
 
 export function AddBuildingMenu() {
 
+    const [building_id, setBuildingId] = useState<string | undefined>();
     const [building_name, setBuildingName] = useState<string | undefined>();
     const [building_type, setBuildingType] = useState<buildingTypes | undefined>();
     const [building_location, setBuildingLocation] = useState<LngLatLike | undefined>();
-    const [building_area, setBuildingArea] = useState<string[] | undefined>();
+    const [building_area, setBuildingArea] = useState<GeometryData | undefined>();
 
     useEffect(() => {
         const nameValue = document.querySelector('#bm-name-inp');
@@ -55,8 +54,45 @@ export function AddBuildingMenu() {
 
     }, [])
 
-    function handleBuildingFinish() {
+    async function handleBuildingFinish() {
+        setBuildingId(crypto.randomUUID());
 
+        console.log({
+            id: building_id,
+            name: building_name,
+            position: building_location,
+            type: building_type,
+            mission_area: building_area
+        });
+
+
+        if (
+            building_id &&
+            building_name &&
+            building_location &&
+            building_type &&
+            building_area
+        ) {
+            const data: BuildingInterface = {
+                id: building_id,
+                name: building_name,
+                position: building_location,
+                type: building_type,
+                mission_area: building_area
+            }
+
+            const options: DatabasePostOptions = {
+                data: data,
+                database: "DB_SAVEGAME_DATA",
+                store: "DB_STORE_BUILDINGS",
+                schema: "SCHEMA_SAVEGAME_DATA"
+            }
+
+            await postDB(options);
+        }
+        else {
+            console.error('something is invalid');
+        }
     }
 
     return (
@@ -75,6 +111,7 @@ export function AddBuildingMenu() {
                 </div>
                 <div className="bm-type">
                     <select name="bm-type" id="bm-type-inp">
+                        <option>Bitte wählen</option>
                         <option value="FIREBRIGADE">Feuerwehr</option>
                         <option value="VOLUNTEER_FIREBRIGADE">Freiwillige Feuerwehr</option>
                     </select>
@@ -135,8 +172,6 @@ export function AddBuildingMenu() {
                 marker.setPopup(popup);
                 marker.togglePopup();
 
-                console.log(result.address);
-
                 // setMissionArea(`\nKommune:${JSON.stringify(result.address.municipality)}\nLandkreis:${JSON.stringify(result.address.countrySecondarySubdivision)}\nBundesland:${JSON.stringify(result.address.countrySubdivision)}`)
                 // setMissionArea
 
@@ -163,7 +198,7 @@ export function AddBuildingMenu() {
 
                         const result = r.additionalData;
                         for (let i = 0; i < result.length; i++) {
-                            const geo_json = result[0].geometryData
+                            const geo_json: GeometryData = result[0].geometryData
                             setBuildingArea(geo_json);
                             map_inst.addLayer({
                                 id: 'polygon',

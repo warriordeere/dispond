@@ -2,9 +2,9 @@ import './calls.css';
 import '../../../globals.css';
 import { BsFire, BsPersonCircle } from "react-icons/bs";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { getDB } from '@/app/indexed';
+import { getDB } from '@/app/indexed_db';
 import React, { useEffect, useState } from 'react';
-import { BuildingInterface, DatabaseOptions, MissionInterface } from '../../types/types';
+import { DatabaseOptions, MissionInterface } from '../../types/types';
 
 export default function CallItem() {
     const [missionData, setMissionData] = useState<MissionInterface[]>([]);
