@@ -1,5 +1,5 @@
 import { LngLatLike } from "@tomtom-international/web-sdk-maps"
-import { DBSchema, IndexKey } from "idb"
+import { DBSchema } from "idb"
 
 export interface savegameInterface {
     created: Number
@@ -10,31 +10,26 @@ export interface savegameInterface {
     }
 }
 
-export type sidebarRenderTypes = {
-    data: {
-        renderCallsButton: boolean,
-        renderLocationButton: boolean,
-        renderManageButton: boolean,
-        renderHomeButton: boolean,
-        extended_menu?: extendedSidebarMenuOptions
-    }
+export interface SidebarData {
+    renderCallsButton: boolean
+    renderLocationButton: boolean
+    renderManageButton: boolean
+    renderHomeButton: boolean
+    renderBackButton: boolean
 }
 
-export type extendedSidebarContent = {
-    data: {
-        extended_menu: extendedSidebarMenuOptions
-    }
+export type SidemenuOptions = 'MENU_CALLS' | 'MENU_MAP' | 'MENU_MANAGE_FLEET' | 'MENU_MANAGE_BUILDINGS' | 'MENU_NEW_BUILDING' | 'MENU_NEW_VEHICLE'
+
+export interface SidemenuInterface {
+    type: SidemenuOptions
 }
 
-export type extendedSidebar = {
-    data: {
-        title: string
-        icon: React.JSX.Element
-        content: React.JSX.Element | string
-    }
+export interface SidemenuContentInterface {
+    title: string
+    icon: React.JSX.Element
+    content: React.JSX.Element | string
 }
 
-export type extendedSidebarMenuOptions = 'MENU_CALLS' | 'MENU_MAP' | 'MENU_MANAGE_FLEET' | 'MENU_MANAGE_BUILDINGS' | 'MENU_NEW_BUILDING' | 'MENU_NEW_VEHICLE'
 
 export interface savegame {
     id: string,
@@ -56,7 +51,10 @@ export type callerObject = {
 
 export type locationObject = {
     coords: LngLatLike
-    text_address: string
+    free_address: string
+    postal_code: string
+    municapality: string
+    street_n_number: string
 }
 
 export type missionObject = {
@@ -96,10 +94,19 @@ export interface namesFile {
     last_names: string[]
 }
 
-export interface ttSearchboxResult {
+export interface ttSearchboxResult extends ReverseGeocodeResult {
     type: string,
     id: string,
     score: number,
+    position: LngLatLike
+    viewport: {
+        topLeftPoint: LngLatLike
+        btmRightPoint: LngLatLike
+    }
+    __resultListIdx__: number
+}
+
+export interface ReverseGeocodeResult {
     address: {
         streetName: string,
         municipalitySubdivision: string,
@@ -115,12 +122,6 @@ export interface ttSearchboxResult {
         freeformAddress: string,
         localName: string
     }
-    position: LngLatLike
-    viewport: {
-        topLeftPoint: LngLatLike
-        btmRightPoint: LngLatLike
-    }
-    __resultListIdx__: number
 }
 
 export type localDataParams = {

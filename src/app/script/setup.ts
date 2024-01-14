@@ -130,7 +130,7 @@ export function init() {
 
                         marker.setLngLat(newMission.data.location.coords);
                         marker.addTo(map_inst);
-                        popup.setText(newMission.data.location.text_address);
+                        popup.setText(newMission.data.location.free_address);
                         popup.addTo(map_inst);
                         marker.setPopup(popup);
                         marker.togglePopup();

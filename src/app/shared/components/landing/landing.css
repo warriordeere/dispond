@@ -1,6 +1,9 @@
 .landing {
-    width: calc(100%-3rem);
-    height: calc(100%-3rem);
+    position: absolute;
+    left: 4rem;
+    right: 0;
+    top: 0;
+    bottom: 0;
     padding: 3rem;
     display: flex;
     flex-direction: column;

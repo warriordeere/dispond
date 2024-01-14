@@ -1,6 +1,7 @@
 'use client'
 
-import Sidebar from "@/app/shared/components/sidebar/sidebar"
+import { Sidemenu } from "@/app/shared/components/menu/sidemenu"
+import Sidebar from "@/app/shared/components/nav/sidenav"
 
 export default function ManageFleet() {
     return (
@@ -10,8 +11,9 @@ export default function ManageFleet() {
                 renderLocationButton: false,
                 renderManageButton: false,
                 renderHomeButton: false,
-                extended_menu: "MENU_MANAGE_BUILDINGS"
+                renderBackButton: true,
             }} />
+            <Sidemenu type="MENU_MANAGE_BUILDINGS" />
         </>
     )
 }

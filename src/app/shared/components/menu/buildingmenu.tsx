@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from "next/navigation";
-import { BsBuildingFillAdd } from "react-icons/bs"
+import { BsBuildingFillAdd, BsCashCoin, BsFillBuildingFill, BsPencilFill } from "react-icons/bs"
 import '@tomtom-international/web-sdk-plugin-searchbox/dist/SearchBox.css';
 import SearchBox from '@tomtom-international/web-sdk-plugin-searchbox';
 import { services } from "@tomtom-international/web-sdk-services";
@@ -16,23 +16,21 @@ import { postDB } from "@/app/indexed_db";
 export function BuildingMenu() {
     const router = useRouter();
     return (
-        <>
-            <div className="extsb-interface">
-                <button className="extsb-btn react-icon-regular"
-                    onClick={() => {
-                        router.push('./buildings/new')
-                    }}>
-                    <BsBuildingFillAdd />
-                    <span className="extsb-btn-tt">Neues Gebäude</span>
-                </button>
-            </div>
-            <div className="extsb-content"></div>
-        </>
+        <div className="sidemenu-action-row">
+            <button className="sidemenu-btn react-icon-regular"
+                onClick={() => {
+                    router.push('./buildings/new')
+                }}>
+                <BsBuildingFillAdd />
+            </button>
+            <span className="sidemenu-btn-label">Neues Gebäude</span>
+        </div>
     )
 }
 
 export function AddBuildingMenu() {
 
+    let building_cost: number = 120;
     const [building_id, setBuildingId] = useState<string | undefined>();
     const [building_name, setBuildingName] = useState<string | undefined>();
     const [building_type, setBuildingType] = useState<buildingTypes | undefined>();
@@ -97,27 +95,42 @@ export function AddBuildingMenu() {
 
     return (
         <>
-            <div className="extsb-content">
+            {/* <div className="extsb-content">
                 <div className="extsb-advice">
                     <p>
                         Klicke auf die Karte oder suche in der Suchleiste unten um einen Standort für dein neues Gebäude auszuwählen.
                     </p>
                 </div>
-            </div>
-            <div className="extsb-interface" id="bm-interface">
+            </div> */}
+            <div className="sidemenu-action-field" id="bm-interface">
                 <BMSearchBox />
-                <div className="bm-naming">
-                    <input type="text" name="bm-name" id="bm-name-inp" />
+                <div className="bm-input-box">
+                    <span className="bm-box-icon">
+                        <BsPencilFill />
+                    </span>
+                    <div className="bm-naming">
+                        <input type="text" name="bm-name" id="bm-name-inp" placeholder="Name" />
+                    </div>
                 </div>
-                <div className="bm-type">
-                    <select name="bm-type" id="bm-type-inp">
-                        <option>Bitte wählen</option>
-                        <option value="FIREBRIGADE">Feuerwehr</option>
-                        <option value="VOLUNTEER_FIREBRIGADE">Freiwillige Feuerwehr</option>
-                    </select>
+                <div className="bm-input-box">
+                    <span className="bm-box-icon">
+                        <BsFillBuildingFill />
+                    </span>
+                    <div className="bm-type">
+                        <select name="bm-type" id="bm-type-inp">
+                            <option value="FIREBRIGADE">Feuerwehr</option>
+                            <option value="VOLUNTEER_FIREBRIGADE">Freiwillige Feuerwehr</option>
+                        </select>
+                    </div>
                 </div>
                 <div className="bm-finish">
-                    <button className="extsb-btn" onClick={handleBuildingFinish}>Bauen</button>
+                    <button className="bm-finish-btn" onClick={handleBuildingFinish}>
+                        Bauen
+                        <span>
+                            {building_cost}&nbsp;
+                            <BsCashCoin />
+                        </span>
+                    </button>
                 </div>
             </div>
         </>
@@ -125,7 +138,7 @@ export function AddBuildingMenu() {
 
     function BMSearchBox() {
         useEffect(() => {
-            const BMInterface = document.querySelector('#bm-interface')!;
+            const BMInterface = document.querySelector('#bm-searchbox')!;
 
             const existingSearchBox = BMInterface.querySelector('.tt-search-box');
             if (existingSearchBox) {
@@ -239,7 +252,7 @@ export function AddBuildingMenu() {
         }, [])
 
         return (
-            <div className="bm-searchbox" id="bm-searchbox"></div>
+            <div className="bm-search-box" id="bm-searchbox"></div>
         );
     }
 }

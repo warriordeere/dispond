@@ -2,7 +2,7 @@
 
 import { GameEmitter } from '@/app/emitter';
 import { init } from '@/app/script/setup';
-import Sidebar from '@/app/shared/components/sidebar/sidebar';
+import Sidebar from '@/app/shared/components/nav/sidenav';
 import { useEffect } from 'react';
 
 export default function Page() {
@@ -31,7 +31,8 @@ export default function Page() {
             renderCallsButton: true,
             renderLocationButton: true,
             renderManageButton: true,
-            renderHomeButton: true
+            renderHomeButton: true,
+            renderBackButton: false
         }} />
     );
 }

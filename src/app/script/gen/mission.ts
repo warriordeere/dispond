@@ -1,8 +1,8 @@
-import { MissionInterface, callerObject, missionObject } from "@/app/shared/types/types";
+import { MissionInterface, ReverseGeocodeResult, callerObject, missionObject } from "@/app/shared/types/types";
 import { BaseDirectory, readTextFile } from "@tauri-apps/api/fs";
 import { GeometryData } from "@/app/shared/types/types";
 import { LngLatLike } from "@tomtom-international/web-sdk-maps";
-import tt from "@tomtom-international/web-sdk-services";
+import tt, { StructuredGeocodeOptions } from "@tomtom-international/web-sdk-services";
 import * as turf_bbox from '@turf/bbox';
 import * as turf_boolean_point_in_polygon from '@turf/boolean-point-in-polygon';
 import * as turf_random from '@turf/random'
@@ -41,17 +41,21 @@ export async function generateMissionData(area: GeometryData): Promise<MissionIn
     }
 
     const lcd = await createMissionLocation(area);
-    const ffa = tt.services.reverseGeocode({ key: API_KEY!, position: lcd })
+    const rev = tt.services.reverseGeocode({ key: API_KEY!, position: lcd })
         .then((r) => {
-            return r.addresses[0].address.freeformAddress as string;
+            return r.addresses[0].address;
         });
+    const geo_result = await rev;
 
     return {
         id: crypto.randomUUID(),
         caller: await randomCaller(),
         location: {
             coords: lcd,
-            text_address: await ffa
+            free_address: geo_result.freeformAddress,
+            municapality: geo_result.municipality,
+            postal_code: geo_result.postalCode,
+            street_n_number: geo_result.streetNameAndNumber
         },
         mission: await randomMission(),
         time: Date.now()

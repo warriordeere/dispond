@@ -1,6 +1,7 @@
 'use client'
 
-import Sidebar from "@/app/shared/components/sidebar/sidebar"
+import { Sidemenu } from "@/app/shared/components/menu/sidemenu"
+import Sidebar from "@/app/shared/components/nav/sidenav"
 
 export default function Calls() {
     return (
@@ -10,8 +11,9 @@ export default function Calls() {
                 renderLocationButton: false,
                 renderManageButton: false,
                 renderHomeButton: false,
-                extended_menu: "MENU_CALLS"
+                renderBackButton: true
             }} />
+            <Sidemenu type="MENU_CALLS" />
         </>
     )
 }

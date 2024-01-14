@@ -1,6 +1,6 @@
 'use client'
 
-import Sidebar from "@/app/shared/components/sidebar/sidebar"
+import Sidebar from "@/app/shared/components/nav/sidenav"
 
 export default function ManageFleet() {
     return (

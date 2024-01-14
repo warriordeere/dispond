@@ -1,10 +1,8 @@
 .call-item {
     border-radius: 1rem;
     background-color: var(--secondary);
+    color: var(--text);
     overflow: hidden;
-}
-
-.call-item {
     padding: 1.5rem;
     background-color: var(--primary-shade);
     display: grid;
@@ -12,6 +10,7 @@
     grid-template-rows: repeat(2, 1.125rem) .5rem repeat(2, 1.125rem) .5rem repeat(2, 1.125rem);
     row-gap: .25rem;
     column-gap: 1.5rem;
+    margin: 1rem 0;
 }
 
 .location-icon svg,
