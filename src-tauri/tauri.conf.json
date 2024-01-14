@@ -23,23 +23,8 @@
         "minimize": true,
         "unmaximize": true,
         "unminimize": true,
-        "startDragging": true
-      },
-      "fs": {
-        "readFile": true,
-        "writeFile": true,
-        "createDir": true,
-        "readDir": true,
-        "exists": true,
-        "scope": [
-          "$DOCUMENT/*",
-          "$DOCUMENT/Arcavigi Interactive/*",
-          "$DOCUMENT/Arcavigi Interactive/dispond/*",
-          "$DOCUMENT/Arcavigi Interactive/dispond/saves/*",
-          "$DOCUMENT/Arcavigi Interactive/dispond/saves/data/*",
-          "$DOCUMENT/Arcavigi Interactive/dispond/saves/*/*",
-          "$DOCUMENT/Arcavigi Interactive/dispond/saves/*/*/*"
-        ]
+        "startDragging": true,
+        "setPosition": true
       }
     },
     "bundle": {

@@ -5,9 +5,23 @@ import { getDB } from "../indexed_db";
 import { map_inst } from "../shared/components/map/map";
 import tt, { LngLatBounds } from "@tomtom-international/web-sdk-maps";
 import { Mission, generateMissionData } from "./gen/mission";
+// import { currentMonitor, appWindow, PhysicalPosition } from "@tauri-apps/api/window";
+
+// export async function setupWindow() {
+//     const saved_monitor = JSON.parse(localStorage.getItem('app_monitor') as string);
+//     const tauri_monitor = await currentMonitor();
+
+//     if (tauri_monitor && tauri_monitor.name !== saved_monitor.name) {
+//         localStorage.setItem('app_monitor', JSON.stringify(tauri_monitor));
+//         await appWindow.setPosition(new PhysicalPosition(saved_monitor.position.x, saved_monitor.position.y))
+//     }
+
+//     window.addEventListener('move', () => {
+//         localStorage.setItem('app_monitor', JSON.stringify(tauri_monitor));
+//     })
+// }
 
 export function init() {
-
     GameEmitter.on('EVENT_GAME_START', async (data) => {
 
         const getFromDBOptions: DatabaseOptions = {
@@ -110,10 +124,10 @@ export function init() {
                     if (area) {
                         const newMissionData = await generateMissionData(area);
                         const newMission = new Mission(newMissionData);
-                        
+
                         const marker = new tt.Marker({ draggable: false, color: 'orange' });
-                        const popup = new tt.Popup({ anchor: 'top', closeButton: false });                        
-                        
+                        const popup = new tt.Popup({ anchor: 'top', closeButton: false });
+
                         marker.setLngLat(newMission.data.location.coords);
                         marker.addTo(map_inst);
                         popup.setText(newMission.data.location.text_address);
