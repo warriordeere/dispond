@@ -25,28 +25,5 @@ button.sidebar-item {
 }
 
 .sidebar-item:hover {
-    background-color: var(--primary-shade);
-}
-
-.sidebar-dropdown {
-    position: absolute;
-    left: 4rem;
-    top: 12rem;
-    background-color: var(--primary);
-    display: flex;
-    flex-direction: column;
-    height: 4rem;
-    overflow-y: visible;
-}
-
-.dpw-btn {
-    all: unset;
-    background-color: var(--primary);
-    cursor: pointer;
-    padding: .75rem;
-    transition: background-color .25s ease-in-out;
-}
-
-.dpw-btn:hover {
-    background-color: var(--primary-shade);
+    background-color: var(--primary-600);
 }

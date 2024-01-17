@@ -10,13 +10,7 @@ export interface savegameInterface {
     }
 }
 
-export interface SidebarData {
-    renderCallsButton: boolean
-    renderLocationButton: boolean
-    renderManageButton: boolean
-    renderHomeButton: boolean
-    renderBackButton: boolean
-}
+export type SidebarData = React.JSX.Element
 
 export type SidemenuOptions = 'MENU_CALLS' | 'MENU_MAP' | 'MENU_MANAGE_FLEET' | 'MENU_MANAGE_BUILDINGS' | 'MENU_NEW_BUILDING' | 'MENU_NEW_VEHICLE'
 

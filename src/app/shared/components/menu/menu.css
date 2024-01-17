@@ -46,7 +46,7 @@
     top: 4rem;
     left: 0;
     right: 0;
-    color: var(--text-alt);
+    color: var(--text);
     padding: 1.75rem;
     border-top-left-radius: .75rem;
     height: 100%;
@@ -72,7 +72,7 @@
 
 .bm-input-box {
     border-radius: .5rem;
-    border: 1px solid var(--secondary);
+    border: 1px solid var(--text);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -118,7 +118,7 @@
     height: 2rem;
     width: 100%;
     background-color: var(--primary);
-    color: var(--text);
+    color: var(--text-50);
     border-radius: .5rem;
     padding: .5rem 0;
     display: flex;
@@ -132,7 +132,7 @@
 }
 
 .bm-finish-btn:hover {
-    background-color: var(--primary-shade);
+    background-color: var(--primary-600);
 }
 
 .bm-finish-btn span {
@@ -145,7 +145,7 @@
 
 .sidemenu-btn {
     background-color: var(--primary);
-    color: var(--background);
+    color: var(--text-50);
     padding: .5rem;
     border-radius: .5rem;
     display: flex;
@@ -156,5 +156,5 @@
 }
 
 .sidemenu-btn:hover {
-    background-color: var(--primary-shade);
+    background-color: var(--primary-600);
 }

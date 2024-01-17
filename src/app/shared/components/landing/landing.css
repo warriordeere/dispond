@@ -16,7 +16,7 @@
 }
 
 .front-header {
-    color: var(--text-alt);
+    color: var(--text);
 }
 
 .front-body {
@@ -37,7 +37,7 @@
 }
 
 .front-ui-item svg {
-    color: white;
+    color: var(--text-50);
     height: 1.5rem;
     width: 1.5rem;
 }
@@ -62,7 +62,7 @@
     grid-template-rows: 8rem auto;
     overflow: hidden;
     border-radius: 1rem;
-    box-shadow: 0 0 1rem 0 var(--background-tone);
+    box-shadow: 0 0 1rem 0 var(--text-200);
     color: var(--text);
     font-family: 'Inter', sans-serif;
 }
@@ -80,9 +80,10 @@
 
 .savegame-preview {
     background-color: var(--primary);
+    color: var(--text-50);
     grid-column: 1/3;
     grid-row: 2/3;
-    box-shadow: 0 0 2rem .5rem var(--background-shade);
+    box-shadow: 0 0 2rem .5rem var(--text-200);
     padding: 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -144,18 +145,18 @@
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    border: 2px transparent solid;
     cursor: pointer;
+    border: .15rem transparent solid;
     transition: background-color .25s ease-in-out, border .3s ease-in-out;
 }
 
 .play-game:hover {
-    border: 2px var(--text) solid;
-    background-color: var(--primary-tone);
+    border: .15rem var(--text-50) solid;
+    background-color: var(--primary-600);
 }
 
 .play-game svg {
     height: 1.5rem;
     width: 1.5rem;
-    color: var(--text);
+    color: var(--text-50);
 }

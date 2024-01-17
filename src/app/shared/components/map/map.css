@@ -1,5 +1,5 @@
 #map>* {
-    color: black;
+    color: var(--text);
 }
 
 #map {
