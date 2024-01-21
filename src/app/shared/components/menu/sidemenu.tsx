@@ -1,3 +1,4 @@
+import { Resizable } from 're-resizable';
 import { BiSolidPhoneCall, BiSolidError } from "react-icons/bi";
 import { BsBuildingFillGear, BsBuildingFillAdd, BsArrowLeftCircle } from "react-icons/bs";
 import { SidemenuInterface, SidemenuContentInterface } from "../../types/types";
@@ -47,7 +48,12 @@ export function Sidemenu(data: SidemenuInterface) {
 
 function SidemenuContent({ data }: { data: SidemenuContentInterface }) {
     return (
-        <section className="sidemenu">
+        <Resizable
+            maxWidth={"100%"}
+            minWidth={"30%"}
+            bounds={'window'}
+            enable={{ right: true }}
+            className="sidemenu">
             <div className="sidemenu-item">
                 <div className="sidemenu-head">
                     <span className="sidemenu-icon react-icon-regular">
@@ -61,6 +67,6 @@ function SidemenuContent({ data }: { data: SidemenuContentInterface }) {
                     {data.content}
                 </div>
             </div>
-        </section>
+        </Resizable>
     )
 }

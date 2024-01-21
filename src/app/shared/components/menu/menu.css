@@ -1,13 +1,14 @@
 .sidemenu {
-    position: absolute;
+    position: absolute !important;
     top: 0;
     bottom: 0;
     left: -100%;
-    width: 25rem;
     background-color: var(--primary);
     z-index: 1;
-    animation: slide-in .75s ease forwards;
+    animation: slide-in .75s ease-in forwards;
     z-index: 1;
+    box-shadow: 0 0 1rem 0 var(--text);
+    height: 100%;
 }
 
 @keyframes slide-in {
@@ -16,21 +17,18 @@
     }
 }
 
-.sidemenu-item {
-    display: flex;
-    flex-direction: column;
+.sidemenu-item{
     height: 100%;
-    position: relative;
+    width: 100%;
 }
 
 .sidemenu-body,
 .sidemenu-head {
     background-color: var(--background);
+    width: 100%;
 }
 
 .sidemenu-head {
-    position: absolute;
-    top: 0;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -38,7 +36,6 @@
     gap: .35rem;
     background-color: var(--primary);
     height: 4rem;
-    width: 100%;
 }
 
 .sidemenu-body {
@@ -47,10 +44,8 @@
     left: 0;
     right: 0;
     color: var(--text);
-    padding: 1.75rem;
+    padding: 2.5rem;
     border-top-left-radius: .75rem;
-    height: 100%;
-    overflow-y: auto;
 }
 
 .sidemenu-action-row {

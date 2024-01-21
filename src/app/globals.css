@@ -76,6 +76,10 @@
     --accent-950: rgb(20, 6, 6);
 }
 
+* {
+    box-sizing: border-box;
+}
+
 h1,
 h2,
 h3,

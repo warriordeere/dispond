@@ -1,4 +1,5 @@
 import { postDB } from "./indexed_db";
+import { map_inst } from "./shared/components/map/map";
 import { BuildingEvents, DatabasePostOptions, GameEvents, MissionEvents } from "./shared/types/types";
 var EventEmitter = require('events')
 
@@ -24,4 +25,10 @@ MissionEmitter.on('EVENT_MISSION_CREATE', (data) => {
         data: data
     }
     postDB(options);
+})
+
+MissionEmitter.on('EVENT_MISSION_ITEM_TOGGLE', (data) => {
+    // @ts-expect-error
+    // type not corectly implemented (https://developer.tomtom.com/maps-sdk-web-js/documentation#Maps.Map)
+    map_inst.flyTo({ center: data.location.coords })
 })

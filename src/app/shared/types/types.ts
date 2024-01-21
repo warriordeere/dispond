@@ -1,5 +1,6 @@
 import { LngLatLike } from "@tomtom-international/web-sdk-maps"
 import { DBSchema } from "idb"
+import React from "react"
 
 export interface savegameInterface {
     created: Number
@@ -12,7 +13,7 @@ export interface savegameInterface {
 
 export type SidebarData = React.JSX.Element
 
-export type SidemenuOptions = 'MENU_CALLS' | 'MENU_MAP' | 'MENU_MANAGE_FLEET' | 'MENU_MANAGE_BUILDINGS' | 'MENU_NEW_BUILDING' | 'MENU_NEW_VEHICLE'
+export type SidemenuOptions = 'MENU_CALLS' | 'MENU_MAP' | 'MENU_MANAGE_FLEET' | 'MENU_MANAGE_BUILDINGS' | 'MENU_NEW_BUILDING' | 'MENU_NEW_VEHICLE' | 'MENU_MISSION'
 
 export interface SidemenuInterface {
     type: SidemenuOptions
@@ -195,9 +196,11 @@ export interface GameEvents {
     emit(eventName: 'EVENT_GAME_START', data: savegameInterface): void
 }
 
+export type MissionEventTypes = "EVENT_MISSION_CREATE" | "EVENT_MISSION_ITEM_TOGGLE" | "EVENT_MISSION_CANCEL" | "EVENT_MISSION_START"
+
 export interface MissionEvents {
-    on(eventName: 'EVENT_MISSION_CREATE', handler: (data: MissionInterface) => void): void
-    emit(eventName: 'EVENT_MISSION_CREATE', data: MissionInterface): void
+    on(eventName: MissionEventTypes, handler: (data: MissionInterface) => void): void
+    emit(eventName: MissionEventTypes, data: MissionInterface): void
 }
 
 export type MissionAreaObject = {
