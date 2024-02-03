@@ -1,7 +1,6 @@
 'use client'
 
 import { GameEmitter } from '@/app/emitter';
-import { init } from '@/app/script/setup';
 import Sidebar from '@/app/shared/components/nav/sidenav';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -12,7 +11,6 @@ import { IoMdAddCircle } from 'react-icons/io';
 
 export default function Page() {
     useEffect(() => {
-        init();
         const session = crypto.randomUUID()
         const game_data = {
             game_id: "My Save",

@@ -23,7 +23,6 @@ import { Mission, generateMissionData } from "./gen/mission";
 
 export const MAP_SPAWN = '13.5,52.5'
 export function init() {
-
     GameEmitter.on('EVENT_GAME_START', async (data) => {
 
         const getFromDBOptions: DatabaseOptions = {

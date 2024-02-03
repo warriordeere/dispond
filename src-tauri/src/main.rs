@@ -1,18 +1,25 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+mod presence;
+
+use presence::setup_presence;
+use serde::{Deserialize, Serialize};
 use std::{
     fs::File,
     io::{Read, Write},
 };
-
-use serde::{Deserialize, Serialize};
 
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![setup, read_file])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+
+    match setup_presence() {
+        Ok(_) => println!("rpc success"),
+        Err(e) => eprintln!("rpc failed: {}", e),
+    }
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -51,7 +58,7 @@ fn setup(data: String) {
 #[derive(Debug, Deserialize)]
 struct ReadFileData {
     base_dir: String,
-    file_path: String
+    file_path: String,
 }
 
 #[tauri::command]
