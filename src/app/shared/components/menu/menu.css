@@ -17,7 +17,7 @@
     }
 }
 
-.sidemenu-item{
+.sidemenu-item {
     height: 100%;
     width: 100%;
 }
@@ -50,9 +50,16 @@
 
 .sidemenu-action-row {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: .75rem;
+}
+
+.sidemenu-ar-item {
+    display: flex;
     flex-direction: row;
     align-items: center;
-    column-gap: .75rem;
+    gap: .5rem;
 }
 
 .sidemenu-action-field {

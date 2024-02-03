@@ -196,6 +196,11 @@ export interface GameEvents {
     emit(eventName: 'EVENT_GAME_START', data: savegameInterface): void
 }
 
+export interface VehicleEvents {
+    on(eventName: 'EVENT_VEHICLE_PURCHASE', handler: (data: ShopItemData) => void): void
+    emit(eventName: 'EVENT_VEHICLE_PURCHASE', data: savegameInterface): void
+}
+
 export type MissionEventTypes = "EVENT_MISSION_CREATE" | "EVENT_MISSION_ITEM_TOGGLE" | "EVENT_MISSION_CANCEL" | "EVENT_MISSION_START"
 
 export interface MissionEvents {
@@ -207,3 +212,12 @@ export type MissionAreaObject = {
     type: 'Municipality' | 'CountrySecondarySubdivision' | 'CountrySubdivision'
     name: string
 }
+
+export interface ShopItemData {
+    item_type: "SHOP_ITEM_TYPE_VEHICLE"
+    item_id: string
+    item_secondary_type: VehicleTypes
+    item_cost: number
+}
+
+export type VehicleTypes = "VEHICLE_TYPE_HLF"

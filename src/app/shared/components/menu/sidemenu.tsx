@@ -1,10 +1,12 @@
 import { Resizable } from 're-resizable';
-import { BiSolidPhoneCall, BiSolidError } from "react-icons/bi";
-import { BsBuildingFillGear, BsBuildingFillAdd, BsArrowLeftCircle } from "react-icons/bs";
+import { BiSolidPhoneCall, BiSolidAmbulance } from "react-icons/bi";
+import { BsBuildingFillAdd, BsBuildingFill } from "react-icons/bs";
 import { SidemenuInterface, SidemenuContentInterface } from "../../types/types";
 import CallItem from "../calls/calls";
 import { BuildingMenu, AddBuildingMenu } from "./buildingmenu";
 import './menu.css';
+import { FleetManageMenu, VehicleShop } from './fleetmenu';
+import { FaCartShopping } from 'react-icons/fa6';
 
 export function Sidemenu(data: SidemenuInterface) {
     switch (data.type) {
@@ -20,9 +22,9 @@ export function Sidemenu(data: SidemenuInterface) {
         case 'MENU_MANAGE_FLEET':
             return (
                 <SidemenuContent data={{
-                    title: "501 - Not implemented",
-                    icon: <BiSolidError />,
-                    content: ''
+                    title: "Fahrzeugmenü",
+                    icon: <BiSolidAmbulance />,
+                    content: <FleetManageMenu />
                 }} />
             );
 
@@ -30,7 +32,7 @@ export function Sidemenu(data: SidemenuInterface) {
             return (
                 <SidemenuContent data={{
                     title: "Baumenü",
-                    icon: <BsBuildingFillGear />,
+                    icon: <BsBuildingFill />,
                     content: <BuildingMenu />
                 }} />
             );
@@ -41,6 +43,15 @@ export function Sidemenu(data: SidemenuInterface) {
                     title: "Neues Gebäude",
                     icon: <BsBuildingFillAdd />,
                     content: <AddBuildingMenu />
+                }} />
+            );
+
+        case 'MENU_NEW_VEHICLE':
+            return (
+                <SidemenuContent data={{
+                    title: "Fahrzeughändler",
+                    icon: <FaCartShopping />,
+                    content: <VehicleShop />
                 }} />
             );
     }

@@ -1,11 +1,12 @@
 import { postDB } from "./indexed_db";
 import { map_inst } from "./shared/components/map/map";
-import { BuildingEvents, DatabasePostOptions, GameEvents, MissionEvents } from "./shared/types/types";
+import { BuildingEvents, DatabasePostOptions, GameEvents, MissionEvents, VehicleEvents } from "./shared/types/types";
 var EventEmitter = require('events')
 
-export const BuildingEmitter: BuildingEvents = new EventEmitter()
-export const GameEmitter: GameEvents = new EventEmitter()
-export const MissionEmitter: MissionEvents = new EventEmitter()
+export const VehicleEmitter: VehicleEvents = new EventEmitter();
+export const BuildingEmitter: BuildingEvents = new EventEmitter();
+export const GameEmitter: GameEvents = new EventEmitter();
+export const MissionEmitter: MissionEvents = new EventEmitter();
 
 BuildingEmitter.on('EVENT_BUILDING_CREATE', async (data) => {
     const options: DatabasePostOptions = {

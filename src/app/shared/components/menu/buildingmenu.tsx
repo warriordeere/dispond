@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from "next/navigation";
-import { BsBuildingFillAdd, BsCashCoin, BsFillBuildingFill, BsPencilFill } from "react-icons/bs"
+import { BsBuildingFillAdd, BsBuildingFillGear, BsCashCoin, BsFillBuildingFill, BsPencilFill } from "react-icons/bs"
 import '@tomtom-international/web-sdk-plugin-searchbox/dist/SearchBox.css';
 import SearchBox from '@tomtom-international/web-sdk-plugin-searchbox';
 import { services } from "@tomtom-international/web-sdk-services";
@@ -17,13 +17,24 @@ export function BuildingMenu() {
     const router = useRouter();
     return (
         <div className="sidemenu-action-row">
-            <button className="sidemenu-btn react-icon-regular"
-                onClick={() => {
-                    router.push('./buildings/new')
-                }}>
-                <BsBuildingFillAdd />
-            </button>
-            <span className="sidemenu-btn-label">Neues Gebäude</span>
+            <div className="sidemenu-ar-item">
+                <button className="sidemenu-btn react-icon-regular"
+                    onClick={() => {
+                        router.push('./buildings/new')
+                    }}>
+                    <BsBuildingFillAdd />
+                </button>
+                <span className="sidemenu-btn-label">Neues Gebäude</span>
+            </div>
+            <div className="sidemenu-ar-item">
+                <button className="sidemenu-btn react-icon-regular"
+                    onClick={() => {
+                        router.push('./buildings/manage')
+                    }}>
+                    <BsBuildingFillGear />
+                </button>
+                <span className="sidemenu-btn-label">Gebäude Verwalten</span>
+            </div>
         </div>
     )
 }
