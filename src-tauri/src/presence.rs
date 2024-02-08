@@ -4,7 +4,7 @@ use std::env;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
 pub fn setup_presence() -> Result<(), discord_rpc_client::Error> {
-    println!("running rpc");
+    println!("starting rpc");
     dotenv().ok();
     let client_id = env::var("RPC_CLIENT_ID").unwrap();
     let mut client = Client::new(client_id.parse::<u64>().unwrap());

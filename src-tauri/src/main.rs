@@ -12,14 +12,14 @@ use std::{
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![setup, read_file])
+        .invoke_handler(tauri::generate_handler![setup, read_file, presence])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 
-    match setup_presence() {
-        Ok(_) => println!("rpc success"),
-        Err(e) => eprintln!("rpc failed: {}", e),
-    }
+    // match setup_presence() {
+    //     Ok(_) => println!("rpc success"),
+    //     Err(e) => eprintln!("rpc failed: {}", e),
+    // }
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -77,5 +77,13 @@ fn read_file(data: ReadFileData) -> Result<String, String> {
         Ok(contents.into())
     } else {
         Err("Directory not found".into())
+    }
+}
+
+#[tauri::command]
+fn presence() {
+    match setup_presence() {
+        Ok(_) => println!("rpc success"),
+        Err(e) => eprintln!("rpc failed: {}", e),
     }
 }
