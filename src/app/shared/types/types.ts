@@ -207,3 +207,15 @@ export type MissionAreaObject = {
     type: 'Municipality' | 'CountrySecondarySubdivision' | 'CountrySubdivision'
     name: string
 }
+
+export interface PresenceData {
+    action: "EVENT_RPC_START" | "EVENT_RPC_UPDATE",
+    data: {
+        state: String | "",
+        details: String | "",
+        image_large: String | "",
+        text_large: String | "",
+        image_small: String | "",
+        text_small: String | "",
+    }
+}

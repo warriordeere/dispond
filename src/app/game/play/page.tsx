@@ -8,6 +8,7 @@ import { BiSolidPhoneCall } from 'react-icons/bi';
 import { FaMap } from 'react-icons/fa';
 import { AiFillHome } from 'react-icons/ai';
 import { IoMdAddCircle } from 'react-icons/io';
+import { updatePresence } from '@/app/script/utils';
 
 export default function Page() {
     useEffect(() => {
@@ -27,6 +28,8 @@ export default function Page() {
                 spawn: [13.5, 52.5]
             }
         })
+
+        updatePresence();
     }, [])
 
     const router = useRouter();

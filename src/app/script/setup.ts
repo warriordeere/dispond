@@ -1,6 +1,6 @@
 import { invoke } from "@tauri-apps/api/tauri";
 import { GameEmitter } from "../emitter";
-import { BuildingInterface, DatabaseOptions, MissionInterface } from "../shared/types/types";
+import { BuildingInterface, DatabaseOptions, MissionInterface, PresenceData } from "../shared/types/types";
 import { getDB } from "../indexed_db";
 import { map_inst } from "../shared/components/map/map";
 import tt, { LngLatBounds } from "@tomtom-international/web-sdk-maps";
@@ -24,7 +24,21 @@ import { Mission, generateMissionData } from "./gen/mission";
 export const MAP_SPAWN = '13.5,52.5'
 export function init() {
 
-    invoke('presence')
+    const presenceSetupData: PresenceData = {
+        action: "EVENT_RPC_START",
+        data: {
+            state: "Browsing The Main Menu",
+            details: "v0.2.1 Preview",
+            image_large: "arcavigi_interactive_logo",
+            text_large: "Dispond Early Access",
+            image_small: "",
+            text_small: ""
+        }
+    }
+
+    invoke('presence', {
+        data: presenceSetupData
+    })
         .then((r) => {
             console.log(r);
         })
