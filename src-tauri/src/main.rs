@@ -77,13 +77,13 @@ fn read_file(data: ReadFileData) -> Result<String, String> {
 }
 
 #[derive(Debug, Deserialize)]
-struct PresenceData {
+struct PresenceInterface {
     action: String,
-    data: PresenceDataDetails,
+    data: PresenceData,
 }
 
 #[derive(Debug, Deserialize)]
-struct PresenceDataDetails {
+struct PresenceData {
     state: String,
     details: String,
     image_large: String,
@@ -93,9 +93,11 @@ struct PresenceDataDetails {
 }
 
 #[tauri::command]
-fn presence(data: PresenceData) {
+fn presence(data: PresenceInterface) {
     let actd = data.data;
+
     let mut drpc = Client::new(1151927442596970517);
+
     let tn = SystemTime::now()
         .duration_since(UNIX_EPOCH)
         .expect("invalid time");
@@ -103,9 +105,9 @@ fn presence(data: PresenceData) {
     drpc.on_ready(|_ctx| println!("rpc ready"));
     drpc.on_error(|_ctx| eprintln!("rpc failed"));
 
-    if data.action == "EVENT_RPC_START" {
-        drpc.start();
+    drpc.start();
 
+    if data.action == "EVENT_RPC_START" {
         drpc.set_activity(|act| {
             act.state(actd.state).details(actd.details).assets(|ast| {
                 ast.large_image(actd.image_large)
@@ -128,10 +130,5 @@ fn presence(data: PresenceData) {
         .expect("setting activity failed");
     }
 
-    thread::sleep(time::Duration::from_secs(10))
-
-    // match setup_presence(data) {
-    //     Ok(_) => println!("rpc success"),
-    //     Err(e) => eprintln!("rpc failed: {}", e),
-    // }
+    thread::sleep(time::Duration::from_secs(10));
 }

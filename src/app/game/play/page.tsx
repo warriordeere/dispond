@@ -29,7 +29,14 @@ export default function Page() {
             }
         })
 
-        updatePresence();
+        updatePresence({
+            state: '',
+            details: '',
+            image_large: '',
+            text_large: '',
+            image_small: '',
+            text_small: ''
+        });
     }, [])
 
     const router = useRouter();

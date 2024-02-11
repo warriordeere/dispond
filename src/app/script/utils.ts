@@ -1,18 +1,18 @@
 import { invoke } from "@tauri-apps/api/tauri";
-import { PresenceData } from "../shared/types/types";
+import { PresenceData, PresenceInterface } from "../shared/types/types";
 
-export function updatePresence() {
+export function updatePresence(presence: PresenceData) {
 
     console.log("updating activity");
-    const presenceUpdateData: PresenceData = {
+    const presenceUpdateData: PresenceInterface = {
         action: "EVENT_RPC_UPDATE",
         data: {
-            state: "Ingame",
-            details: "Responding To Calls",
-            image_large: "arcavigi_interactive_logo",
-            text_large: "Dispond Early Access",
-            image_small: "arcavigi_interactive_logo",
-            text_small: "Level: Expert"
+            state: presence.state,
+            details: presence.details,
+            image_large: presence.image_large,
+            text_large: presence.text_large,
+            image_small: presence.image_small,
+            text_small: presence.text_small
         }
     }
 
