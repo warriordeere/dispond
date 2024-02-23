@@ -13,7 +13,7 @@ export interface savegameInterface {
 
 export type SidebarData = React.JSX.Element
 
-export type SidemenuOptions = 'MENU_CALLS' | 'MENU_MAP' | 'MENU_MANAGE_FLEET' | 'MENU_MANAGE_BUILDINGS' | 'MENU_NEW_BUILDING' | 'MENU_NEW_VEHICLE' | 'MENU_MISSION'
+export type SidemenuOptions = 'MENU_CALLS' | 'MENU_MAP' | 'MENU_FLEET' | 'MENU_MANAGE_FLEET' | 'MENU_MANAGE_BUILDINGS' | 'MENU_NEW_BUILDING' | 'MENU_NEW_VEHICLE' | 'MENU_MISSION'
 
 export interface SidemenuInterface {
     type: SidemenuOptions
@@ -154,12 +154,17 @@ export interface SavegameDataSchema extends DBSchema {
     },
     'DB_STORE_ACTIVE_MISSIONS': {
         key: string
-        value: BuildingInterface
+        value: MissionInterface
         indexes: { 'by-id': string }
-    };
+    },
+    'DB_STORE_PURCHASED_ITEMS': {
+        key: string
+        value: ShopItemData
+        indexes: { 'by-id': string }
+    },
 }
 
-export type DatabaseStores = 'DB_STORE_BUILDINGS' | 'DB_STORE_ACTIVE_MISSIONS'
+export type DatabaseStores = 'DB_STORE_BUILDINGS' | 'DB_STORE_ACTIVE_MISSIONS' | 'DB_STORE_PURCHASED_ITEMS'
 
 export interface DatabaseOptions {
     database: 'DB_SAVEGAME_DATA'
@@ -168,7 +173,7 @@ export interface DatabaseOptions {
 }
 
 export interface DatabasePostOptions extends DatabaseOptions {
-    data: BuildingInterface | MissionInterface
+    data: BuildingInterface | MissionInterface | ShopItemData
 }
 
 
@@ -215,9 +220,14 @@ export type MissionAreaObject = {
 
 export interface ShopItemData {
     item_type: "SHOP_ITEM_TYPE_VEHICLE"
-    item_id: string
+    id: string
     item_secondary_type: VehicleTypes
     item_cost: number
 }
 
 export type VehicleTypes = "VEHICLE_TYPE_HLF"
+
+export interface DBVersionInterface {
+    ltvs: string
+    crvs: string
+}

@@ -1,10 +1,25 @@
 import { openDB, IDBPDatabase } from 'idb';
-import { SavegameDataSchema, DatabaseOptions, DatabasePostOptions, DatabaseStores } from './shared/types/types';
+import { SavegameDataSchema, DatabaseOptions, DatabasePostOptions, DatabaseStores, DBVersionInterface } from './shared/types/types';
 
-function init(db_name: string): Promise<IDBPDatabase<any>> {
-    return openDB<SavegameDataSchema>(db_name, 1, {
+async function DBVersion(db_name: string): Promise<DBVersionInterface> {
+    const db = await openDB<SavegameDataSchema>(db_name);
+    const ltvs = localStorage.getItem('db_version');
+    const crvs = db.version.toString()
+
+    if (ltvs !== crvs) {
+        localStorage.setItem('db_version', crvs);
+    }
+    return {
+        'crvs': crvs,
+        'ltvs': ltvs ? (ltvs) : ('[ERROR] falsey "ltvs" value')
+    };
+}
+
+async function initDB(db_name: string): Promise<IDBPDatabase<any>> {
+    const dbv = await DBVersion(db_name);
+    return openDB<SavegameDataSchema>(db_name, new Number(dbv.crvs) as number, {
         upgrade(db) {
-            const valid_stores: DatabaseStores[] = ['DB_STORE_ACTIVE_MISSIONS', 'DB_STORE_BUILDINGS'];
+            const valid_stores: DatabaseStores[] = ['DB_STORE_ACTIVE_MISSIONS', 'DB_STORE_BUILDINGS', 'DB_STORE_PURCHASED_ITEMS'];
             valid_stores.forEach((store) => {
                 if (!db.objectStoreNames.contains(store)) {
                     const new_str = db.createObjectStore(store, { keyPath: 'id' });
@@ -18,7 +33,7 @@ function init(db_name: string): Promise<IDBPDatabase<any>> {
 export async function getDB(db_opt: DatabaseOptions): Promise<[]> {
     const db_name = db_opt.database;
     const db_store = db_opt.store;
-    const db = await init(db_name);
+    const db = await initDB(db_name);
 
     if (db.objectStoreNames.contains(db_store)) {
         const trx = db.transaction(db_store, 'readonly');
@@ -36,24 +51,34 @@ export async function getDB(db_opt: DatabaseOptions): Promise<[]> {
 export async function postDB(db_opt: DatabasePostOptions) {
     const db_name = db_opt.database;
     const db_store = db_opt.store;
+    const dbv = await DBVersion(db_name);
 
-    const db = await init(db_name);
+    let db = await initDB(db_name);
 
     db.addEventListener('versionchange', () => {
         db.close();
         console.warn('DB Version changed in another instance! Reload is required.');
     })
 
-    if (db.objectStoreNames.contains(db_store)) {
-        const trx = db.transaction(db_store, 'readwrite');
-        const str = trx.objectStore(db_store);
+    if (!db.objectStoreNames.contains(db_store)) {
+        const nwVrs = new Number(dbv.crvs) as number + 1;
+        localStorage.setItem('db_version', nwVrs.toString());
+        db.close();
+        db = await openDB(db_name, nwVrs, {
+            upgrade(db) {
+                const nwstr = db.createObjectStore(db_store, { keyPath: 'id' });
+                nwstr.createIndex('by-id', 'id');
+            }
+        })
+    }
 
-        await str.put(db_opt.data)
-        await trx.done;
-    }
-    else {
-        console.error('store not found!');
-    }
+    const trx = db.transaction(db_store, 'readwrite');
+    const str = trx.objectStore(db_store);
+
+    console.log(db_opt.data);
+
+    await str.put(db_opt.data)
+    await trx.done;
 
     db.close();
 }

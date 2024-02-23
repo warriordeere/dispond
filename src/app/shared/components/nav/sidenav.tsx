@@ -4,6 +4,8 @@ import { IoMdSettings } from "react-icons/io";
 import { SidebarData } from "../../types/types";
 import './sidenav.css';
 import '../../../globals.css';
+import { useRouter } from "next/navigation";
+import { BsArrowLeftCircle } from "react-icons/bs";
 
 export default function Sidebar({ data }: { data?: SidebarData }) {
     return (
@@ -19,5 +21,18 @@ export default function Sidebar({ data }: { data?: SidebarData }) {
                 </button>
             </div>
         </nav>
+    )
+}
+
+export function SidebarBackButton() {
+    const router = useRouter();
+    return (
+        <>
+            <button className="sidebar-item back-btn react-icon-regular" onClick={() => {
+                router.back()
+            }}>
+                <BsArrowLeftCircle />
+            </button>
+        </>
     )
 }

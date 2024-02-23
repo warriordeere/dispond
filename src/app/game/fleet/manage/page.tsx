@@ -10,7 +10,7 @@ export default function NewVehicle() {
     return (
         <>
             <Sidebar data={<SidebarBackButton />} />
-            <Sidemenu type="MENU_NEW_VEHICLE" />
+            <Sidemenu type="MENU_MANAGE_FLEET" />
         </>
     )
 }

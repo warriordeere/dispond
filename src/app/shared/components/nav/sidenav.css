@@ -21,7 +21,11 @@ button.sidebar-item {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background-color .25s ease-in-out;
+    transition: background-color .25s ease-in-out, border .25s ease-in-out;
+}
+
+button.sidebar-item.back-btn {
+    border-bottom-right-radius: 1rem;
 }
 
 .sidebar-item:hover {

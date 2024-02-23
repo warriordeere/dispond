@@ -5,7 +5,7 @@ import { SidemenuInterface, SidemenuContentInterface } from "../../types/types";
 import CallItem from "../calls/calls";
 import { BuildingMenu, AddBuildingMenu } from "./buildingmenu";
 import './menu.css';
-import { FleetManageMenu, VehicleShop } from './fleetmenu';
+import { FleetManageMenu, FleetMenu, VehicleShop } from './fleetmenu';
 import { FaCartShopping } from 'react-icons/fa6';
 
 export function Sidemenu(data: SidemenuInterface) {
@@ -16,6 +16,15 @@ export function Sidemenu(data: SidemenuInterface) {
                     title: "Anrufe",
                     icon: <BiSolidPhoneCall />,
                     content: <CallItem />
+                }} />
+            );
+
+        case 'MENU_FLEET':
+            return (
+                <SidemenuContent data={{
+                    title: "Fahrzeugmenü",
+                    icon: <BiSolidAmbulance />,
+                    content: <FleetMenu />
                 }} />
             );
 
