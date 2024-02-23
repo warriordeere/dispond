@@ -38,10 +38,8 @@ export default function CallItem() {
             {
                 missionData.map((item) => {
                     return (
-                        <details open className="call-item" key={item.id} id={item.id} onToggle={(e) => {
-                            if (e.currentTarget.open) {
-                                MissionEmitter.emit('EVENT_MISSION_ITEM_TOGGLE', item);
-                            }
+                        <details className="call-item" key={item.id} id={item.id} onDoubleClick={() => {
+                            MissionEmitter.emit('EVENT_MISSION_ITEM_TOGGLE', item);
                         }}>
                             <summary>
                                 <span className="caller-icon">
