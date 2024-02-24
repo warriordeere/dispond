@@ -38,5 +38,5 @@ MissionEmitter.on('EVENT_MISSION_ITEM_TOGGLE', (data) => {
 MissionEmitter.on('EVENT_MISSION_START', (data) => {
     // @ts-expect-error
     // type not corectly implemented (https://developer.tomtom.com/maps-sdk-web-js/documentation#Maps.Map)
-    map_inst.flyTo({ center: data.location.coords })
+    map_inst.flyTo({ center: data.location.coords });
 })

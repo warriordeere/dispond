@@ -223,6 +223,8 @@ export interface ShopItemData {
     id: string
     item_secondary_type: VehicleTypes
     item_cost: number
+    item_owner: string
+    item_position?: LngLatLike
 }
 
 export type VehicleTypes = "VEHICLE_TYPE_HLF"

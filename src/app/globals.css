@@ -159,3 +159,7 @@ button.btn-drp>.drp-cnt {
     border: 1px solid var(--text) !important;
     background-color: var(--background) !important;
 }
+
+dialog.indev-dialog {
+    z-index: 99;
+}
