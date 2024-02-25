@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { BsPencilFill, BsFillBuildingFill, BsCashCoin } from 'react-icons/bs';
 import { FaCar, FaCartShopping } from 'react-icons/fa6';
-import { buildingTypes, DatabaseOptions, GeometryData, ShopItemData, VehicleTypes } from '../../types/types';
+import { BuildingInterface, buildingTypes, DatabaseOptions, GeometryData, ShopItemData, VehicleTypes } from '../../types/types';
 import { getDB, postDB } from '@/app/indexed_db';
 
 export async function FleetManageMenu() {
@@ -68,15 +68,24 @@ export function VehicleShop() {
     const [vehicle_type, setVehicleType] = useState<VehicleTypes>('VEHICLE_TYPE_HLF');
     const [vehicle_cost, setVehicleCost] = useState<number>(0);
 
-    function handleVehiclePurchase() {
+    async function handleVehiclePurchase() {
         setVehicleId(crypto.randomUUID());
         setVehicleType('VEHICLE_TYPE_HLF');
+
+        // [Important!] todo: add functionality to choose wích building will be the "home" for the new vhc
+        const vhcHome: BuildingInterface[] = await getDB({
+            database: 'DB_SAVEGAME_DATA',
+            store: 'DB_STORE_BUILDINGS',
+            schema: 'SCHEMA_SAVEGAME_DATA'
+        });
 
         const data: ShopItemData = {
             item_type: 'SHOP_ITEM_TYPE_VEHICLE',
             id: vehicle_id,
             item_secondary_type: vehicle_type,
-            item_cost: vehicle_cost
+            item_cost: vehicle_cost,
+            item_owner: vhcHome[0].id,
+            item_position: vhcHome[0].position
         }
 
         postDB({

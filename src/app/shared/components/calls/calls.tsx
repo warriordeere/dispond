@@ -6,16 +6,37 @@ import { BsFire, BsPersonCircle } from "react-icons/bs";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { getDB } from '@/app/indexed_db';
 import React, { useEffect, useRef, useState } from 'react';
-import { DatabaseOptions, MissionInterface, ShopItemData } from '../../types/types';
+import { DatabaseOptions, MissionInterface, MissionRespondData, ShopItemData } from '../../types/types';
 import { MissionEmitter } from '@/app/emitter';
 import { BiSolidBellRing } from 'react-icons/bi';
-import { useRouter } from 'next/navigation';
 
 export default function CallItem() {
 
     const [missionData, setMissionData] = useState<MissionInterface[]>([]);
     const [vehicleData, setVehicleData] = useState<ShopItemData[]>([]);
+    const [selectedMission, setSelectedMission] = useState<MissionInterface | null>(null);
     const dialog = useRef<HTMLDialogElement>(null);
+
+    function handleOpenDialog(item: MissionInterface) {
+        setSelectedMission(item);
+        if (dialog.current) {
+            dialog.current.showModal();
+        }
+    }
+
+    function handleMissionRespond(vehicle: ShopItemData) {
+        if (selectedMission) {
+            const data: MissionRespondData = {
+                mission: selectedMission,
+                responding: [vehicle]
+            }
+            MissionEmitter.emit('EVENT_MISSION_RESPOND', data);
+
+            if (dialog.current) {
+                dialog.current.close();
+            }
+        }
+    }
 
     useEffect(() => {
         async function fetchData() {
@@ -56,7 +77,7 @@ export default function CallItem() {
     return (
         <>
             {
-                missionData.map((item) => {
+                missionData.map((item: MissionInterface) => {
                     return (
                         <>
                             <dialog ref={dialog} className='indev-dialog'>
@@ -64,12 +85,15 @@ export default function CallItem() {
                                 <p>Available Vehicles:</p>
                                 <div>
                                     {
-                                        vehicleData.map((vehicle) => {
+                                        vehicleData.map((vehicle: ShopItemData) => {
                                             return (
                                                 <>
                                                     <h3>{vehicle.item_secondary_type}</h3>
                                                     <p>{vehicle.id}</p>
-                                                    <button>Use Vehicle</button>
+                                                    <button
+                                                        onClick={() => handleMissionRespond(vehicle)}>
+                                                        Use Vehicle
+                                                    </button>
                                                 </>
                                             );
                                         })
@@ -118,15 +142,7 @@ export default function CallItem() {
                                             Beenden
                                         </button>
                                         <button className='miui-btn btn-action'
-                                            onClick={() => {
-                                                if (dialog.current) {
-                                                    dialog.current.showModal();
-                                                    MissionEmitter.emit('EVENT_MISSION_START', item);
-                                                }
-                                                else {
-                                                    throw new Error('[Error]');
-                                                }
-                                            }}>
+                                            onClick={() => handleOpenDialog(item)}>
                                             Alarmierung <BiSolidBellRing />
                                         </button>
                                     </div>

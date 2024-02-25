@@ -44,8 +44,14 @@
     left: 0;
     right: 0;
     color: var(--text);
-    padding: 2.5rem;
     border-top-left-radius: .75rem;
+}
+
+.sidemenu-body {
+    padding: 2.5rem;
+    height: 100%;
+    width: 100%;
+    overflow-y: overlay;
 }
 
 .sidemenu-action-row {

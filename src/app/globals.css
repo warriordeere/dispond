@@ -163,3 +163,9 @@ button.btn-drp>.drp-cnt {
 dialog.indev-dialog {
     z-index: 99;
 }
+
+dialog.indev-dialog button {
+    border: 1px black solid;
+    border-radius: .25rem;
+    padding: .25rem;
+}

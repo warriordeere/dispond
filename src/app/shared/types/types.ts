@@ -139,7 +139,10 @@ export interface ReadFileInterface {
 export interface BuildingInterface {
     id: string
     name: string
-    position: LngLatLike
+    position: {
+        lng: number
+        lat: number
+    }
     type: buildingTypes
     mission_area: GeometryData
 }
@@ -206,11 +209,19 @@ export interface VehicleEvents {
     emit(eventName: 'EVENT_VEHICLE_PURCHASE', data: savegameInterface): void
 }
 
-export type MissionEventTypes = "EVENT_MISSION_CREATE" | "EVENT_MISSION_ITEM_TOGGLE" | "EVENT_MISSION_CANCEL" | "EVENT_MISSION_START"
+export type MissionEventTypes = "EVENT_MISSION_CREATE" | "EVENT_MISSION_ITEM_TOGGLE" | "EVENT_MISSION_CANCEL" | "EVENT_MISSION_START" | "EVENT_MISSION_RESPOND"
 
 export interface MissionEvents {
     on(eventName: MissionEventTypes, handler: (data: MissionInterface) => void): void
     emit(eventName: MissionEventTypes, data: MissionInterface): void
+
+    on(eventName: "EVENT_MISSION_RESPOND", handler: (data: MissionRespondData) => void): void
+    emit(eventName: "EVENT_MISSION_RESPOND", data: MissionRespondData): void
+}
+
+export type MissionRespondData = {
+    mission: MissionInterface
+    responding: ShopItemData[]
 }
 
 export type MissionAreaObject = {
@@ -224,7 +235,10 @@ export interface ShopItemData {
     item_secondary_type: VehicleTypes
     item_cost: number
     item_owner: string
-    item_position?: LngLatLike
+    item_position: {
+        lng: number
+        lat: number
+    }
 }
 
 export type VehicleTypes = "VEHICLE_TYPE_HLF"
