@@ -169,3 +169,12 @@ dialog.indev-dialog button {
     border-radius: .25rem;
     padding: .25rem;
 }
+
+div.anm-icn {
+    background-color: var(--primary);
+    height: 3rem;
+    width: 3rem;
+    border-radius: 100%;
+    box-shadow: 0 0 1rem 0 black;
+    border: .1rem var(--text-100) solid;
+}

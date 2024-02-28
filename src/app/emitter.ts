@@ -1,9 +1,9 @@
-import { LngLatBoundsLike } from "@tomtom-international/web-sdk-maps";
 import { postDB } from "./indexed_db";
 import { map_inst } from "./shared/components/map/map";
 import { BuildingEvents, DatabasePostOptions, GameEvents, MissionEvents, ShopItemData, VehicleEvents } from "./shared/types/types";
-import tt, { LngLat } from "@tomtom-international/web-sdk-services";
+import tt from "@tomtom-international/web-sdk-services";
 import { API_KEY } from "./page";
+import { LngLat, Marker } from "@tomtom-international/web-sdk-maps";
 var EventEmitter = require('events')
 
 export const VehicleEmitter: VehicleEvents = new EventEmitter();
@@ -45,12 +45,11 @@ MissionEmitter.on('EVENT_MISSION_START', (data) => {
 })
 
 MissionEmitter.on('EVENT_MISSION_RESPOND', (data) => {
-    console.log(data.mission);
     const mission_loc = data.mission.location.coords;
     data.responding.forEach((vhc: ShopItemData) => {
 
         const { lat, lng } = vhc.item_position;
-        console.log(`${lat},${lng}:${mission_loc}`);
+        // also use vehicleHeight, vehicleLength, vehicleWidth, vehicleMaxSpeed, vehicleWeight  and travelMode: 'truck' for more realism
 
         tt.services.calculateRoute({
             key: API_KEY!,
@@ -71,12 +70,35 @@ MissionEmitter.on('EVENT_MISSION_RESPOND', (data) => {
                         'line-width': 5
                     }
                 });
+
+                const rcd = geojson.features[0].geometry.coordinates;
+                const ttis = r.routes[0].summary.travelTimeInSeconds * 100;
+                const vhcmrk = new Marker({
+                    color: 'blue'
+                });
+
+                const stps = new LngLat(rcd[0][0] as number, rcd[0][1] as number)
+
+                vhcmrk.setLngLat(stps);
+                vhcmrk.addTo(map_inst);
+
+                let idx = 0;
+
+                const intv = setInterval(() => {
+                    if (idx < rcd.length - 1) {
+                        const cps = new LngLat(rcd[idx][0] as number, rcd[idx][1] as number);
+                        vhcmrk.setLngLat(cps);
+                        idx++;
+                    }
+                    else {
+                        clearInterval(intv);
+                        idx = 0;
+                    }
+                }, ttis / rcd.length);
             })
             .catch((e) => {
                 console.log(e);
                 throw new Error(e);
             })
     });
-
-    // also use vehicleHeight, vehicleLength, vehicleWidth, vehicleMaxSpeed, vehicleWeight  and travelMode: 'truck' for more realism
 })

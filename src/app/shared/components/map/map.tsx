@@ -3,13 +3,14 @@
 import './map.css';
 import '../../../globals.css';
 import "@tomtom-international/web-sdk-maps/dist/maps.css";
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import tt from '@tomtom-international/web-sdk-maps';
 import { API_KEY } from '@/app/page';
 
 export let map_inst: tt.Map;
 
 export default function TTMap() {
+    const mapref = useRef<HTMLDivElement>(null);
     useEffect(() => {
 
         // used to make sure the map is added only once, I encountered an issue where the map was added multiple times.
@@ -32,7 +33,7 @@ export default function TTMap() {
 
     return (
         <section className="map-container">
-            <div id="map"></div>
+            <div id="map" ref={mapref}></div>
         </section>
     );
 }
