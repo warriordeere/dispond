@@ -80,7 +80,7 @@ export default function CallItem() {
                 missionData.map((item: MissionInterface) => {
                     return (
                         <>
-                            <dialog ref={dialog} className='indev-dialog'>
+                            <dialog ref={dialog} key={`dialog-${item.id}`} className='indev-dialog'>
                                 <h2>[INDEV] Choose Vehicle To Respond To Mission</h2>
                                 <p>Available Vehicles:</p>
                                 <div>
@@ -100,7 +100,7 @@ export default function CallItem() {
                                     }
                                 </div>
                             </dialog>
-                            <details className="call-item" key={item.id} id={item.id} onDoubleClick={() => {
+                            <details className="call-item" key={`details-${item.id}`} id={item.id} onDoubleClick={() => {
                                 MissionEmitter.emit('EVENT_MISSION_ITEM_TOGGLE', item);
                             }}>
                                 <summary>

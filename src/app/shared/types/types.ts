@@ -209,7 +209,7 @@ export interface VehicleEvents {
     emit(eventName: 'EVENT_VEHICLE_PURCHASE', data: savegameInterface): void
 }
 
-export type MissionEventTypes = "EVENT_MISSION_CREATE" | "EVENT_MISSION_ITEM_TOGGLE" | "EVENT_MISSION_CANCEL" | "EVENT_MISSION_START" | "EVENT_MISSION_RESPOND"
+export type MissionEventTypes = "EVENT_MISSION_CREATE" | "EVENT_MISSION_ITEM_TOGGLE" | "EVENT_MISSION_CANCEL" | "EVENT_MISSION_START" | "EVENT_MISSION_RESPOND" | "EVENT_MISSION_REMOVE"
 
 export interface MissionEvents {
     on(eventName: MissionEventTypes, handler: (data: MissionInterface) => void): void
@@ -217,6 +217,9 @@ export interface MissionEvents {
 
     on(eventName: "EVENT_MISSION_RESPOND", handler: (data: MissionRespondData) => void): void
     emit(eventName: "EVENT_MISSION_RESPOND", data: MissionRespondData): void
+
+    on(eventName: "EVENT_MISSION_START", handler: (mission_location: LngLatLike) => void): void
+    emit(eventName: "EVENT_MISSION_START", mission_location: LngLatLike): void
 }
 
 export type MissionRespondData = {

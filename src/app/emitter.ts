@@ -37,13 +37,6 @@ MissionEmitter.on('EVENT_MISSION_ITEM_TOGGLE', (data) => {
     map_inst.flyTo({ center: data.location.coords })
 })
 
-MissionEmitter.on('EVENT_MISSION_START', (data) => {
-    console.log(data);
-    // @ts-expect-error
-    // type not corectly implemented (https://developer.tomtom.com/maps-sdk-web-js/documentation#Maps.Map)
-    map_inst.flyTo({ center: data.location.coords });
-})
-
 MissionEmitter.on('EVENT_MISSION_RESPOND', (data) => {
     const mission_loc = data.mission.location.coords;
     data.responding.forEach((vhc: ShopItemData) => {
@@ -93,6 +86,7 @@ MissionEmitter.on('EVENT_MISSION_RESPOND', (data) => {
                     else {
                         clearInterval(intv);
                         idx = 0;
+                        MissionEmitter.emit('EVENT_MISSION_START', mission_loc);
                     }
                 }, ttis / rcd.length);
             })

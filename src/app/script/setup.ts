@@ -1,9 +1,9 @@
 import { invoke } from "@tauri-apps/api/tauri";
-import { GameEmitter } from "../emitter";
+import { GameEmitter, MissionEmitter } from "../emitter";
 import { BuildingInterface, DatabaseOptions, MissionInterface } from "../shared/types/types";
 import { getDB } from "../indexed_db";
 import { map_inst } from "../shared/components/map/map";
-import tt, { LngLatBounds } from "@tomtom-international/web-sdk-maps";
+import tt, { LngLatBounds, Marker } from "@tomtom-international/web-sdk-maps";
 import { Mission, generateMissionData } from "./gen/mission";
 // import { currentMonitor, appWindow, PhysicalPosition } from "@tauri-apps/api/window";
 
@@ -100,8 +100,14 @@ export function init() {
 
             activeMissionData.forEach((mission: MissionInterface) => {
                 const marker = new tt.Marker({ draggable: false, color: 'orange' });
+                const popup = new tt.Popup({ anchor: 'top', closeButton: false });
+
                 marker.setLngLat(mission.location.coords);
                 marker.addTo(map_inst);
+                popup.setHTML(`<strong>${mission.mission.specific}</strong><br>${mission.location.free_address}`);
+                popup.addTo(map_inst);
+                marker.setPopup(popup);
+                marker.togglePopup();
             })
         }
 
@@ -132,10 +138,25 @@ export function init() {
 
                         marker.setLngLat(newMission.data.location.coords);
                         marker.addTo(map_inst);
-                        popup.setText(newMission.data.location.free_address);
+                        popup.setHTML(`<strong>${newMission.data.mission.specific}</strong><br>${newMission.data.location.free_address}`);
                         popup.addTo(map_inst);
                         marker.setPopup(popup);
                         marker.togglePopup();
+
+                        MissionEmitter.on('EVENT_MISSION_REMOVE', (data) => {
+                            console.log(data);
+                            marker.remove();
+                        });
+
+                        MissionEmitter.on('EVENT_MISSION_START', (mission_location) => {
+                            marker.remove();
+                            const prgmrk = new Marker({
+                                color: 'yellow',
+                                draggable: false
+                            });
+                            prgmrk.addTo(map_inst);
+                        });
+
                     } else {
                         throw new Error(`corrupted data, 'mission_area' of 'building' is '${area}' (invalid)`)
                     }

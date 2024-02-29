@@ -2,7 +2,7 @@ import { MissionInterface, ReverseGeocodeResult, callerObject, missionObject } f
 import { BaseDirectory, readTextFile } from "@tauri-apps/api/fs";
 import { GeometryData } from "@/app/shared/types/types";
 import { LngLatLike } from "@tomtom-international/web-sdk-maps";
-import tt, { StructuredGeocodeOptions } from "@tomtom-international/web-sdk-services";
+import tt from "@tomtom-international/web-sdk-services";
 import * as turf_bbox from '@turf/bbox';
 import * as turf_boolean_point_in_polygon from '@turf/boolean-point-in-polygon';
 import * as turf_random from '@turf/random'
