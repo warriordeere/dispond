@@ -221,3 +221,22 @@ export interface PresenceData {
     image_small: String | ""
     text_small: String | ""
 }
+
+export interface ShopItemData {
+    item_type: "SHOP_ITEM_TYPE_VEHICLE"
+    id: string
+    item_secondary_type: VehicleTypes
+    item_cost: number
+    item_owner: string
+    item_position: {
+        lng: number
+        lat: number
+    }
+}
+
+export type VehicleTypes = "VEHICLE_TYPE_HLF"
+
+export interface DBVersionInterface {
+    ltvs: string
+    crvs: string
+}
