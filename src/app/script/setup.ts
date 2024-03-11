@@ -143,20 +143,6 @@ export function init() {
                         marker.setPopup(popup);
                         marker.togglePopup();
 
-                        MissionEmitter.on('EVENT_MISSION_REMOVE', (data) => {
-                            console.log(data);
-                            marker.remove();
-                        });
-
-                        MissionEmitter.on('EVENT_MISSION_START', (mission_location) => {
-                            marker.remove();
-                            const prgmrk = new Marker({
-                                color: 'yellow',
-                                draggable: false
-                            });
-                            prgmrk.addTo(map_inst);
-                        });
-
                     } else {
                         throw new Error(`corrupted data, 'mission_area' of 'building' is '${area}' (invalid)`)
                     }
