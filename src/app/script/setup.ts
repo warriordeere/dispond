@@ -30,8 +30,8 @@ export function init() {
         action: "EVENT_RPC_START",
         data: {
             state: "Browsing The Main Menu",
-            details: "v0.2.1 Preview",
-            image_large: "arcavigi_interactive_logo",
+            details: "v0.3.1 Preview",
+            image_large: "logo_v1-1024",
             text_large: "Dispond Early Access",
             image_small: "",
             text_small: ""

@@ -9,7 +9,7 @@
   },
   "package": {
     "productName": "Dispond",
-    "version": "0.2.1"
+    "version": "0.3.1"
   },
   "tauri": {
     "allowlist": {
@@ -58,7 +58,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.arcavigi.net",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -88,7 +88,7 @@
         "resizable": true,
         "maximized": true,
         "decorations": false,
-        "title": "Dispond v0.2.1"
+        "title": "Dispond v0.3.1"
       }
     ]
   }
