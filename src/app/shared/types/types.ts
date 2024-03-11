@@ -232,6 +232,20 @@ export type MissionAreaObject = {
     name: string
 }
 
+export interface PresenceInterface {
+    action: "EVENT_RPC_START" | "EVENT_RPC_UPDATE"
+    data: PresenceData
+}
+
+export interface PresenceData {
+    state: String | ""
+    details: String | ""
+    image_large: String | ""
+    text_large: String | ""
+    image_small: String | ""
+    text_small: String | ""
+}
+
 export interface ShopItemData {
     item_type: "SHOP_ITEM_TYPE_VEHICLE"
     id: string
@@ -249,18 +263,4 @@ export type VehicleTypes = "VEHICLE_TYPE_HLF"
 export interface DBVersionInterface {
     ltvs: string
     crvs: string
-}
-
-export interface PresenceInterface {
-    action: "EVENT_RPC_START" | "EVENT_RPC_UPDATE"
-    data: PresenceData
-}
-
-export interface PresenceData {
-    state: String | ""
-    details: String | ""
-    image_large: String | ""
-    text_large: String | ""
-    image_small: String | ""
-    text_small: String | ""
 }
