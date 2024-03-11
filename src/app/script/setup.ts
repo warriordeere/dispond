@@ -1,10 +1,11 @@
 import { invoke } from "@tauri-apps/api/tauri";
-import { GameEmitter, MissionEmitter } from "../emitter";
-import { BuildingInterface, DatabaseOptions, MissionInterface } from "../shared/types/types";
+import { GameEmitter } from "../emitter";
+import { BuildingInterface, DatabaseOptions, MissionInterface, PresenceInterface } from "../shared/types/types";
 import { getDB } from "../indexed_db";
 import { map_inst } from "../shared/components/map/map";
 import tt, { LngLatBounds, Marker } from "@tomtom-international/web-sdk-maps";
 import { Mission, generateMissionData } from "./gen/mission";
+
 // import { currentMonitor, appWindow, PhysicalPosition } from "@tauri-apps/api/window";
 
 // export async function setupWindow() {
