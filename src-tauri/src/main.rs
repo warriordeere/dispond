@@ -1,16 +1,19 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+use discord_rpc_client::Client;
+use serde::{Deserialize, Serialize};
 use std::{
+    env,
     fs::File,
     io::{Read, Write},
+    thread,
+    time::{self, SystemTime, UNIX_EPOCH},
 };
-
-use serde::{Deserialize, Serialize};
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![setup, read_file])
+        .invoke_handler(tauri::generate_handler![setup, read_file, presence])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -51,7 +54,7 @@ fn setup(data: String) {
 #[derive(Debug, Deserialize)]
 struct ReadFileData {
     base_dir: String,
-    file_path: String
+    file_path: String,
 }
 
 #[tauri::command]
@@ -71,4 +74,61 @@ fn read_file(data: ReadFileData) -> Result<String, String> {
     } else {
         Err("Directory not found".into())
     }
+}
+
+#[derive(Debug, Deserialize)]
+struct PresenceInterface {
+    action: String,
+    data: PresenceData,
+}
+
+#[derive(Debug, Deserialize)]
+struct PresenceData {
+    state: String,
+    details: String,
+    image_large: String,
+    text_large: String,
+    image_small: String,
+    text_small: String,
+}
+
+#[tauri::command]
+fn presence(data: PresenceInterface) {
+    let actd = data.data;
+
+    let mut drpc = Client::new(1151927442596970517);
+
+    let tn = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .expect("invalid time");
+
+    drpc.on_ready(|_ctx| println!("rpc ready"));
+    drpc.on_error(|_ctx| eprintln!("rpc failed"));
+
+    drpc.start();
+
+    if data.action == "EVENT_RPC_START" {
+        drpc.set_activity(|act| {
+            act.state(actd.state).details(actd.details).assets(|ast| {
+                ast.large_image(actd.image_large)
+                    .large_text(actd.text_large)
+            })
+        })
+        .expect("setting activity failed");
+    } else if data.action == "EVENT_RPC_UPDATE" {
+        drpc.set_activity(|act| {
+            act.state(actd.state)
+                .details(actd.details)
+                .assets(|at| {
+                    at.large_image(actd.image_large)
+                        .large_text(actd.text_large)
+                        .small_image(actd.image_small)
+                        .small_text(actd.text_small)
+                })
+                .timestamps(|t| t.start(tn.as_secs()))
+        })
+        .expect("setting activity failed");
+    }
+
+    thread::sleep(time::Duration::from_secs(10));
 }

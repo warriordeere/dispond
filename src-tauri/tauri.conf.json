@@ -9,7 +9,7 @@
   },
   "package": {
     "productName": "Dispond",
-    "version": "0.1.3"
+    "version": "0.2.1"
   },
   "tauri": {
     "allowlist": {
@@ -88,7 +88,7 @@
         "resizable": true,
         "maximized": true,
         "decorations": false,
-        "title": "Dispond v0.1.3"
+        "title": "Dispond v0.2.1"
       }
     ]
   }

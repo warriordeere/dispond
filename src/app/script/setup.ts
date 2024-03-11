@@ -25,6 +25,29 @@ import { Mission, generateMissionData } from "./gen/mission";
 export const MAP_SPAWN = '13.5,52.5'
 export function init() {
 
+
+    const presenceSetupData: PresenceInterface = {
+        action: "EVENT_RPC_START",
+        data: {
+            state: "Browsing The Main Menu",
+            details: "v0.2.1 Preview",
+            image_large: "arcavigi_interactive_logo",
+            text_large: "Dispond Early Access",
+            image_small: "",
+            text_small: ""
+        }
+    }
+
+    invoke('presence', {
+        data: presenceSetupData
+    })
+        .then((r) => {
+            console.log(r);
+        })
+        .catch((e) => {
+            throw new Error(e)
+        })
+
     GameEmitter.on('EVENT_GAME_START', async (data) => {
 
         const getFromDBOptions: DatabaseOptions = {

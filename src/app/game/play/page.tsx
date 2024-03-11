@@ -1,7 +1,6 @@
 'use client'
 
 import { GameEmitter } from '@/app/emitter';
-import { init } from '@/app/script/setup';
 import Sidebar from '@/app/shared/components/nav/sidenav';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -9,10 +8,10 @@ import { BiSolidPhoneCall } from 'react-icons/bi';
 import { FaMap } from 'react-icons/fa';
 import { AiFillHome } from 'react-icons/ai';
 import { IoMdAddCircle } from 'react-icons/io';
+import { updatePresence } from '@/app/script/utils';
 
 export default function Page() {
     useEffect(() => {
-        init();
         const session = crypto.randomUUID()
         const game_data = {
             game_id: "My Save",
@@ -29,6 +28,15 @@ export default function Page() {
                 spawn: [13.5, 52.5]
             }
         })
+
+        updatePresence({
+            state: '',
+            details: '',
+            image_large: '',
+            text_large: '',
+            image_small: '',
+            text_small: ''
+        });
     }, [])
 
     const router = useRouter();
