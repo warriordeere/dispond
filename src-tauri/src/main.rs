@@ -93,42 +93,45 @@ struct PresenceData {
 }
 
 #[tauri::command]
-fn presence(data: PresenceInterface) {
-    let actd = data.data;
+fn presence(window: tauri::Window, data: PresenceInterface) {
+    println!("creating new thread for rpc...");
+    thread::spawn(move || {
+        println!("starting rpc...");
+        let actd = data.data;
 
-    let mut drpc = Client::new(1151927442596970517);
+        let mut drpc = Client::new(1151927442596970517);
 
-    let tn = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .expect("invalid time");
+        let tn = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .expect("invalid time");
 
-    drpc.on_ready(|_ctx| println!("rpc ready"));
-    drpc.on_error(|_ctx| eprintln!("rpc failed"));
+        drpc.on_ready(|_ctx| println!("rpc ready!"));
+        drpc.on_error(|_ctx| eprintln!("rpc failed!"));
 
-    drpc.start();
+        drpc.start();
 
-    if data.action == "EVENT_RPC_START" {
-        drpc.set_activity(|act| {
-            act.state(actd.state).details(actd.details).assets(|ast| {
-                ast.large_image(actd.image_large)
-                    .large_text(actd.text_large)
+        if data.action == "EVENT_RPC_SET" {
+            drpc.set_activity(|act| {
+                act.state(actd.state)
+                    .details(actd.details)
+                    .assets(|at| {
+                        at.large_image(actd.image_large)
+                            .large_text(actd.text_large)
+                            .small_image(actd.image_small)
+                            .small_text(actd.text_small)
+                    })
+                    .timestamps(|t| t.start(tn.as_secs()))
             })
-        })
-        .expect("setting activity failed");
-    } else if data.action == "EVENT_RPC_UPDATE" {
-        drpc.set_activity(|act| {
-            act.state(actd.state)
-                .details(actd.details)
-                .assets(|at| {
-                    at.large_image(actd.image_large)
-                        .large_text(actd.text_large)
-                        .small_image(actd.image_small)
-                        .small_text(actd.text_small)
-                })
-                .timestamps(|t| t.start(tn.as_secs()))
-        })
-        .expect("setting activity failed");
-    }
+            .expect("setting activity failed!");
+            println!("rpc activity set!");
+        } else {
+            eprintln!("set rpc activity failed!");
+        }
 
-    thread::sleep(time::Duration::from_secs(10));
+        thread::sleep(time::Duration::from_secs(10));
+
+        window
+            .emit("EVENT_RPC_SET_SUCCESS", None::<()>)
+            .expect("failed to omit rpc-success event!");
+    });
 }

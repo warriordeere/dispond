@@ -1,4 +1,5 @@
 import { invoke } from "@tauri-apps/api/tauri";
+import { listen } from "@tauri-apps/api/event";
 import { GameEmitter } from "../emitter";
 import { BuildingInterface, DatabaseOptions, MissionInterface, PresenceInterface } from "../shared/types/types";
 import { getDB } from "../indexed_db";
@@ -27,7 +28,7 @@ export function init() {
 
 
     const presenceSetupData: PresenceInterface = {
-        action: "EVENT_RPC_START",
+        action: "EVENT_RPC_SET",
         data: {
             state: "Browsing The Main Menu",
             details: "v0.3.1 Preview",
@@ -47,6 +48,10 @@ export function init() {
         .catch((e) => {
             throw new Error(e)
         })
+
+    listen('EVENT_RPC_SET_SUCCESS', () => {
+        console.log('EVENT_RPC_SET_SUCCESS');
+    });
 
     GameEmitter.on('EVENT_GAME_START', async (data) => {
 

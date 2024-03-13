@@ -233,7 +233,7 @@ export type MissionAreaObject = {
 }
 
 export interface PresenceInterface {
-    action: "EVENT_RPC_START" | "EVENT_RPC_UPDATE"
+    action: "EVENT_RPC_SET"
     data: PresenceData
 }
 
