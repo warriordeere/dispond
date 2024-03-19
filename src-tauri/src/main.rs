@@ -1,14 +1,15 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use discord_rpc_client::Client;
+use core::time;
+use discord_presence::Client;
 use serde::{Deserialize, Serialize};
 use std::{
     env,
     fs::File,
     io::{Read, Write},
-    thread,
-    time::{self, SystemTime, UNIX_EPOCH},
+    sync::{Arc, Mutex},
+    thread::{self},
 };
 
 fn main() {
@@ -93,45 +94,67 @@ struct PresenceData {
 }
 
 #[tauri::command]
-fn presence(window: tauri::Window, data: PresenceInterface) {
-    println!("creating new thread for rpc...");
+fn presence(data: PresenceInterface) {
+    // adapted from https://github.com/jewlexx/discord-presence/blob/trunk/examples/discord_presence.rs
+    // moving the rpc to an other thread; preventing an freezed app
+
+    println!("Running rpc client with action: {}", data.action);
+
+    let rpc = Arc::new(Mutex::new(Client::new(1151927442596970517)));
+    let rpc_clone = rpc.clone();
+    let data_arc = Arc::new(Mutex::new(data));
+
     thread::spawn(move || {
-        println!("starting rpc...");
-        let actd = data.data;
+        let rpc_inner_clone = rpc_clone.clone();
+        let data_clone = Arc::clone(&data_arc);
 
-        let mut drpc = Client::new(1151927442596970517);
-
-        let tn = SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .expect("invalid time");
-
-        drpc.on_ready(|_ctx| println!("rpc ready!"));
-        drpc.on_error(|_ctx| eprintln!("rpc failed!"));
-
-        drpc.start();
-
-        if data.action == "EVENT_RPC_SET" {
-            drpc.set_activity(|act| {
-                act.state(actd.state)
-                    .details(actd.details)
-                    .assets(|at| {
-                        at.large_image(actd.image_large)
-                            .large_text(actd.text_large)
-                            .small_image(actd.image_small)
-                            .small_text(actd.text_small)
-                    })
-                    .timestamps(|t| t.start(tn.as_secs()))
+        rpc_clone
+            .lock()
+            .unwrap()
+            .on_ready(move |_ctx| {
+                println!("[DEBUG] [EVENT] rpc ready");
+                set_activity(&rpc_inner_clone, &data_clone);
             })
-            .expect("setting activity failed!");
-            println!("rpc activity set!");
-        } else {
-            eprintln!("set rpc activity failed!");
-        }
+            .persist();
+
+        rpc_clone
+            .lock()
+            .unwrap()
+            .on_error(|ctx| {
+                eprintln!("[ERROR] [EVENT] {:?}", ctx.event);
+            })
+            .persist();
+
+        rpc_clone.lock().unwrap().start();
 
         thread::sleep(time::Duration::from_secs(10));
 
-        window
-            .emit("EVENT_RPC_SET_SUCCESS", None::<()>)
-            .expect("failed to omit rpc-success event!");
+        loop {
+            thread::sleep(time::Duration::from_secs(15));
+            let rpc_clone = Arc::clone(&rpc_clone);
+            let data_arc = Arc::clone(&data_arc);
+            set_activity(&rpc_clone, &data_arc);
+        }
     });
+}
+
+fn set_activity(rpc: &Arc<Mutex<Client>>, data: &Arc<Mutex<PresenceInterface>>) {
+    let data = data.lock().unwrap();
+    let state = data.data.state.clone();
+    let details = data.data.details.clone();
+    let image_large = data.data.image_large.clone();
+    let text_large = data.data.text_large.clone();
+    let image_small = data.data.image_small.clone();
+    let text_small = data.data.text_small.clone();
+
+    if let Err(e) = rpc.lock().unwrap().set_activity(|act| {
+        act.state(state).details(details).assets(|ast| {
+            ast.large_image(image_large)
+                .large_text(text_large)
+                .small_image(image_small)
+                .small_text(text_small)
+        })
+    }) {
+        eprintln!("[ERROR] Setting presence failed: {}", e)
+    }
 }
