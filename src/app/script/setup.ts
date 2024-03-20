@@ -1,5 +1,4 @@
 import { invoke } from "@tauri-apps/api/tauri";
-import { listen } from "@tauri-apps/api/event";
 import { GameEmitter } from "../emitter";
 import { BuildingInterface, DatabaseOptions, MissionInterface, PresenceInterface } from "../shared/types/types";
 import { getDB } from "../indexed_db";
@@ -46,12 +45,8 @@ export function init() {
             console.log(r);
         })
         .catch((e) => {
-            throw new Error(e)
+            throw new Error(e);
         })
-
-    listen('EVENT_RPC_SET_SUCCESS', () => {
-        console.log('EVENT_RPC_SET_SUCCESS');
-    });
 
     GameEmitter.on('EVENT_GAME_START', async (data) => {
 

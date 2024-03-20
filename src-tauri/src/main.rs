@@ -9,7 +9,8 @@ use std::{
     fs::File,
     io::{Read, Write},
     sync::{Arc, Mutex},
-    thread::{self},
+    thread,
+    time::{SystemTime, UNIX_EPOCH},
 };
 
 fn main() {
@@ -126,15 +127,6 @@ fn presence(data: PresenceInterface) {
             .persist();
 
         rpc_clone.lock().unwrap().start();
-
-        thread::sleep(time::Duration::from_secs(10));
-
-        loop {
-            thread::sleep(time::Duration::from_secs(15));
-            let rpc_clone = Arc::clone(&rpc_clone);
-            let data_arc = Arc::clone(&data_arc);
-            set_activity(&rpc_clone, &data_arc);
-        }
     });
 }
 
@@ -144,16 +136,16 @@ fn set_activity(rpc: &Arc<Mutex<Client>>, data: &Arc<Mutex<PresenceInterface>>) 
     let details = data.data.details.clone();
     let image_large = data.data.image_large.clone();
     let text_large = data.data.text_large.clone();
-    let image_small = data.data.image_small.clone();
-    let text_small = data.data.text_small.clone();
+    let time_now: SystemTime = SystemTime::now();
+    let epoch_dur = time_now.duration_since(UNIX_EPOCH).expect("error at time");
+    let start_time: u64 = epoch_dur.as_secs();
 
     if let Err(e) = rpc.lock().unwrap().set_activity(|act| {
-        act.state(state).details(details).assets(|ast| {
-            ast.large_image(image_large)
-                .large_text(text_large)
-                .small_image(image_small)
-                .small_text(text_small)
-        })
+        println!("[DEBUG] Setting presence");
+        act.state(state)
+            .details(details)
+            .timestamps(|tsm| tsm.start(start_time))
+            .assets(|ast| ast.large_image(image_large).large_text(text_large))
     }) {
         eprintln!("[ERROR] Setting presence failed: {}", e)
     }
