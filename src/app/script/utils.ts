@@ -3,9 +3,9 @@ import { PresenceData, PresenceInterface } from "../shared/types/types";
 
 export function updatePresence(presence: PresenceData) {
 
-    console.log("updating activity");
+    console.debug("[DEBUG] updating activity");
     const presenceUpdateData: PresenceInterface = {
-        action: "EVENT_RPC_UPDATE",
+        action: "EVENT_RPC_SET",
         data: {
             state: presence.state,
             details: presence.details,
@@ -16,16 +16,16 @@ export function updatePresence(presence: PresenceData) {
         }
     }
 
-    console.log("invoking command");
+    console.debug("[DEBUG] invoking command");
     invoke('presence', {
         data: presenceUpdateData
     })
         .then((r) => {
-            console.log(`updated activity: ${r}`);
+            console.debug(`[DEBUG] updated activity: ${r}`);
         })
         .catch((e) => {
             throw new Error(`updating activity failed: ${e}`)
         })
 
-    console.log("updating activity done");
+    console.debug("[DEBUG] updating activity done");
 }
