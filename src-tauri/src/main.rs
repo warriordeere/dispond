@@ -1,7 +1,6 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use core::time;
 use discord_presence::Client;
 use serde::{Deserialize, Serialize};
 use std::{
@@ -132,10 +131,16 @@ fn presence(data: PresenceInterface) {
 
 fn set_activity(rpc: &Arc<Mutex<Client>>, data: &Arc<Mutex<PresenceInterface>>) {
     let data = data.lock().unwrap();
+
     let state = data.data.state.clone();
     let details = data.data.details.clone();
+
+    let image_small = data.data.image_small.clone();
+    let text_small = data.data.text_small.clone();
+
     let image_large = data.data.image_large.clone();
     let text_large = data.data.text_large.clone();
+
     let time_now: SystemTime = SystemTime::now();
     let epoch_dur = time_now.duration_since(UNIX_EPOCH).expect("error at time");
     let start_time: u64 = epoch_dur.as_secs();
@@ -145,7 +150,12 @@ fn set_activity(rpc: &Arc<Mutex<Client>>, data: &Arc<Mutex<PresenceInterface>>) 
         act.state(state)
             .details(details)
             .timestamps(|tsm| tsm.start(start_time))
-            .assets(|ast| ast.large_image(image_large).large_text(text_large))
+            .assets(|ast| {
+                ast.large_image(image_large)
+                    .large_text(text_large)
+                    .small_image(image_small)
+                    .small_text(text_small)
+            })
     }) {
         eprintln!("[ERROR] Setting presence failed: {}", e)
     }

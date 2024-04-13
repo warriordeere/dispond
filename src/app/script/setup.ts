@@ -38,15 +38,15 @@ export function init() {
         }
     }
 
-    invoke('presence', {
-        data: presenceSetupData
-    })
-        .then((r) => {
-            console.log(r);
-        })
-        .catch((e) => {
-            throw new Error(e);
-        })
+    // invoke('presence', {
+    //     data: presenceSetupData
+    // })
+    //     .then((r) => {
+    //         console.log(r);
+    //     })
+    //     .catch((e) => {
+    //         throw new Error(e);
+    //     })
 
     GameEmitter.on('EVENT_GAME_START', async (data) => {
 
