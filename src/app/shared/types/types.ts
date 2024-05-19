@@ -264,3 +264,11 @@ export interface DBVersionInterface {
     ltvs: string
     crvs: string
 }
+
+export interface ToolboxButtonTypes { type: "TB_BTN_BUILDING_MENU" | "TB_BTN_VEHICLE_MENU" }
+
+export interface ItemRadioInterface {
+    id: string
+    label: string
+    state: number // 0 - 9; See https://de.wikipedia.org/wiki/Funkmeldesystem
+}

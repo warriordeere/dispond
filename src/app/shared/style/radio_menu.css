@@ -1,0 +1,79 @@
+.radio-menu {
+    grid-row: 4 / 5;
+    grid-column: 4 / 7;
+}
+
+.radio-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+    padding: .25rem;
+    background-color: var(--primary-100);
+    border: 2px solid transparent;
+}
+
+.radio-item:nth-of-type(even) {
+    background-color: var(--primary-200);
+}
+
+.radio-item .item-state {
+    padding: .25rem;
+    height: 1.5rem;
+    width: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: .25rem;
+    background-color: var(--background);
+    color: var(--background);
+}
+
+.radio-item:has(.item-state.state-0) {
+    animation: state-0 .5s linear infinite;
+}
+
+@keyframes state-0 {
+    50% {
+        border-color: var(--state-0);
+        box-shadow: 0 0 .25rem 0 var(--state-0) inset;
+    }
+}
+
+.item-state.state-0 {
+    background-color: var(--state-0);
+}
+
+.item-state.state-1 {
+    background-color: var(--state-1);
+}
+
+.item-state.state-2 {
+    background-color: var(--state-2);
+}
+
+.item-state.state-3 {
+    background-color: var(--state-3);
+    color: var(--text);
+}
+
+.item-state.state-4 {
+    background-color: var(--state-4);
+}
+
+.item-state.state-5 {
+    background-color: var(--state-5);
+}
+
+.item-state.state-6 {
+    background-color: var(--state-6);
+}
+
+.item-state.state-7 {
+    background-color: var(--state-7);
+}
+
+.item-state.state-8,
+.item-state.state-9 {
+    color: var(--text);
+}

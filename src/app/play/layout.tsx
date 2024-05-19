@@ -1,5 +1,4 @@
 'use client'
-import TTMap from "../shared/components/map";
 
 export default function RootLayout({
     children,
@@ -7,9 +6,8 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <>
+        <main className="game-container">
             {children}
-            <TTMap />
-        </>
+        </main>
     )
 }

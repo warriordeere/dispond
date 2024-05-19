@@ -1,9 +1,10 @@
-import { LngLatLike } from '@tomtom-international/web-sdk-maps';
+import { BsPencilFill, BsCashCoin } from 'react-icons/bs';
+import { FaCar, FaCartShopping } from 'react-icons/fa6';
+
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
-import { BsPencilFill, BsFillBuildingFill, BsCashCoin } from 'react-icons/bs';
-import { FaCar, FaCartShopping } from 'react-icons/fa6';
-import { BuildingInterface, buildingTypes, DatabaseOptions, GeometryData, ShopItemData, VehicleTypes } from '../../types/types';
+
+import { BuildingInterface, DatabaseOptions, GeometryData, ShopItemData, VehicleTypes } from '../../types/types';
 import { getDB, postDB } from '@/app/indexed_db';
 
 export async function FleetManageMenu() {

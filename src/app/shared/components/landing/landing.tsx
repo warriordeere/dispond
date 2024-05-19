@@ -1,7 +1,7 @@
 'use client'
 
 import './landing.css';
-import '../../../globals.css';
+import '../../style/globals.css';
 import { useRouter } from 'next/navigation';
 import { LuGamepad2 } from "react-icons/lu";
 import { FaMedal } from "react-icons/fa6";
@@ -13,7 +13,8 @@ import { MAP_SPAWN } from '@/app/script/setup';
 
 export default function Landing() {
     const router = useRouter();
-    const gameRoute = '/game/play';
+    const gameRoute = '/play';
+    
     return (
         <section className="landing">
             <div className="front">

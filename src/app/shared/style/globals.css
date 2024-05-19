@@ -74,6 +74,15 @@
     --accent-800: rgb(79, 23, 23);
     --accent-900: rgb(40, 11, 11);
     --accent-950: rgb(20, 6, 6);
+
+    --state-0: rgb(200, 0, 0);
+    --state-1: rgb(0, 160, 0);
+    --state-2: rgb(100, 200, 0);
+    --state-3: rgb(255, 210, 0);
+    --state-4: rgb(210, 0, 120);
+    --state-5: rgb(200, 0, 0);
+    --state-6: rgb(120, 120, 120);
+    --state-7: rgb(0, 170, 200);
 }
 
 * {
@@ -177,4 +186,49 @@ div.anm-icn {
     border-radius: 100%;
     box-shadow: 0 0 1rem 0 black;
     border: .1rem var(--text-100) solid;
+}
+
+/* ######################### */
+
+.game-container {
+    background-color: var(--background);
+    display: grid;
+    grid-template-rows: repeat(4, 1fr) 3rem;
+    grid-template-columns: repeat(6, auto);
+    height: 100%;
+    width: 100%;
+}
+
+.game-container>.menu-container {
+    border-radius: .75rem;
+    overflow-y: auto;
+    margin: 1rem;
+    background-color: var(--primary);
+    border: 2px solid var(--primary);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.game-container>.menu-container::-webkit-scrollbar {
+    display: none;
+}
+
+.game-container>.menu-container header {
+    padding: .25rem .5rem;
+    background-color: var(--primary);
+    color: var(--background);
+    font-size: .9rem;
+    top: 0;
+    position: sticky;
+    z-index: 1;
+}
+
+.game-container>.menu-container .content-wrapper {
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+    background-color: var(--background);
 }

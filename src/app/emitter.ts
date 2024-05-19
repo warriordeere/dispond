@@ -1,5 +1,5 @@
 import { postDB } from "./indexed_db";
-import { map_inst } from "./shared/components/map/map";
+import { map_inst } from "./shared/components/map";
 import { BuildingEvents, DatabasePostOptions, GameEvents, MissionEvents, ShopItemData, VehicleEvents } from "./shared/types/types";
 import tt from "@tomtom-international/web-sdk-services";
 import { API_KEY } from "./page";
