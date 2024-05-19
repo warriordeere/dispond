@@ -4,6 +4,7 @@ import { BuildingEvents, DatabasePostOptions, GameEvents, MissionEvents, ShopIte
 import tt from "@tomtom-international/web-sdk-services";
 import { API_KEY } from "./page";
 import { LngLat, Marker } from "@tomtom-international/web-sdk-maps";
+import { animateRespond } from "./script/utils";
 var EventEmitter = require('events')
 
 export const VehicleEmitter: VehicleEvents = new EventEmitter();
@@ -51,44 +52,46 @@ MissionEmitter.on('EVENT_MISSION_RESPOND', (data) => {
         })
             .then((r) => {
                 const geojson = r.toGeoJson();
-                map_inst.addLayer({
-                    id: `route-${vhc.id}`,
-                    type: 'line',
-                    source: {
-                        type: 'geojson',
-                        data: geojson
-                    },
-                    paint: {
-                        'line-color': 'rgb(204, 0, 0)',
-                        'line-width': 5
-                    }
-                });
+                animateRespond(geojson);
 
-                const rcd = geojson.features[0].geometry.coordinates;
-                const ttis = r.routes[0].summary.travelTimeInSeconds * 100;
-                const vhcmrk = new Marker({
-                    color: 'blue'
-                });
+                // map_inst.addLayer({
+                //     id: `route-${vhc.id}`,
+                //     type: 'line',
+                //     source: {
+                //         type: 'geojson',
+                //         data: geojson
+                //     },
+                //     paint: {
+                //         'line-color': 'rgb(204, 0, 0)',
+                //         'line-width': 5
+                //     }
+                // });
 
-                const stps = new LngLat(rcd[0][0] as number, rcd[0][1] as number)
+                // const rcd = geojson.features[0].geometry.coordinates;
+                // const ttis = r.routes[0].summary.travelTimeInSeconds * 100;
+                // const vhcmrk = new Marker({
+                //     color: 'blue'
+                // });
 
-                vhcmrk.setLngLat(stps);
-                vhcmrk.addTo(map_inst);
+                // const stps = new LngLat(rcd[0][0] as number, rcd[0][1] as number)
 
-                let idx = 0;
+                // vhcmrk.setLngLat(stps);
+                // vhcmrk.addTo(map_inst);
 
-                const intv = setInterval(() => {
-                    if (idx < rcd.length - 1) {
-                        const cps = new LngLat(rcd[idx][0] as number, rcd[idx][1] as number);
-                        vhcmrk.setLngLat(cps);
-                        idx++;
-                    }
-                    else {
-                        clearInterval(intv);
-                        idx = 0;
-                        MissionEmitter.emit('EVENT_MISSION_START', mission_loc);
-                    }
-                }, ttis / rcd.length);
+                // let idx = 0;
+
+                // const intv = setInterval(() => {
+                //     if (idx < rcd.length - 1) {
+                //         const cps = new LngLat(rcd[idx][0] as number, rcd[idx][1] as number);
+                //         vhcmrk.setLngLat(cps);
+                //         idx++;
+                //     }
+                //     else {
+                //         clearInterval(intv);
+                //         idx = 0;
+                //         MissionEmitter.emit('EVENT_MISSION_START', mission_loc);
+                //     }
+                // }, ttis / rcd.length);
             })
             .catch((e) => {
                 console.log(e);

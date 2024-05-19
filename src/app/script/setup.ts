@@ -26,17 +26,17 @@ export const MAP_SPAWN = '13.5,52.5'
 export function init() {
 
 
-    const presenceSetupData: PresenceInterface = {
-        action: "EVENT_RPC_SET",
-        data: {
-            state: "Browsing The Main Menu",
-            details: "v0.3.2 Preview",
-            image_large: "logo_v1-1024",
-            text_large: "Dispond Early Access",
-            image_small: "logo_v1-1024",
-            text_small: "test"
-        }
-    }
+    // const presenceSetupData: PresenceInterface = {
+    //     action: "EVENT_RPC_SET",
+    //     data: {
+    //         state: "Browsing The Main Menu",
+    //         details: "v0.3.2 Preview",
+    //         image_large: "logo_v1-1024",
+    //         text_large: "Dispond Early Access",
+    //         image_small: "logo_v1-1024",
+    //         text_small: "test"
+    //     }
+    // }
 
     // invoke('presence', {
     //     data: presenceSetupData

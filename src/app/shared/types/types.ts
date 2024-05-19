@@ -181,17 +181,17 @@ export interface DatabasePostOptions extends DatabaseOptions {
 
 
 export interface GeometryData {
-    type: string,
-    features: [
-        {
-            type: string,
-            geometry: {
-                type: 'Polygon',
-                coordinates: number[][][]
-            },
-            id: string
-        }
-    ]
+    type: 'FeatureCollection'
+    features: FeatureArray[]
+}
+
+export interface FeatureArray {
+    type: 'Feature'
+    geometry: {
+        type: 'Polygon' | 'LineString'
+        coordinates: number[][][]
+    }
+    properties: any
 }
 
 export interface BuildingEvents {
