@@ -1,7 +1,7 @@
 'use client'
 
 import './calls.css';
-import '../../../shared/globals.css';
+import '../../../shared/style/globals.css';
 import { BsFire, BsPersonCircle } from "react-icons/bs";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { getDB } from '@/app/indexed_db';

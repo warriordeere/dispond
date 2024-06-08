@@ -1,7 +1,7 @@
 'use client'
 
 import './landing.css';
-import '../../../shared/globals.css';
+import '../../../shared/style/globals.css';
 import { useRouter } from 'next/navigation';
 import { LuGamepad2 } from "react-icons/lu";
 import { FaMedal } from "react-icons/fa6";

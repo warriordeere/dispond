@@ -1,7 +1,7 @@
 'use client'
 
 import './map.css';
-import '../../../shared/globals.css';
+import '../../../shared/style/globals.css';
 import "@tomtom-international/web-sdk-maps/dist/maps.css";
 import { useEffect, useRef } from 'react';
 import tt from '@tomtom-international/web-sdk-maps';
