@@ -272,3 +272,10 @@ export interface ItemRadioInterface {
     label: string
     state: number // 0 - 9; See https://de.wikipedia.org/wiki/Funkmeldesystem
 }
+
+export enum MenuModuleContentTypes {
+    "MENU_MODULE_CONTENT_TYPE_DISPATCH_MENU" = "type_dispatch_menu",
+    "MENU_MODULE_CONTENT_TYPE_UNIT_OVERVIEW" = "type_unit_overview"
+}
+
+export type MenuModuleTypes = "MENU_MODULE_TYPE_PRIMARY" | "MENU_MODULE_TYPE_SECONDARY"

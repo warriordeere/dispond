@@ -15,8 +15,6 @@
 .map-container {
     grid-row: 1 / 4;
     grid-column: 4 / 7;
-    border-radius: .75rem;
-    border-bottom-right-radius: 0;
+    border-radius: 0;
     overflow: hidden;
-    margin: 1rem;
 }

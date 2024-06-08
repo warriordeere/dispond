@@ -3,31 +3,28 @@ export function StatusDisplayBox({ http_status_code, detail_string }: { http_sta
         case 404:
             return (
                 <div>
-                    <code>404 - Requested Data not found</code>
-                    <p>Test 404</p>
-                    {
-                        detail_string ? (<details>{detail_string}</details>) : null
-                    }
+                    <details>
+                        <summary>404 - Requested Data not found</summary>
+                        {detail_string}
+                    </details>
                 </div>
             );
         case 500:
             return (
                 <div>
-                    <code>500 - Internal Server Error</code>
-                    <p>Test 500</p>
-                    {
-                        detail_string ? (<details>{detail_string}</details>) : null
-                    }
+                    <details>
+                        <summary>500 - Internal Server Error</summary>
+                        {detail_string}
+                    </details>
                 </div>
             );
         case 501:
             return (
                 <div>
-                    <code>501 - Not Implemented</code>
-                    <p>Test 500</p>
-                    {
-                        detail_string ? (<details>{detail_string}</details>) : null
-                    }
+                    <details>
+                        <summary>501 - Not Implemented</summary>
+                        {detail_string}
+                    </details>
                 </div>
             );
 

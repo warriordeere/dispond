@@ -193,16 +193,18 @@ div.anm-icn {
 .game-container {
     background-color: var(--background);
     display: grid;
-    grid-template-rows: repeat(4, 1fr) 3rem;
+    grid-template-rows: repeat(4, 1fr) 4rem;
     grid-template-columns: repeat(6, auto);
     height: 100%;
     width: 100%;
+    gap: .75rem;
+    padding: .75rem;
+    padding-bottom: 0;
 }
 
 .game-container>.menu-container {
-    border-radius: .75rem;
+    border-radius: .5rem;
     overflow-y: auto;
-    margin: 1rem;
     background-color: var(--primary);
     border: 2px solid var(--primary);
     color: var(--text);
