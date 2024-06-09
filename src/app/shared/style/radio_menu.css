@@ -1,6 +1,6 @@
 .radio-menu {
-    grid-row: 4 / 5;
-    grid-column: 4 / 7;
+    grid-row: 3 / 4;
+    grid-column: 2 / 3;
 }
 
 .radio-item {
@@ -9,12 +9,12 @@
     align-items: center;
     gap: .5rem;
     padding: .25rem;
-    background-color: var(--primary-100);
+    background-color: var(--background-100);
     border: 2px solid transparent;
 }
 
 .radio-item:nth-of-type(even) {
-    background-color: var(--primary-200);
+    background-color: var(--background-200);
 }
 
 .radio-item .item-state {
