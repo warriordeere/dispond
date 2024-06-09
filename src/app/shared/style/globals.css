@@ -74,6 +74,7 @@
     --accent-800: rgb(79, 23, 23);
     --accent-900: rgb(40, 11, 11);
     --accent-950: rgb(20, 6, 6);
+<<<<<<< HEAD
 
     --state-0: rgb(200, 0, 0);
     --state-1: rgb(0, 160, 0);
@@ -83,6 +84,8 @@
     --state-5: rgb(200, 0, 0);
     --state-6: rgb(120, 120, 120);
     --state-7: rgb(0, 170, 200);
+=======
+>>>>>>> 8f3971f33de3a5e05011cd27d8ad6f164110dbb6
 }
 
 * {
@@ -188,6 +191,7 @@ div.anm-icn {
     border: .1rem var(--text-100) solid;
 }
 
+<<<<<<< HEAD
 /* ######################### */
 
 .game-container {
@@ -233,4 +237,47 @@ div.anm-icn {
     border-top-left-radius: .5rem;
     border-top-right-radius: .5rem;
     background-color: var(--background);
+=======
+#debug-menu {
+    position: absolute;
+    z-index: 99999 !important;
+    background-color: var(--background);
+    color: var(--text);
+    border: .01rem solid var(--text);
+    box-shadow: 0 0 1rem 0 black;
+    display: flex;
+    flex-direction: column;
+}
+
+#dbgm-drag-handle {
+    height: fit-content;
+    width: 100%;
+    background-color: var(--accent-400);
+    cursor: move;
+    text-align: center;
+}
+
+.dbgm-content {
+    padding: .25rem;
+}
+
+.dbgm-wrapper div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: 2rem;
+}
+
+#debug-menu summary {
+    background-color: var(--accent-100);
+    padding: .25rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#debug-menu button {
+    border: .1rem solid var(--accent);
+    border-radius: .25rem;
+    padding: .25rem .5rem;
+>>>>>>> 8f3971f33de3a5e05011cd27d8ad6f164110dbb6
 }
