@@ -1,0 +1,283 @@
+/* https://colordesigner.io/#F00807-5F6273-A4ABBF-CCC9D1-E2E1E9 */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Josefin+Sans&family=Poppins&family=Roboto+Mono&display=swap');
+/* font-family: 'Inter', sans-serif; */
+/* font-family: 'Josefin Sans', sans-serif; */
+/* font-family: 'Roboto Mono', monospace; */
+
+:root {
+    --text: rgb(11, 6, 6);
+    --background: rgb(249, 242, 242);
+    --primary: rgb(255, 0, 0);
+    --secondary: rgb(217, 145, 145);
+    --accent: rgb(210, 99, 99);
+    --window-bg: rgb(2, 20, 29);
+    --window-bg-tone: rgb(12, 47, 64);
+    --window-bg-shade: rgb(1, 10, 15);
+
+    --text-50: rgb(246, 239, 239);
+    --text-100: rgb(237, 222, 222);
+    --text-200: rgb(219, 189, 189);
+    --text-300: rgb(201, 156, 156);
+    --text-400: rgb(183, 123, 123);
+    --text-500: rgb(164, 91, 91);
+    --text-600: rgb(132, 72, 72);
+    --text-700: rgb(99, 54, 54);
+    --text-800: rgb(66, 36, 36);
+    --text-900: rgb(33, 18, 18);
+    --text-950: rgb(16, 9, 9);
+
+    --background-50: rgb(247, 238, 238);
+    --background-100: rgb(239, 220, 220);
+    --background-200: rgb(223, 185, 185);
+    --background-300: rgb(207, 150, 150);
+    --background-400: rgb(191, 115, 115);
+    --background-500: rgb(175, 80, 80);
+    --background-600: rgb(140, 64, 64);
+    --background-700: rgb(105, 48, 48);
+    --background-800: rgb(70, 32, 32);
+    --background-900: rgb(35, 16, 16);
+    --background-950: rgb(17, 8, 8);
+
+    --primary-50: rgb(255, 229, 229);
+    --primary-100: rgb(255, 204, 204);
+    --primary-200: rgb(255, 153, 153);
+    --primary-300: rgb(255, 102, 102);
+    --primary-400: rgb(255, 51, 51);
+    --primary-500: rgb(255, 0, 0);
+    --primary-600: rgb(204, 0, 0);
+    --primary-700: rgb(153, 0, 0);
+    --primary-800: rgb(102, 0, 0);
+    --primary-900: rgb(51, 0, 0);
+    --primary-950: rgb(26, 0, 0);
+
+    --secondary-50: rgb(248, 236, 236);
+    --secondary-100: rgb(242, 217, 217);
+    --secondary-200: rgb(229, 179, 179);
+    --secondary-300: rgb(216, 141, 141);
+    --secondary-400: rgb(203, 103, 103);
+    --secondary-500: rgb(190, 65, 65);
+    --secondary-600: rgb(152, 52, 52);
+    --secondary-700: rgb(114, 39, 39);
+    --secondary-800: rgb(76, 26, 26);
+    --secondary-900: rgb(38, 13, 13);
+    --secondary-950: rgb(19, 7, 7);
+
+    --accent-50: rgb(249, 235, 235);
+    --accent-100: rgb(244, 215, 215);
+    --accent-200: rgb(232, 176, 176);
+    --accent-300: rgb(221, 136, 136);
+    --accent-400: rgb(209, 97, 97);
+    --accent-500: rgb(198, 57, 57);
+    --accent-600: rgb(158, 46, 46);
+    --accent-700: rgb(119, 34, 34);
+    --accent-800: rgb(79, 23, 23);
+    --accent-900: rgb(40, 11, 11);
+    --accent-950: rgb(20, 6, 6);
+<<<<<<< HEAD
+
+    --state-0: rgb(200, 0, 0);
+    --state-1: rgb(0, 160, 0);
+    --state-2: rgb(100, 200, 0);
+    --state-3: rgb(255, 210, 0);
+    --state-4: rgb(210, 0, 120);
+    --state-5: rgb(200, 0, 0);
+    --state-6: rgb(120, 120, 120);
+    --state-7: rgb(0, 170, 200);
+=======
+>>>>>>> 8f3971f33de3a5e05011cd27d8ad6f164110dbb6
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 12pt;
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-50);
+    background-color: var(--background);
+    user-select: none;
+}
+
+html,
+body,
+p {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    position: fixed;
+    top: 2.5rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: calc(100dvh - 2.5rem);
+}
+
+button {
+    all: unset;
+    transition: background-color .25s ease-in-out;
+    cursor: pointer;
+}
+
+button.btn-drp {
+    position: relative;
+}
+
+button.btn-drp:hover>.drp-cnt {
+    display: block;
+}
+
+button.btn-drp>.drp-cnt {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background-color: inherit;
+}
+
+.drp-cnt-item {
+    padding: .75rem 1rem;
+    transition: background-color .25s ease-in-out;
+}
+
+.drp-cnt-item:hover {
+    background-color: var(--primary-700);
+}
+
+.react-icon-regular svg {
+    height: 2rem;
+    width: 2rem;
+}
+
+.tt-search-box {
+    margin: 0 !important;
+}
+
+.tt-search-box-input-container {
+    border-radius: .5rem !important;
+    border: 1px solid var(--text) !important;
+    background-color: var(--background) !important;
+}
+
+dialog.indev-dialog {
+    z-index: 99;
+}
+
+dialog.indev-dialog button {
+    border: 1px black solid;
+    border-radius: .25rem;
+    padding: .25rem;
+}
+
+div.anm-icn {
+    background-color: var(--primary);
+    height: 3rem;
+    width: 3rem;
+    border-radius: 100%;
+    box-shadow: 0 0 1rem 0 black;
+    border: .1rem var(--text-100) solid;
+}
+
+<<<<<<< HEAD
+/* ######################### */
+
+.game-container {
+    background-color: var(--background);
+    display: grid;
+    grid-template-rows: repeat(4, 1fr) 4rem;
+    grid-template-columns: repeat(6, auto);
+    height: 100%;
+    width: 100%;
+    gap: .75rem;
+    padding: .75rem;
+    padding-bottom: 0;
+}
+
+.game-container>.menu-container {
+    border-radius: .5rem;
+    overflow-y: auto;
+    background-color: var(--primary);
+    border: 2px solid var(--primary);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.game-container>.menu-container::-webkit-scrollbar {
+    display: none;
+}
+
+.game-container>.menu-container header {
+    padding: .25rem .5rem;
+    background-color: var(--primary);
+    color: var(--background);
+    font-size: .9rem;
+    top: 0;
+    position: sticky;
+    z-index: 1;
+}
+
+.game-container>.menu-container .content-wrapper {
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+    background-color: var(--background);
+=======
+#debug-menu {
+    position: absolute;
+    z-index: 99999 !important;
+    background-color: var(--background);
+    color: var(--text);
+    border: .01rem solid var(--text);
+    box-shadow: 0 0 1rem 0 black;
+    display: flex;
+    flex-direction: column;
+}
+
+#dbgm-drag-handle {
+    height: fit-content;
+    width: 100%;
+    background-color: var(--accent-400);
+    cursor: move;
+    text-align: center;
+}
+
+.dbgm-content {
+    padding: .25rem;
+}
+
+.dbgm-wrapper div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: 2rem;
+}
+
+#debug-menu summary {
+    background-color: var(--accent-100);
+    padding: .25rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#debug-menu button {
+    border: .1rem solid var(--accent);
+    border-radius: .25rem;
+    padding: .25rem .5rem;
+>>>>>>> 8f3971f33de3a5e05011cd27d8ad6f164110dbb6
+}

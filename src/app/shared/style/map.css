@@ -1,0 +1,20 @@
+#map>* {
+    color: var(--text);
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+    cursor: grab;
+}
+
+#map:active {
+    cursor: grabbing;
+}
+
+.map-container {
+    grid-row: 1 / 4;
+    grid-column: 4 / 7;
+    border-radius: 0;
+    overflow: hidden;
+}

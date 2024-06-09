@@ -1,12 +1,15 @@
-import { Resizable } from 're-resizable';
 import { BiSolidPhoneCall, BiSolidAmbulance } from "react-icons/bi";
 import { BsBuildingFillAdd, BsBuildingFill } from "react-icons/bs";
-import { SidemenuInterface, SidemenuContentInterface } from "../../types/types";
-import CallItem from "../calls/calls";
-import { BuildingMenu, AddBuildingMenu } from "./buildingmenu";
-import './menu.css';
-import { FleetManageMenu, FleetMenu, VehicleShop } from './fleetmenu';
 import { FaCartShopping } from 'react-icons/fa6';
+
+import { Resizable } from 're-resizable';
+
+import { BuildingMenu, AddBuildingMenu } from "./buildingmenu";
+import { FleetManageMenu, FleetMenu, VehicleShop } from './fleetmenu';
+import CallItem from "../calls/calls";
+import { SidemenuInterface, SidemenuContentInterface } from "../../types/types";
+
+import './menu.css';
 
 export function Sidemenu(data: SidemenuInterface) {
     switch (data.type) {
