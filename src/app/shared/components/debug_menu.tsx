@@ -1,7 +1,7 @@
 'use client'
 
 import Draggable from 'react-draggable';
-import '../globals.css'
+import '../style/globals.css'
 import { useRef } from 'react';
 import { useRouter } from 'next/navigation';
 

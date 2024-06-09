@@ -1,7 +1,7 @@
 'use client'
 
 import dynamic from "next/dynamic";
-import { DebugMenu } from "./shared/debug_menu";
+import { DebugMenu } from "./shared/components/debug_menu";
 
 const WindowTitlebar = dynamic(() => import("../app/shared/components/titlebar/titlebar"), { ssr: false })
 
