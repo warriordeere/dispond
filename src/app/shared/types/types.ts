@@ -265,7 +265,7 @@ export interface DBVersionInterface {
     crvs: string
 }
 
-export interface ToolboxButtonTypes { type: "TB_BTN_BUILDING_MENU" | "TB_BTN_VEHICLE_MENU" }
+export type ToolboxButtonTypes = "TB_BTN_BUILDING_MENU" | "TB_BTN_VEHICLE_MENU" |"TB_DRP_ADD_MENU"
 
 export interface ItemRadioInterface {
     id: string
