@@ -1,11 +1,21 @@
 'use client'
 
+<<<<<<< HEAD
+=======
 import { IoMdSettings } from "react-icons/io";
 import { SidebarData } from "../../types/types";
 import './sidenav.css';
 import '../../../shared/style/globals.css';
 import { useRouter } from "next/navigation";
+>>>>>>> 8f3971f33de3a5e05011cd27d8ad6f164110dbb6
 import { BsArrowLeftCircle } from "react-icons/bs";
+import { IoMdSettings } from "react-icons/io";
+
+import { SidebarData } from "../../types/types";
+import { useRouter } from "next/navigation";
+
+import './sidenav.css';
+import '../../style/globals.css';
 
 export default function Sidebar({ data }: { data?: SidebarData }) {
     return (

@@ -1,15 +1,18 @@
 'use client'
 
-import { useRouter } from "next/navigation";
 import { BsBuildingFillAdd, BsBuildingFillGear, BsCashCoin, BsFillBuildingFill, BsPencilFill } from "react-icons/bs"
+
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
 import '@tomtom-international/web-sdk-plugin-searchbox/dist/SearchBox.css';
 import SearchBox from '@tomtom-international/web-sdk-plugin-searchbox';
 import { services } from "@tomtom-international/web-sdk-services";
-import { API_KEY } from "@/app/page";
 import tt, { LngLatLike } from "@tomtom-international/web-sdk-maps";
 import * as tts from "@tomtom-international/web-sdk-services"
-import { useEffect, useState } from "react";
-import { map_inst } from "../map/map";
+
+import { API_KEY } from "@/app/page";
+import { map_inst } from "../map";
 import { BuildingInterface, DatabasePostOptions, GeometryData, buildingTypes } from "../../types/types";
 import { postDB } from "@/app/indexed_db";
 
@@ -85,7 +88,7 @@ export function AddBuildingMenu() {
             const data: BuildingInterface = {
                 id: building_id,
                 name: building_name,
-                position: building_location,
+                position: building_location as any,
                 type: building_type,
                 mission_area: building_area
             }

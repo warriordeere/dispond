@@ -2,7 +2,7 @@ import { invoke } from "@tauri-apps/api/tauri";
 import { GeometryData, PresenceData, PresenceInterface } from "../shared/types/types";
 
 import * as turf_distance from '@turf/distance';
-import { map_inst } from "../shared/components/map/map";
+import { map_inst } from "../shared/components/map";
 import tt from "@tomtom-international/web-sdk-maps";
 
 export function updatePresence(presence: PresenceData) {
@@ -35,16 +35,16 @@ export function updatePresence(presence: PresenceData) {
 }
 
 export function animateRespond(route: GeometryData) {
-    function moveToStep(marker: any, route: any, c: any) {
-        if (route.getNumSteps() > c) {
-            marker.setLatLng(route.getStep(c).getLatLng());
-            window.setTimeout(function () {
-                moveToStep(marker, route, c + 1);
-            }, 500);
-        }
-    }
+    // function moveToStep(marker: any, route: any, c: any) {
+    //     if (route.getNumSteps() > c) {
+    //         marker.setLatLng(route.getStep(c).getLatLng());
+    //         window.setTimeout(function () {
+    //             moveToStep(marker, route, c + 1);
+    //         }, 500);
+    //     }
+    // }
 
-    const marker = new tt.Marker().setLngLat(route.features[0].geometry.coordinates)
+    // const marker = new tt.Marker().setLngLat(route.features[0].geometry.coordinates)
 
-    moveToStep(marker, route, 0);
+    // moveToStep(marker, route, 0);
 }

@@ -1,11 +1,19 @@
 'use client'
 
+<<<<<<< HEAD:src/app/shared/components/map.tsx
+=======
 import './map.css';
 import '../../../shared/style/globals.css';
 import "@tomtom-international/web-sdk-maps/dist/maps.css";
+>>>>>>> 8f3971f33de3a5e05011cd27d8ad6f164110dbb6:src/app/shared/components/map/map.tsx
 import { useEffect, useRef } from 'react';
+
+import "@tomtom-international/web-sdk-maps/dist/maps.css";
 import tt from '@tomtom-international/web-sdk-maps';
 import { API_KEY } from '@/app/page';
+
+import '../style/globals.css';
+import '../style/map.css';
 
 export let map_inst: tt.Map;
 

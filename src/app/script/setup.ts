@@ -2,7 +2,7 @@ import { invoke } from "@tauri-apps/api/tauri";
 import { GameEmitter } from "../emitter";
 import { BuildingInterface, DatabaseOptions, MissionInterface, PresenceInterface } from "../shared/types/types";
 import { getDB } from "../indexed_db";
-import { map_inst } from "../shared/components/map/map";
+import { map_inst } from "../shared/components/map";
 import tt, { LngLatBounds, Marker } from "@tomtom-international/web-sdk-maps";
 import { Mission, generateMissionData } from "./gen/mission";
 
