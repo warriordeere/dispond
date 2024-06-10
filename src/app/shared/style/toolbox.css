@@ -3,8 +3,6 @@
     bottom: 0;
     left: 0;
     right: 0;
-    grid-row: 5 / 6;
-    grid-column: 1 / 7;
     background-color: var(--primary);
     display: grid;
     grid-template-rows: 3rem;
@@ -13,6 +11,7 @@
     padding: .5rem .75rem;
 }
 
+.tb-drp,
 .tb-btn {
     height: 3rem;
     width: 3rem;
@@ -21,13 +20,59 @@
     align-items: center;
     justify-content: center;
     border-radius: .5rem;
+    cursor: pointer;
 }
 
+.tb-drp svg,
 .tb-btn svg {
     height: 60%;
     width: 60%;
 }
 
+.tb-drp:hover,
 .tb-btn:hover {
     background-color: var(--primary-600);
+}
+
+
+.tb-drp {
+    position: relative;
+    overflow: visible;
+    border-left: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    border-right: 2px solid transparent;
+    border-radius: .5rem;
+    z-index: 1;
+}
+
+.tb-drp:hover {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-left: 2px solid var(--text-100);
+    border-bottom: 2px solid var(--text-100);
+    border-right: 2px solid var(--text-100);
+}
+
+.tb-drp .tb-drp-wrapper {
+    position: absolute;
+    bottom: 100%;
+    width: 100%;
+    padding: .5rem;
+    padding-top: 1rem;
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+    background-color: var(--primary-600);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: .25s ease-in-out;
+}
+
+
+.tb-drp:hover .tb-drp-wrapper {
+    visibility: visible;
+    opacity: 1;
 }

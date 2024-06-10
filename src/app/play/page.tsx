@@ -1,9 +1,10 @@
 import TTMap from "../shared/components/map";
 import RadioMenu from '../shared/components/radio_menu';
 import MenuModule from '../shared/components/menu_module';
+import Toolbox from "../shared/components/toolbox";
 
 import '../shared/style/globals.css';
-import Toolbox from "../shared/components/toolbox";
+import '../shared/style/game.css'
 
 export default function Page() {
     return (

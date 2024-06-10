@@ -247,7 +247,7 @@ export interface PresenceData {
 }
 
 export interface ShopItemData {
-    item_type: "SHOP_ITEM_TYPE_VEHICLE"
+    item_type: GeneralItemTypes
     id: string
     item_secondary_type: VehicleTypes
     item_cost: number
@@ -258,14 +258,14 @@ export interface ShopItemData {
     }
 }
 
-export type VehicleTypes = "VEHICLE_TYPE_HLF"
+export type VehicleTypes = "VEHICLE_TYPE_HLF" | "VEHICLE_TYPE_ELW" | "VEHICLE_TYPE_DLK"
 
 export interface DBVersionInterface {
     ltvs: string
     crvs: string
 }
 
-export interface ToolboxButtonTypes { type: "TB_BTN_BUILDING_MENU" | "TB_BTN_VEHICLE_MENU" }
+export type ToolboxButtonTypes = "TB_BTN_BUILDING_MENU" | "TB_BTN_VEHICLE_MENU" | "TB_DRP_ADD_MENU"
 
 export interface ItemRadioInterface {
     id: string
@@ -273,9 +273,29 @@ export interface ItemRadioInterface {
     state: number // 0 - 9; See https://de.wikipedia.org/wiki/Funkmeldesystem
 }
 
+export type GeneralItemTypes = "SHOP_ITEM_TYPE_VEHICLE" | "SHOP_ITEM_TYPE_BUILDING"
+
 export enum MenuModuleContentTypes {
     "MENU_MODULE_CONTENT_TYPE_DISPATCH_MENU" = "type_dispatch_menu",
-    "MENU_MODULE_CONTENT_TYPE_UNIT_OVERVIEW" = "type_unit_overview"
+    "MENU_MODULE_CONTENT_TYPE_UNIT_OVERVIEW" = "type_unit_overview",
+    "MENU_MODULE_CONTENT_TYPE_ITEM_DISPLAY" = "type_item_display"
 }
 
 export type MenuModuleTypes = "MENU_MODULE_TYPE_PRIMARY" | "MENU_MODULE_TYPE_SECONDARY"
+
+export enum SearchParamsOptions {
+    "SEARCHPARAMS_MENU_MODULE_PRIMARY" = "primary",
+    "SEARCHPARAMS_MENU_MODULE_SECONDARY" = "secondary",
+    "SEARCHPARAMS_DISPLAY_ITEM_ID" = "view",
+    "SEARCHPARAMS_DISPLAY_ITEM_TYPE" = "type",
+}
+
+export interface ItemDisplayInterface {
+    item: String | undefined
+    type: GeneralItemTypes | undefined
+}
+
+export interface MenuContentInterface {
+    content_type: MenuModuleContentTypes
+    item_display: ItemDisplayInterface
+}
