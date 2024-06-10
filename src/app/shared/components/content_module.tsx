@@ -5,7 +5,7 @@ import { FaThList } from "react-icons/fa";
 import { BsFillGrid3X3GapFill } from "react-icons/bs";
 
 import { getDB } from "@/app/indexed_db";
-import { MissionInterface, DatabaseOptions } from "../types/types";
+import { MissionInterface, DatabaseOptions, ItemDisplayInterface, ShopItemData } from "../types/types";
 
 import { useEffect, useState } from "react";
 
@@ -67,14 +67,6 @@ export function DispatchContentModule() {
     )
 }
 
-export function UnitContentModule() {
-    return (
-        <div className="content-module unit-menu">
-            <p>Units</p>
-        </div>
-    )
-}
-
 function DispatchContentItem({ data }: { data: MissionInterface }) {
     return (
         <div className="dispatch-item">
@@ -103,4 +95,49 @@ function DispatchContentItem({ data }: { data: MissionInterface }) {
             </div>
         </div>
     );
+}
+
+export function UnitContentModule() {
+    return (
+        <div className="content-module unit-menu">
+            <p>Units</p>
+        </div>
+    )
+}
+
+export function ItemDisplayModule({ item, type }: ItemDisplayInterface) {
+
+    const [itemData, setItemData] = useState<ShopItemData[]>([]);
+
+    useEffect(() => {
+
+        const dbopt_vehicles: DatabaseOptions = {
+            database: 'DB_SAVEGAME_DATA',
+            store: 'DB_STORE_PURCHASED_ITEMS',
+            schema: 'SCHEMA_SAVEGAME_DATA'
+        }
+        async function fetchData() {
+            await getDB(dbopt_vehicles)
+                .then((r) => {
+                    setItemData(r as ShopItemData[]);
+                    return r;
+                })
+                .catch((err) => {
+                    console.error(err)
+                });
+        }
+    }, []);
+
+    return (
+        <div className="content-module item-display">
+            <details>
+                <summary>
+                    <h2>Item: {item} - {type}</h2>
+                </summary>
+                <p>
+                    {itemData[0].id}
+                </p>
+            </details>
+        </div>
+    )
 }
