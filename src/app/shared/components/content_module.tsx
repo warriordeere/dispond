@@ -5,7 +5,7 @@ import { FaThList } from "react-icons/fa";
 import { BsFillGrid3X3GapFill } from "react-icons/bs";
 
 import { getDB } from "@/app/indexed_db";
-import { MissionInterface, DatabaseOptions, ItemDisplayInterface, ShopItemData } from "../types/types";
+import { MissionInterface, DatabaseOptions, ShopItemData, GeneralItemTypes } from "../types/types";
 
 import { useEffect, useState } from "react";
 
@@ -105,17 +105,32 @@ export function UnitContentModule() {
     )
 }
 
-export function ItemDisplayModule({ item, type }: ItemDisplayInterface) {
+export function ItemDisplayModule({ item, type }: { item: string, type: GeneralItemTypes }) {
 
     const [itemData, setItemData] = useState<ShopItemData[]>([]);
 
     useEffect(() => {
 
-        const dbopt_vehicles: DatabaseOptions = {
-            database: 'DB_SAVEGAME_DATA',
-            store: 'DB_STORE_PURCHASED_ITEMS',
-            schema: 'SCHEMA_SAVEGAME_DATA'
+        let dbopt_vehicles: DatabaseOptions;
+
+        switch (type) {
+            case "SHOP_ITEM_TYPE_BUILDING":
+                dbopt_vehicles = {
+                    database: 'DB_SAVEGAME_DATA',
+                    store: 'DB_STORE_BUILDINGS',
+                    schema: 'SCHEMA_SAVEGAME_DATA'
+                }
+                break;
+
+            case "SHOP_ITEM_TYPE_VEHICLE":
+                dbopt_vehicles = {
+                    database: 'DB_SAVEGAME_DATA',
+                    store: 'DB_STORE_PURCHASED_ITEMS',
+                    schema: 'SCHEMA_SAVEGAME_DATA'
+                }
+                break;
         }
+
         async function fetchData() {
             await getDB(dbopt_vehicles)
                 .then((r) => {
@@ -123,19 +138,25 @@ export function ItemDisplayModule({ item, type }: ItemDisplayInterface) {
                     return r;
                 })
                 .catch((err) => {
-                    console.error(err)
+                    throw new Error(err);
                 });
         }
+
+        fetchData();
     }, []);
 
     return (
         <div className="content-module item-display">
             <details>
                 <summary>
-                    <h2>Item: {item} - {type}</h2>
+                    <h2>Item: {item}</h2>
                 </summary>
                 <p>
-                    {itemData[0].id}
+                    {
+                        itemData.map((foo) => {
+                            return <p>{foo.id}</p>
+                        })
+                    }
                 </p>
             </details>
         </div>

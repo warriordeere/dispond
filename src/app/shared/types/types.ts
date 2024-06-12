@@ -179,7 +179,6 @@ export interface DatabasePostOptions extends DatabaseOptions {
     data: BuildingInterface | MissionInterface | ShopItemData
 }
 
-
 export interface GeometryData {
     type: 'FeatureCollection'
     features: FeatureArray[]
@@ -290,12 +289,7 @@ export enum SearchParamsOptions {
     "SEARCHPARAMS_DISPLAY_ITEM_TYPE" = "type",
 }
 
-export interface ItemDisplayInterface {
-    item: String | undefined
-    type: GeneralItemTypes | undefined
-}
-
 export interface MenuContentInterface {
     content_type: MenuModuleContentTypes
-    item_display: ItemDisplayInterface
+    item?: string
 }
