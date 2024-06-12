@@ -179,6 +179,11 @@ export interface DatabasePostOptions extends DatabaseOptions {
     data: BuildingInterface | MissionInterface | ShopItemData
 }
 
+export interface DatabaseGetOptions extends DatabaseOptions {
+    key: string[] | 'DB_GET_REQUEST_OPTION_ALL'
+}
+
+
 export interface GeometryData {
     type: 'FeatureCollection'
     features: FeatureArray[]

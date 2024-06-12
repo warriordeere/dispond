@@ -5,7 +5,7 @@ import { FaThList } from "react-icons/fa";
 import { BsFillGrid3X3GapFill } from "react-icons/bs";
 
 import { getDB } from "@/app/indexed_db";
-import { MissionInterface, DatabaseOptions, ShopItemData, GeneralItemTypes } from "../types/types";
+import { MissionInterface, ShopItemData, GeneralItemTypes, DatabaseGetOptions } from "../types/types";
 
 import { useEffect, useState } from "react";
 
@@ -17,13 +17,14 @@ export function DispatchContentModule() {
 
     useEffect(() => {
         async function fetchData() {
-            const dbopt_mission: DatabaseOptions = {
+            const dbopts: DatabaseGetOptions = {
                 database: 'DB_SAVEGAME_DATA',
                 store: 'DB_STORE_ACTIVE_MISSIONS',
-                schema: 'SCHEMA_SAVEGAME_DATA'
+                schema: 'SCHEMA_SAVEGAME_DATA',
+                key: 'DB_GET_REQUEST_OPTION_ALL',
             }
 
-            await getDB(dbopt_mission)
+            await getDB(dbopts)
                 .then((r) => {
                     setMissionData(r as MissionInterface[]);
                     return r;
@@ -111,28 +112,30 @@ export function ItemDisplayModule({ item, type }: { item: string, type: GeneralI
 
     useEffect(() => {
 
-        let dbopt_vehicles: DatabaseOptions;
+        let dbopts: DatabaseGetOptions;
 
         switch (type) {
             case "SHOP_ITEM_TYPE_BUILDING":
-                dbopt_vehicles = {
+                dbopts = {
                     database: 'DB_SAVEGAME_DATA',
                     store: 'DB_STORE_BUILDINGS',
-                    schema: 'SCHEMA_SAVEGAME_DATA'
+                    schema: 'SCHEMA_SAVEGAME_DATA',
+                    key: 'DB_GET_REQUEST_OPTION_ALL'
                 }
                 break;
 
             case "SHOP_ITEM_TYPE_VEHICLE":
-                dbopt_vehicles = {
+                dbopts = {
                     database: 'DB_SAVEGAME_DATA',
                     store: 'DB_STORE_PURCHASED_ITEMS',
-                    schema: 'SCHEMA_SAVEGAME_DATA'
+                    schema: 'SCHEMA_SAVEGAME_DATA',
+                    key: [item],
                 }
                 break;
         }
 
         async function fetchData() {
-            await getDB(dbopt_vehicles)
+            await getDB(dbopts)
                 .then((r) => {
                     setItemData(r as ShopItemData[]);
                     return r;
@@ -143,6 +146,8 @@ export function ItemDisplayModule({ item, type }: { item: string, type: GeneralI
         }
 
         fetchData();
+
+        console.log(itemData);
     }, []);
 
     return (
@@ -154,11 +159,11 @@ export function ItemDisplayModule({ item, type }: { item: string, type: GeneralI
                 <p>
                     {
                         itemData.map((foo) => {
-                            return <p>{foo.id}</p>
+                            return <>{foo.id}</>
                         })
                     }
                 </p>
             </details>
-        </div>
+        </div >
     )
 }
