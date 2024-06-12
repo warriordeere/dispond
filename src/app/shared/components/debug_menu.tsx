@@ -25,6 +25,13 @@ export function DebugMenu() {
         window.location.assign(url.href);
     }
 
+    function runCustomScript() {
+        const url = new URL(window.location.href);
+        url.searchParams.set('secondary', 'type_item_display');
+        url.searchParams.set('view', '2e69959b-aefa-4248-bf5e-478ec1a4a0b4');
+        window.location.assign(url.href);
+    }
+
     return (
         <Draggable
             handle='#dbgm-drag-handle'
@@ -45,6 +52,9 @@ export function DebugMenu() {
                                 <button onClick={handleMdfyParams}>Modify Searchparams</button>
                                 <input type="text" ref={search_params_name_ref} />
                                 <input type="text" ref={search_params_value_ref} />
+                            </div>
+                            <div>
+                                <button onClick={runCustomScript}>Custom Script</button>
                             </div>
                         </div>
                     </details>
