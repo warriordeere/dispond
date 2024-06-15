@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
     try {
         const ddir = path.join(process.cwd(), 'src-tauri/data/missions');
         const params = req.nextUrl.searchParams;
-        const fl = params.get('file') as string;
+        const fl = params.get('path') as string;
         const flep = path.join(ddir, fl);
         const cnt = fs.readFileSync(flep, 'utf-8');
 
