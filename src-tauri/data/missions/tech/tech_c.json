@@ -9,11 +9,13 @@
         "de_DE": "VU, unklare Lage",
         "en_US": "Accident, situation unknown"
     },
-    "attachable_units": [
+    "required_units": [
         "VEHICLE_TYPE_ENGINE_A",
         "VEHICLE_TYPE_ENGINE_B",
-        "VEHICLE_TYPE_ENGINE_C",
-        "VEHICLE_TYPE_TECH_A",
-        "VEHICLE_TYPE_TACTICAL_A"
+        "VEHICLE_TYPE_TECH_A"
+    ],
+    "required_loadout": [
+        "LOADOUT_ITEM_LEAKKIT_BIG",
+        "LOADOUT_ITEM_TECHKIT"
     ]
 }

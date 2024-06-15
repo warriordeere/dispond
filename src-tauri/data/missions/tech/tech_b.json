@@ -9,11 +9,13 @@
         "de_DE": "VU, eingeklemmte Person",
         "en_US": "Accident, person trapped"
     },
-    "attachable_units": [
-        "VEHICLE_TYPE_ENGINE_A",
+    "required_units": [
         "VEHICLE_TYPE_ENGINE_B",
-        "VEHICLE_TYPE_ENGINE_C",
         "VEHICLE_TYPE_TECH_A",
-        "VEHICLE_TYPE_TACTICAL_A"
+        "VEHICLE_TYPE_TACTICAL_B"
+    ],
+    "required_loadout": [
+        "LOADOUT_ITEM_LEAKKIT_SMALL",
+        "LOADOUT_ITEM_TECHKIT"
     ]
 }

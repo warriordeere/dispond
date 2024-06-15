@@ -47,3 +47,5 @@ export type ItemFireFightingTypes = "LOADOUT_ITEM_FOAM_PIPE" | "LOADOUT_ITEM_FIR
 export type ItemAssistanceTypes = "LOADOUT_ITEM_TECHKIT" | "LOADOUT_ITEM_LEAKKIT_SMALL" | "LOADOUT_ITEM_LEAKKIT_BIG" | "LOADOUT_ITEM_DOORKIT"
 
 export type ItemMiscTypes = "LOADOUT_ITEM_LIGHTKIT" | "LOADOUT_ITEM_HAZMATKIT"
+
+export type LoadoutOptions = ItemFireFightingTypes | ItemAssistanceTypes | ItemMiscTypes
