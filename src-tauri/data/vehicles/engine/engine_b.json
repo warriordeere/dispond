@@ -1,13 +1,13 @@
 {
     "file_type": "vehicle/vehicle",
-    "type": "VEHICLE_TYPE_ENGINE_A",
+    "type": "VEHICLE_TYPE_ENGINE_B",
     "category": {
-        "de_DE": "LF-20",
-        "en_US": "LF-20"
+        "de_DE": "HLF-20",
+        "en_US": "HLF-20"
     },
     "desc": {
-        "de_DE": "Löschgruppenfahrzeug",
-        "en_US": "Fire Engine"
+        "de_DE": "Hilfleistungs-Löschgruppenfahrzeug",
+        "en_US": "Rescue Engine"
     },
     "perks": {
         "units": 9,
@@ -15,15 +15,16 @@
         "clothing": [
             "CLOTHING_SCBA"
         ],
-        "loadout_cap": 5,
+        "loadout_cap": 6,
         "loadout_items": {
             "item_fire_fighting": [
                 "LOADOUT_ITEM_FOAM_PIPE",
                 "LOADOUT_ITEM_FIRE_HOSE"
             ],
             "item_assistance": [
-                "LOADOUT_ITEM_LEAKKIT_SMALL",
-                "LOADOUT_ITEM_DOORKIT"
+                "LOADOUT_ITEM_LEAKKIT_BIG",
+                "LOADOUT_ITEM_DOORKIT",
+                "LOADOUT_ITEM_TECHKIT"
             ],
             "item_misc": [
                 "LOADOUT_ITEM_LIGHTKIT"

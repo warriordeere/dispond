@@ -1,0 +1,18 @@
+{
+    "file_type": "dispatch/mission",
+    "type": "DISPATCH_TYPE_TECH_A",
+    "category": {
+        "de_DE": "TH1",
+        "en_US": "Assistance 1"
+    },
+    "desc": {
+        "de_DE": "Auslaufende Betriebsstoffe",
+        "en_US": "leaking fuels"
+    },
+    "attachable_units": [
+        "VEHICLE_TYPE_ENGINE_A",
+        "VEHICLE_TYPE_ENGINE_B",
+        "VEHICLE_TYPE_ENGINE_C",
+        "VEHICLE_TYPE_TACTICAL_A"
+    ]
+}

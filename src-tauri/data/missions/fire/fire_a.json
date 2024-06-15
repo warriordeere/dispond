@@ -6,10 +6,13 @@
         "en_US": "Fire 1"
     },
     "desc": {
-        "de_DE": "Kleinbrand",
-        "en_US": "Small Fire"
+        "de_DE": "PKW-Brand",
+        "en_US": "car burning"
     },
     "attachable_units": [
-        ""
+        "VEHICLE_TYPE_ENGINE_A",
+        "VEHICLE_TYPE_ENGINE_B",
+        "VEHICLE_TYPE_ENGINE_C",
+        "VEHICLE_TYPE_TACTICAL_A"
     ]
 }

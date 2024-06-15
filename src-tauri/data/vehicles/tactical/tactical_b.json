@@ -1,16 +1,16 @@
 {
     "file_type": "vehicle/vehicle",
-    "type": "VEHICLE_TYPE_TACTICAL_A",
+    "type": "VEHICLE_TYPE_TACTICAL_B",
     "category": {
-        "de_DE": "ELW-1",
-        "en_US": "ELW-1"
+        "de_DE": "KdoW",
+        "en_US": "KdoW"
     },
     "desc": {
-        "de_DE": "Einsatzleitwagen",
-        "en_US": "Mobile Command Unit"
+        "de_DE": "Kommandowagen",
+        "en_US": "Command Car"
     },
     "perks": {
-        "units": 4,
+        "units": 1,
         "extinguishing_cap": 0,
         "clothing": [],
         "loadout_cap": 0,

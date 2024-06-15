@@ -1,17 +1,17 @@
 {
     "file_type": "vehicle/vehicle",
-    "type": "VEHICLE_TYPE_LADDER_A",
+    "type": "VEHICLE_TYPE_ENGINE_C",
     "category": {
-        "de_DE": "DLA(K)-23/12",
-        "en_US": "DLA(K)-23/12"
+        "de_DE": "TLF 3000",
+        "en_US": "TLF 3000"
     },
     "desc": {
-        "de_DE": "Drehleiter (mit Korb)",
-        "en_US": "Ladder"
+        "de_DE": "Tanklöschfahrzeug",
+        "en_US": "Tender"
     },
     "perks": {
         "units": 3,
-        "extinguishing_cap": 0,
+        "extinguishing_cap": 3000,
         "clothing": [
             "CLOTHING_SCBA"
         ],
