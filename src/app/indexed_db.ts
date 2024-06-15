@@ -60,14 +60,6 @@ export async function getDB(db_opt: DatabaseGetOptions): Promise<[]> {
                     db.close();
                 }
 
-                // db_opt.key.forEach(
-                //     async (idx) => {
-                //         buffer.push(await trx.store.get(idx));
-                //         await trx.done;
-                //         db.close();
-                //     }
-                // )
-
                 console.debug(buffer);
 
                 return buffer as [];

@@ -1,6 +1,7 @@
 import { LngLatLike } from "@tomtom-international/web-sdk-maps"
 import { DBSchema } from "idb"
 import React from "react"
+import { VehicleTypeOptions } from "./vehicle.types"
 
 export interface savegameInterface {
     created: Number
@@ -253,7 +254,7 @@ export interface PresenceData {
 export interface ShopItemData {
     item_type: GeneralItemTypes
     id: string
-    item_secondary_type: VehicleTypes
+    item_secondary_type: VehicleTypeOptions
     item_cost: number
     item_owner: string
     item_position: {
@@ -261,8 +262,6 @@ export interface ShopItemData {
         lat: number
     }
 }
-
-export type VehicleTypes = "VEHICLE_TYPE_HLF" | "VEHICLE_TYPE_ELW" | "VEHICLE_TYPE_DLK"
 
 export interface DBVersionInterface {
     ltvs: string

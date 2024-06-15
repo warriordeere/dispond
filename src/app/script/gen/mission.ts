@@ -1,4 +1,4 @@
-import { MissionInterface, ReverseGeocodeResult, callerObject, missionObject } from "@/app/shared/types/types";
+import { MissionInterface, callerObject, missionObject } from "@/app/shared/types/types";
 import { BaseDirectory, readTextFile } from "@tauri-apps/api/fs";
 import { GeometryData } from "@/app/shared/types/types";
 import { LngLatLike } from "@tomtom-international/web-sdk-maps";

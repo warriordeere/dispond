@@ -27,10 +27,14 @@ export function DebugMenu() {
 
     function runCustomScript() {
         const url = new URL(window.location.href);
-        url.searchParams.set('primary', 'type_dispatch_menu');
-        url.searchParams.set('secondary', 'type_item_display');
-        url.searchParams.set('view', '2e69959b-aefa-4248-bf5e-478ec1a4a0b4');
-        window.location.assign(url.href);
+
+        // url.searchParams.set('primary', 'type_dispatch_menu');
+        // url.searchParams.set('secondary', 'type_item_display');
+        // url.searchParams.set('view', '2e69959b-aefa-4248-bf5e-478ec1a4a0b4');
+
+        window.location.replace('api/mission?file=fire/fire_a.json');
+
+        // window.location.assign(url.href);
     }
 
     return (

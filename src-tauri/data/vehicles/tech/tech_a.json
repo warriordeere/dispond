@@ -1,0 +1,29 @@
+{
+    "file_type": "vehicle/vehicle",
+    "type": "VEHICLE_TYPE_TECH_A",
+    "category": {
+        "de_DE": "RW",
+        "en_US": "RW"
+    },
+    "desc": {
+        "de_DE": "Rüstwagen",
+        "en_US": "Heavy Rescue"
+    },
+    "perks": {
+        "units": 3,
+        "extinguishing_cap": 0,
+        "clothing": [],
+        "loadout_cap": 4,
+        "loadout_items": {
+            "item_fire_fighting": [],
+            "item_assistance": [
+                "LOADOUT_ITEM_LEAKKIT_BIG",
+                "LOADOUT_ITEM_DOORKIT",
+                "LOADOUT_ITEM_TECHKIT"
+            ],
+            "item_misc": [
+                "LOADOUT_ITEM_LIGHTKIT"
+            ]
+        }
+    }
+}
