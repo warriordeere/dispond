@@ -40,6 +40,12 @@ export interface MissionInterface {
     time: number
 }
 
+export interface NamesFile {
+    last_names: string[]
+    first_names: string[]
+}
+
+
 export type callerObject = {
     last_name: string,
     first_name: string
@@ -83,11 +89,6 @@ export interface gameConfigFile {
     }
     config_version: 1
     mods: boolean
-}
-
-export interface namesFile {
-    first_names: string[]
-    last_names: string[]
 }
 
 export interface ttSearchboxResult extends ReverseGeocodeResult {

@@ -1,4 +1,4 @@
-import { MissionInterface, callerObject, missionObject } from "@/app/shared/types/types";
+import { MissionInterface, NamesFile, callerObject, missionObject } from "@/app/shared/types/types";
 import { BaseDirectory, readTextFile } from "@tauri-apps/api/fs";
 import { GeometryData } from "@/app/shared/types/types";
 import { LngLatLike } from "@tomtom-international/web-sdk-maps";
@@ -12,6 +12,8 @@ import { API_KEY } from "@/app/page";
 
 export async function generateMissionData(area: GeometryData): Promise<MissionInterface> {
 
+    console.log("[DEBUG]: [GMD-MODULE]: test1");
+
     async function randomMission(): Promise<missionObject> {
         const missionObject = JSON.parse(`${await readTextFile('Arcavigi Interactive/dispond/saves/MySave/assets/missions.json', { dir: BaseDirectory.Document })}`);
         const missionArray = missionObject[Math.floor(Math.random() * missionObject.length)];
@@ -20,7 +22,9 @@ export async function generateMissionData(area: GeometryData): Promise<MissionIn
     }
 
     async function randomCaller(): Promise<callerObject> {
-        const callerObject = JSON.parse(`${await readTextFile('Arcavigi Interactive/dispond/saves/MySave/assets/names.json', { dir: BaseDirectory.Document })}`);
+        // const callerObject = JSON.parse(`${await readTextFile('Arcavigi Interactive/dispond/saves/MySave/assets/names.json', { dir: BaseDirectory.Document })}`);
+        const callerObject = await fetch('api/data/file?=misc/names.json') as unknown as NamesFile;
+        console.log(callerObject);
         const firstName = callerObject.first_names[Math.floor(Math.random() * callerObject.first_names.length)]
         const lastName = callerObject.last_names[Math.floor(Math.random() * callerObject.last_names.length)]
         return { first_name: firstName, last_name: lastName }
@@ -64,6 +68,7 @@ export async function generateMissionData(area: GeometryData): Promise<MissionIn
 
 export class Mission {
     data: MissionInterface
+
     constructor(mission: MissionInterface) {
         this.data = {
             id: mission.id,
