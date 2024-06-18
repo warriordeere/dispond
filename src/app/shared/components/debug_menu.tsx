@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 import { GameEmitter } from '@/app/emitter';
 import { GameEvents } from '../types/types';
 import { getDB } from '@/app/indexed_db';
+import { generateMissionData } from '@/app/script/gen/mission';
+import { DEBUG_ONLY_fc } from '@/app/tests';
 
 export function DebugMenu() {
 
@@ -35,7 +37,7 @@ export function DebugMenu() {
         // // url.searchParams.set('secondary', 'type_item_display');
         // // url.searchParams.set('view', '2e69959b-aefa-4248-bf5e-478ec1a4a0b4');
 
-        window.location.replace('api/mission/new');
+        await generateMissionData(DEBUG_ONLY_fc);
 
         // // window.location.assign(url.href);
 

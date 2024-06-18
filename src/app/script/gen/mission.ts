@@ -11,9 +11,6 @@ import { MissionEmitter } from "@/app/emitter";
 import { API_KEY } from "@/app/page";
 
 export async function generateMissionData(area: GeometryData): Promise<MissionInterface> {
-
-    console.log("[DEBUG]: [GMD-MODULE]: test1");
-
     async function randomMission(): Promise<missionObject> {
         const missionObject = JSON.parse(`${await readTextFile('Arcavigi Interactive/dispond/saves/MySave/assets/missions.json', { dir: BaseDirectory.Document })}`);
         const missionArray = missionObject[Math.floor(Math.random() * missionObject.length)];
@@ -23,8 +20,14 @@ export async function generateMissionData(area: GeometryData): Promise<MissionIn
 
     async function randomCaller(): Promise<callerObject> {
         // const callerObject = JSON.parse(`${await readTextFile('Arcavigi Interactive/dispond/saves/MySave/assets/names.json', { dir: BaseDirectory.Document })}`);
-        const callerObject = await fetch('api/data/file?=misc/names.json') as unknown as NamesFile;
-        console.log(callerObject);
+        const callerObject: NamesFile = await fetch('api/data/file?path=misc/names.json')
+            .then((r) => {
+                return r.json() as unknown as NamesFile;
+            })
+            .catch((e) => {
+                throw new Error(e);
+            });
+
         const firstName = callerObject.first_names[Math.floor(Math.random() * callerObject.first_names.length)]
         const lastName = callerObject.last_names[Math.floor(Math.random() * callerObject.last_names.length)]
         return { first_name: firstName, last_name: lastName }
