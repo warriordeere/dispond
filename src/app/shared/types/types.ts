@@ -2,6 +2,7 @@ import { LngLatLike } from "@tomtom-international/web-sdk-maps"
 import { DBSchema } from "idb"
 import React from "react"
 import { VehicleTypeOptions } from "./vehicle.types"
+import { MissionTypeOptions } from "./missions.types"
 
 export interface savegameInterface {
     created: Number
@@ -36,7 +37,7 @@ export interface MissionInterface {
     id: string,
     caller: callerObject,
     location: locationObject,
-    mission: missionObject,
+    mission: MissionTypeOptions,
     time: number
 }
 
@@ -58,13 +59,6 @@ export type locationObject = {
     municapality: string
     street_n_number: string
 }
-
-export type missionObject = {
-    type: missionTypes,
-    specific: string
-}
-
-export type missionTypes = 'B1' | 'B2' | 'B2-MiG' | 'B3'
 
 export type missionTypesEqv = {
     'B1': [

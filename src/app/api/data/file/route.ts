@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
 
     if (typeof fp !== 'string') {
         return NextResponse.json(
-            { message: `[Error] 400 Invalid File Path Or Unexpected Request Syntax \n [DEBUG] [API-MODULE:DATA/FILE] Path: ${fp}` },
+            { message: `[Error] 400 Invalid File Path Or Unexpected Request Syntax` },
             { status: 400 }
         );
     }
@@ -19,14 +19,14 @@ export async function GET(req: NextRequest) {
 
     if (!abspath.startsWith(bdir)) {
         return NextResponse.json(
-            { message: `[Error] 403 Access Denied \n [DEBUG] [API-MODULE:DATA/FILE] Path: ${abspath}` },
+            { message: `[Error] 403 Access Denied` },
             { status: 403 }
         );
     }
 
     if (!fs.existsSync(abspath)) {
         return NextResponse.json(
-            { message: `[Error] 404 File Not Found \n [DEBUG] [API-MODULE:DATA/FILE] Path: ${abspath}` },
+            { message: `[Error] 404 File Not Found` },
             { status: 404 }
         );
     }
