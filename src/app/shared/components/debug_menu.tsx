@@ -4,6 +4,11 @@ import Draggable from 'react-draggable';
 import '../style/globals.css'
 import { useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { GameEmitter } from '@/app/emitter';
+import { GameEvents } from '../types/types';
+import { getDB } from '@/app/indexed_db';
+import { generateMissionData } from '@/app/script/gen/mission';
+import { DEBUG_ONLY_fc } from '@/app/tests';
 
 export function DebugMenu() {
 
@@ -25,16 +30,27 @@ export function DebugMenu() {
         window.location.assign(url.href);
     }
 
-    function runCustomScript() {
-        const url = new URL(window.location.href);
+    async function runCustomScript() {
+        // const url = new URL(window.location.href);
 
-        // url.searchParams.set('primary', 'type_dispatch_menu');
-        // url.searchParams.set('secondary', 'type_item_display');
-        // url.searchParams.set('view', '2e69959b-aefa-4248-bf5e-478ec1a4a0b4');
+        // // url.searchParams.set('primary', 'type_dispatch_menu');
+        // // url.searchParams.set('secondary', 'type_item_display');
+        // // url.searchParams.set('view', '2e69959b-aefa-4248-bf5e-478ec1a4a0b4');
 
-        window.location.replace('api/mission?file=fire/fire_a.json');
+        console.log(await generateMissionData(DEBUG_ONLY_fc));
 
-        // window.location.assign(url.href);
+        // // window.location.assign(url.href);
+
+        // console.log(await getDB({
+        //     database: "DB_SAVEGAME_DATA",
+        //     schema: "SCHEMA_SAVEGAME_DATA",
+        //     store: "DB_STORE_BUILDINGS",
+        //     key: ["a144cd90-d5b7-425d-b296-e8e671dd23b3"]
+        // }))
+    }
+
+    function fireEvent() {
+        GameEmitter.emit("EVENT_GAME_START", { "created": 1717834102804, "modified": 1717834102804, "game": { "name": "My Save", "spawn": [13.5, 52.5] } })
     }
 
     return (
@@ -60,6 +76,14 @@ export function DebugMenu() {
                             </div>
                             <div>
                                 <button onClick={runCustomScript}>Custom Script</button>
+                            </div>
+                        </div>
+                    </details>
+                    <details open>
+                        <summary>Events</summary>
+                        <div className="dbgm-wrapper">
+                            <div>
+                                <button onClick={fireEvent}>fire "EVENT_GAME_START"</button>
                             </div>
                         </div>
                     </details>

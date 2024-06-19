@@ -1,6 +1,6 @@
 import { LoadoutOptions, VehicleTypeOptions } from "./vehicle.types"
 
-export enum DispatchTypeOptions {
+export enum MissionTypeOptions {
     "DISPATCH_TYPE_FIRE_A" = 'fire_a',
     "DISPATCH_TYPE_FIRE_B" = 'fire_b',
     "DISPATCH_TYPE_FIRE_C" = 'fire_c',
@@ -13,7 +13,7 @@ export enum DispatchTypeOptions {
 
 export interface MissionFileObject {
     file_type: "dispatch/mission",
-    type: DispatchTypeOptions,
+    type: MissionTypeOptions,
     category: {
         de_DE: string,
         en_US: string

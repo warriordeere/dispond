@@ -2,6 +2,7 @@ import { LngLatLike } from "@tomtom-international/web-sdk-maps"
 import { DBSchema } from "idb"
 import React from "react"
 import { VehicleTypeOptions } from "./vehicle.types"
+import { MissionTypeOptions } from "./missions.types"
 
 export interface savegameInterface {
     created: Number
@@ -36,9 +37,15 @@ export interface MissionInterface {
     id: string,
     caller: callerObject,
     location: locationObject,
-    mission: missionObject,
+    mission: MissionTypeOptions,
     time: number
 }
+
+export interface NamesFile {
+    last_names: string[]
+    first_names: string[]
+}
+
 
 export type callerObject = {
     last_name: string,
@@ -52,13 +59,6 @@ export type locationObject = {
     municapality: string
     street_n_number: string
 }
-
-export type missionObject = {
-    type: missionTypes,
-    specific: string
-}
-
-export type missionTypes = 'B1' | 'B2' | 'B2-MiG' | 'B3'
 
 export type missionTypesEqv = {
     'B1': [
@@ -83,11 +83,6 @@ export interface gameConfigFile {
     }
     config_version: 1
     mods: boolean
-}
-
-export interface namesFile {
-    first_names: string[]
-    last_names: string[]
 }
 
 export interface ttSearchboxResult extends ReverseGeocodeResult {

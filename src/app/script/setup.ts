@@ -1,6 +1,6 @@
 import { invoke } from "@tauri-apps/api/tauri";
 import { GameEmitter } from "../emitter";
-import { BuildingInterface, DatabaseOptions, MissionInterface, PresenceInterface } from "../shared/types/types";
+import { BuildingInterface, DatabaseGetOptions, MissionInterface, PresenceInterface } from "../shared/types/types";
 import { getDB } from "../indexed_db";
 import { map_inst } from "../shared/components/map";
 import tt, { LngLatBounds, Marker } from "@tomtom-international/web-sdk-maps";
@@ -50,10 +50,11 @@ export function init() {
 
     GameEmitter.on('EVENT_GAME_START', async (data) => {
 
-        const getFromDBOptions: DatabaseOptions = {
+        const getFromDBOptions: DatabaseGetOptions = {
             database: 'DB_SAVEGAME_DATA',
             store: 'DB_STORE_BUILDINGS',
-            schema: 'SCHEMA_SAVEGAME_DATA'
+            schema: 'SCHEMA_SAVEGAME_DATA',
+            key: "DB_GET_REQUEST_OPTION_ALL"
         }
 
         const buildingData: BuildingInterface[] = await getDB(getFromDBOptions);
@@ -108,10 +109,11 @@ export function init() {
         }
 
         async function loadActiveMissions() {
-            const options: DatabaseOptions = {
+            const options: DatabaseGetOptions = {
                 database: 'DB_SAVEGAME_DATA',
                 store: 'DB_STORE_ACTIVE_MISSIONS',
-                schema: 'SCHEMA_SAVEGAME_DATA'
+                schema: 'SCHEMA_SAVEGAME_DATA',
+                key: "DB_GET_REQUEST_OPTION_ALL"
             }
 
             const activeMissionData = await getDB(options)
@@ -121,6 +123,8 @@ export function init() {
                 .catch((err) => {
                     throw new Error(err);
                 });
+
+            console.log(`[DEBUG] ${activeMissionData}`);
 
             activeMissionData.forEach((mission: MissionInterface) => {
                 const marker = new tt.Marker({ draggable: false, color: 'orange' });
@@ -136,10 +140,11 @@ export function init() {
         }
 
         async function startMissionGen() {
-            const options: DatabaseOptions = {
+            const options: DatabaseGetOptions = {
                 database: 'DB_SAVEGAME_DATA',
                 store: 'DB_STORE_ACTIVE_MISSIONS',
-                schema: 'SCHEMA_SAVEGAME_DATA'
+                schema: 'SCHEMA_SAVEGAME_DATA',
+                key: "DB_GET_REQUEST_OPTION_ALL"
             }
 
             const activeMissionData = await getDB(options)
