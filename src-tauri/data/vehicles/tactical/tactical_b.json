@@ -1,0 +1,23 @@
+{
+    "file_type": "vehicle/vehicle",
+    "type": "VEHICLE_TYPE_TACTICAL_B",
+    "category": {
+        "de_DE": "KdoW",
+        "en_US": "KdoW"
+    },
+    "desc": {
+        "de_DE": "Kommandowagen",
+        "en_US": "Command Car"
+    },
+    "perks": {
+        "units": 1,
+        "extinguishing_cap": 0,
+        "clothing": [],
+        "loadout_cap": 0,
+        "loadout_items": {
+            "item_fire_fighting": [],
+            "item_assistance": [],
+            "item_misc": []
+        }
+    }
+}

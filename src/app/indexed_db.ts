@@ -1,5 +1,5 @@
 import { openDB, IDBPDatabase } from 'idb';
-import { SavegameDataSchema, DatabaseOptions, DatabasePostOptions, DatabaseStores, DBVersionInterface } from './shared/types/types';
+import { SavegameDataSchema, DatabasePostOptions, DatabaseStores, DBVersionInterface, DatabaseGetOptions } from './shared/types/types';
 
 async function DBVersion(db_name: string): Promise<DBVersionInterface> {
     const db = await openDB<SavegameDataSchema>(db_name);
@@ -30,22 +30,47 @@ async function initDB(db_name: string): Promise<IDBPDatabase<any>> {
     });
 }
 
-export async function getDB(db_opt: DatabaseOptions): Promise<[]> {
+export async function getDB(db_opt: DatabaseGetOptions): Promise<[]> {
     const db_name = db_opt.database;
     const db_store = db_opt.store;
     const db = await initDB(db_name);
 
-    if (db.objectStoreNames.contains(db_store)) {
-        const trx = db.transaction(db_store, 'readonly');
-        const data = await trx.store.getAll();
-        await trx.done;
-        db.close();
-        return data as [];
+    switch (db_opt.key) {
+        case 'DB_GET_REQUEST_OPTION_ALL':
+            if (db.objectStoreNames.contains(db_store)) {
+                const trx = db.transaction(db_store, 'readonly');
+                const data = await trx.store.getAll();
+                await trx.done;
+                db.close();
+                return data as [];
+            }
+            else {
+                db.close();
+                return [];
+            }
+
+        default:
+            if (db.objectStoreNames.contains(db_store)) {
+                const trx = db.transaction(db_store, 'readonly');
+                let buffer: any[] = new Array();
+
+                for (let i = 0; i < db_opt.key.length; i++) {
+                    buffer.push(await trx.store.get(db_opt.key[i]));
+                    await trx.done;
+                    db.close();
+                }
+
+                console.debug(buffer);
+
+                return buffer as [];
+            }
+            else {
+                db.close();
+                return [];
+            }
     }
-    else {
-        db.close();
-        return [];
-    }
+
+
 }
 
 export async function postDB(db_opt: DatabasePostOptions) {

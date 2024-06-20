@@ -1,0 +1,21 @@
+{
+    "file_type": "dispatch/mission",
+    "type": "DISPATCH_TYPE_TECH_A",
+    "category": {
+        "de_DE": "TH2",
+        "en_US": "Assistance 2"
+    },
+    "desc": {
+        "de_DE": "VU, eingeklemmte Person",
+        "en_US": "Accident, person trapped"
+    },
+    "required_units": [
+        "VEHICLE_TYPE_ENGINE_B",
+        "VEHICLE_TYPE_TECH_A",
+        "VEHICLE_TYPE_TACTICAL_B"
+    ],
+    "required_loadout": [
+        "LOADOUT_ITEM_LEAKKIT_SMALL",
+        "LOADOUT_ITEM_TECHKIT"
+    ]
+}

@@ -1,0 +1,23 @@
+{
+    "file_type": "dispatch/mission",
+    "type": "DISPATCH_TYPE_FIRE_B",
+    "category": {
+        "de_DE": "B2",
+        "en_US": "Fire 2"
+    },
+    "desc": {
+        "de_DE": "Mitlerer Brand",
+        "en_US": "Medium Fire"
+    },
+    "required_units": [
+        "VEHICLE_TYPE_ENGINE_A",
+        "VEHICLE_TYPE_ENGINE_B",
+        "VEHICLE_TYPE_ENGINE_C",
+        "VEHICLE_TYPE_LADDER_A",
+        "VEHICLE_TYPE_TACTICAL_A"
+    ],
+    "required_loadout": [
+        "LOADOUT_ITEM_FOAM_PIPE",
+        "LOADOUT_ITEM_FIRE_HOSE"
+    ]
+}

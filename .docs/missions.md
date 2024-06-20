@@ -1,6 +1,6 @@
-# Missions
+# MissionsAPI
 
-Documentation of the Missions API, which is used to retrieve the mission files. It is possible to create, add and then load your own missions.
+Documentation of the mission files aswell as the Missions API, which is used to retrieve the mission files. It is possible to create, add and then load your own custom missions.
 
 ## Categories
 
@@ -29,7 +29,7 @@ This field marks the file as an mission file and therefore is strongly mandatory
 Must be a ``string`` starting with ``"DISPATCH_TYPE_"`` to be recognized as a valid mission category.
 
 ### ``category`` and ``desc``
-Must be a ``string``. Localization is ensured by a combination of [ISO 639](https://www.loc.gov/standards/iso639-2/php/code_list.php) and [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1#Codes). Currently only "de-DE" and "en-US" are supported.
+Must be a ``string``. Localization is ensured by a combination of [ISO 639](https://www.loc.gov/standards/iso639-2/php/code_list.php) and [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1#Codes). Currently only ``de_DE`` and ``en_US`` values are supported.
 
 ### ``attachable_units``
 Array of unit types that can be attached to the mission.
@@ -42,12 +42,12 @@ Array of unit types that can be attached to the mission.
     "file_type": "dispatch/mission",
     "type": "DISPATCH_TYPE_FIRE_A",
     "category": {
-        "de-DE": "B1",
-        "en-US": "Fire 1"
+        "de_DE": "B1",
+        "en_US": "Fire 1"
     },
     "desc": {
-        "de-DE": "Kleinbrand",
-        "en-US": "Small Fire"
+        "de_DE": "Kleinbrand",
+        "en_US": "Small Fire"
     },
     "attachable_units": [
         ""

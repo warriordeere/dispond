@@ -1,6 +1,8 @@
 import { LngLatLike } from "@tomtom-international/web-sdk-maps"
 import { DBSchema } from "idb"
 import React from "react"
+import { VehicleTypeOptions } from "./vehicle.types"
+import { MissionTypeOptions } from "./missions.types"
 
 export interface savegameInterface {
     created: Number
@@ -35,9 +37,15 @@ export interface MissionInterface {
     id: string,
     caller: callerObject,
     location: locationObject,
-    mission: missionObject,
+    mission: MissionTypeOptions,
     time: number
 }
+
+export interface NamesFile {
+    last_names: string[]
+    first_names: string[]
+}
+
 
 export type callerObject = {
     last_name: string,
@@ -51,13 +59,6 @@ export type locationObject = {
     municapality: string
     street_n_number: string
 }
-
-export type missionObject = {
-    type: missionTypes,
-    specific: string
-}
-
-export type missionTypes = 'B1' | 'B2' | 'B2-MiG' | 'B3'
 
 export type missionTypesEqv = {
     'B1': [
@@ -82,11 +83,6 @@ export interface gameConfigFile {
     }
     config_version: 1
     mods: boolean
-}
-
-export interface namesFile {
-    first_names: string[]
-    last_names: string[]
 }
 
 export interface ttSearchboxResult extends ReverseGeocodeResult {
@@ -179,6 +175,10 @@ export interface DatabasePostOptions extends DatabaseOptions {
     data: BuildingInterface | MissionInterface | ShopItemData
 }
 
+export interface DatabaseGetOptions extends DatabaseOptions {
+    key: string[] | 'DB_GET_REQUEST_OPTION_ALL'
+}
+
 
 export interface GeometryData {
     type: 'FeatureCollection'
@@ -247,9 +247,9 @@ export interface PresenceData {
 }
 
 export interface ShopItemData {
-    item_type: "SHOP_ITEM_TYPE_VEHICLE"
+    item_type: GeneralItemTypes
     id: string
-    item_secondary_type: VehicleTypes
+    item_secondary_type: VehicleTypeOptions
     item_cost: number
     item_owner: string
     item_position: {
@@ -258,9 +258,37 @@ export interface ShopItemData {
     }
 }
 
-export type VehicleTypes = "VEHICLE_TYPE_HLF"
-
 export interface DBVersionInterface {
     ltvs: string
     crvs: string
+}
+
+export type ToolboxButtonTypes = "TB_BTN_BUILDING_MENU" | "TB_BTN_VEHICLE_MENU" | "TB_DRP_ADD_MENU"
+
+export interface ItemRadioInterface {
+    id: string
+    label: string
+    state: number // 0 - 9; See https://de.wikipedia.org/wiki/Funkmeldesystem
+}
+
+export type GeneralItemTypes = "SHOP_ITEM_TYPE_VEHICLE" | "SHOP_ITEM_TYPE_BUILDING"
+
+export enum MenuModuleContentTypes {
+    "MENU_MODULE_CONTENT_TYPE_DISPATCH_MENU" = "type_dispatch_menu",
+    "MENU_MODULE_CONTENT_TYPE_UNIT_OVERVIEW" = "type_unit_overview",
+    "MENU_MODULE_CONTENT_TYPE_ITEM_DISPLAY" = "type_item_display"
+}
+
+export type MenuModuleTypes = "MENU_MODULE_TYPE_PRIMARY" | "MENU_MODULE_TYPE_SECONDARY"
+
+export enum SearchParamsOptions {
+    "SEARCHPARAMS_MENU_MODULE_PRIMARY" = "primary",
+    "SEARCHPARAMS_MENU_MODULE_SECONDARY" = "secondary",
+    "SEARCHPARAMS_DISPLAY_ITEM_ID" = "view",
+    "SEARCHPARAMS_DISPLAY_ITEM_TYPE" = "type",
+}
+
+export interface MenuContentInterface {
+    content_type: MenuModuleContentTypes
+    item?: string
 }
