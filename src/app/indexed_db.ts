@@ -1,5 +1,6 @@
 import { openDB, IDBPDatabase } from 'idb';
-import { SavegameDataSchema, DatabasePostOptions, DatabaseStores, DBVersionInterface, DatabaseGetOptions } from './shared/types/types';
+
+import { DBVersionInterface, SavegameDataSchema, DatabaseStores, DatabaseGetOptions, DatabasePostOptions } from '@shared/types/idb.types';
 
 async function DBVersion(db_name: string): Promise<DBVersionInterface> {
     const db = await openDB<SavegameDataSchema>(db_name);

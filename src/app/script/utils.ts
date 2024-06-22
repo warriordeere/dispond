@@ -1,9 +1,7 @@
 import { invoke } from "@tauri-apps/api/tauri";
-import { GeometryData, PresenceData, PresenceInterface } from "../shared/types/types";
 
-import * as turf_distance from '@turf/distance';
-import { map_inst } from "../shared/components/map";
-import tt from "@tomtom-international/web-sdk-maps";
+import { GeometryData } from "@shared/types/ttcst.types";
+import { PresenceData, PresenceInterface } from "@shared/types/utils.types";
 
 export function updatePresence(presence: PresenceData) {
 

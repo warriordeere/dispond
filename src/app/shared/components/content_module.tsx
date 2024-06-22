@@ -1,15 +1,18 @@
 'use client'
 
+import '@shared/style/content_module.css'
+
+import { getDB } from "@/app/indexed_db";
+
+import { useEffect, useState } from "react";
+
 import { TbArrowsExchange } from "react-icons/tb";
 import { FaThList } from "react-icons/fa";
 import { BsFillGrid3X3GapFill } from "react-icons/bs";
 
-import { getDB } from "@/app/indexed_db";
-import { MissionInterface, ShopItemData, GeneralItemTypes, DatabaseGetOptions } from "../types/types";
-
-import { useEffect, useState } from "react";
-
-import '../style/content_module.css'
+import { ShopItemData, GeneralItemTypes } from "@shared/types/types";
+import { DatabaseGetOptions } from "@shared/types/idb.types";
+import { MissionInterface } from "@shared/types/missions.types";
 
 export function DispatchContentModule() {
 
@@ -75,10 +78,10 @@ function DispatchContentItem({ data }: { data: MissionInterface }) {
                 icon
             </div>
             <h3 className="dispatch-title">
-                {data.mission.type}
+                {data.mission}
             </h3>
             <p className="dispatch-detail">
-                {data.mission.specific}
+                {data.mission} [TODO] Fetch Specific Data From File!! 
             </p>
             <div className="dispatch-units">
                 <div className="unit-tag">

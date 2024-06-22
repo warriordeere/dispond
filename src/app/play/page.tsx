@@ -1,15 +1,15 @@
 'use client'
 
+import '@shared/style/globals.css';
+import '@shared/style/game.css'
+
+import { useEffect } from "react";
+import { GameEmitter } from "../script/emitter";
+
 import TTMap from "../shared/components/map";
 import RadioMenu from '../shared/components/radio_menu';
 import MenuModule from '../shared/components/menu_module';
 import Toolbox from "../shared/components/toolbox";
-import { GameEmitter } from "../emitter";
-
-import { useEffect } from "react";
-
-import '../shared/style/globals.css';
-import '../shared/style/game.css'
 
 export default function Page() {
 

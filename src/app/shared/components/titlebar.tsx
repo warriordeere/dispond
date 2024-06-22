@@ -1,10 +1,11 @@
 'use client'
 
-import { VscChromeClose, VscChromeMaximize, VscChromeMinimize, VscChromeRestore } from 'react-icons/vsc'
 import { appWindow } from "@tauri-apps/api/window";
 
-import './titlebar.css';
-import '../../style/globals.css';
+import { VscChromeClose, VscChromeMaximize, VscChromeMinimize } from 'react-icons/vsc'
+
+import '@shared/style/titlebar.css';
+import '@shared/style/globals.css';
 
 export default function WindowTitlebar() {
   return (

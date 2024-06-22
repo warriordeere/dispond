@@ -1,14 +1,18 @@
-import { MissionInterface, NamesFile, callerObject } from "@/app/shared/types/types";
-import { GeometryData } from "@/app/shared/types/types";
+import { API_KEY } from "@/app/page";
+
 import { LngLatLike } from "@tomtom-international/web-sdk-maps";
 import tt from "@tomtom-international/web-sdk-services";
+
 import * as turf_bbox from '@turf/bbox';
 import * as turf_boolean_point_in_polygon from '@turf/boolean-point-in-polygon';
 import * as turf_random from '@turf/random'
 import * as truf_helpers from "@turf/helpers";
-import { MissionEmitter } from "@/app/emitter";
-import { API_KEY } from "@/app/page";
-import { MissionFileObject, MissionTypeOptions } from "@/app/shared/types/missions.types";
+
+import { MissionEmitter } from "@/app/script/emitter";
+
+import { MissionFileObject, MissionInterface, MissionTypeOptions, callerObject } from "@/app/shared/types/missions.types";
+import { NamesFile } from "@/app/shared/types/savegame.types";
+import { GeometryData } from "@/app/shared/types/ttcst.types";
 
 export async function generateMissionData(area: GeometryData): Promise<MissionInterface> {
     async function randomMission(): Promise<MissionTypeOptions> {

@@ -1,14 +1,14 @@
 'use client'
 
-import Draggable from 'react-draggable';
-import '../style/globals.css'
-import { useRef } from 'react';
-import { useRouter } from 'next/navigation';
-import { GameEmitter } from '@/app/emitter';
-import { GameEvents } from '../types/types';
-import { getDB } from '@/app/indexed_db';
+import '@shared/style/globals.css'
+
 import { generateMissionData } from '@/app/script/gen/mission';
 import { DEBUG_ONLY_fc } from '@/app/tests';
+
+import Draggable from 'react-draggable';
+import { useRef } from 'react';
+import { useRouter } from 'next/navigation';
+import { GameEmitter } from '@/app/script/emitter';
 
 export function DebugMenu() {
 
