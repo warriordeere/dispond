@@ -8,8 +8,8 @@ import { DEBUG_ONLY_fc } from '@/app/tests';
 import Draggable from 'react-draggable';
 import { useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { GameEmitter } from '@/app/script/emitter';
-import { App } from '@/app/script/app';
+import { GameEmitter } from '@/app/script/utils/emitter';
+import { App } from '@/app/script/utils/app';
 
 export function DebugMenu() {
 
@@ -93,6 +93,16 @@ export function DebugMenu() {
                         <div className="dbgm-wrapper">
                             <div>
                                 <button onClick={App.initMap}>[DEBUG] module:new_setup.ts App.initMap()</button>
+                            </div>
+                        </div>
+                        <div className="dbgm-wrapper">
+                            <div>
+                                <button onClick={App.initBuildings}>[DEBUG] module:new_setup.ts App.initBuildings()</button>
+                            </div>
+                        </div>
+                        <div className="dbgm-wrapper">
+                            <div>
+                                <button onClick={App.summonDispatch}>[DEBUG] module:new_setup.ts App.dispatchSummoning()</button>
                             </div>
                         </div>
                     </details>

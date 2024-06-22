@@ -2,7 +2,7 @@ import { LngLatLike } from "@tomtom-international/web-sdk-maps"
 import { savegameInterface } from "./savegame.types"
 import { ShopItemData} from "./types"
 import { BuildingInterface, MissionRespondData } from "./building.types"
-import { MissionInterface } from "./missions.types"
+import { DispatchInterface } from "./dispatches.types"
 
 export interface BuildingEvents {
     on(eventName: 'EVENT_BUILDING_CREATE', handler: (data: BuildingInterface) => void): void
@@ -22,8 +22,8 @@ export interface VehicleEvents {
 export type MissionEventTypes = "EVENT_MISSION_CREATE" | "EVENT_MISSION_ITEM_TOGGLE" | "EVENT_MISSION_CANCEL" | "EVENT_MISSION_START" | "EVENT_MISSION_RESPOND" | "EVENT_MISSION_REMOVE"
 
 export interface MissionEvents {
-    on(eventName: MissionEventTypes, handler: (data: MissionInterface) => void): void
-    emit(eventName: MissionEventTypes, data: MissionInterface): void
+    on(eventName: MissionEventTypes, handler: (data: DispatchInterface) => void): void
+    emit(eventName: MissionEventTypes, data: DispatchInterface): void
 
     on(eventName: "EVENT_MISSION_RESPOND", handler: (data: MissionRespondData) => void): void
     emit(eventName: "EVENT_MISSION_RESPOND", data: MissionRespondData): void

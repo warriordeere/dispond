@@ -2,7 +2,7 @@
 
 import '@shared/style/modules/content_module.css'
 
-import { getDB } from "@/app/indexed_db";
+import { getDB } from "@/app/script/utils/idb";
 
 import { useEffect, useState } from "react";
 
@@ -12,11 +12,11 @@ import { BsFillGrid3X3GapFill } from "react-icons/bs";
 
 import { ShopItemData, GeneralItemTypes } from "@shared/types/types";
 import { DatabaseGetOptions } from "@shared/types/idb.types";
-import { MissionInterface } from "@shared/types/missions.types";
+import { DispatchInterface } from "@shared/types/missions.types";
 
 export function DispatchContentModule() {
 
-    const [missionData, setMissionData] = useState<MissionInterface[]>([]);
+    const [missionData, setMissionData] = useState<DispatchInterface[]>([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -29,7 +29,7 @@ export function DispatchContentModule() {
 
             await getDB(dbopts)
                 .then((r) => {
-                    setMissionData(r as MissionInterface[]);
+                    setMissionData(r as DispatchInterface[]);
                     return r;
                 })
                 .catch((err) => {
@@ -60,8 +60,7 @@ export function DispatchContentModule() {
             </div>
             <div className="menu-content">
                 {
-                    missionData.map((dispatch: MissionInterface) => {
-                        console.log(dispatch);
+                    missionData.map((dispatch: DispatchInterface) => {
                         return (
                             <DispatchContentItem key={dispatch.id} data={dispatch} />
                         );
@@ -72,7 +71,7 @@ export function DispatchContentModule() {
     )
 }
 
-function DispatchContentItem({ data }: { data: MissionInterface }) {
+function DispatchContentItem({ data }: { data: DispatchInterface }) {
     return (
         <div className="dispatch-item">
             <div className="dispatch-icon">

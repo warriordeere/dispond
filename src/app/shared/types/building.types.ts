@@ -1,4 +1,4 @@
-import { MissionInterface } from "./missions.types"
+import { DispatchInterface } from "./dispatches.types"
 import { GeometryData } from "./ttcst.types"
 import { ShopItemData } from "./types"
 
@@ -23,7 +23,7 @@ export type buildingTypes = 'FIREBRIGADE' | 'VOLUNTEER_FIREBRIGADE'
 
 
 export type MissionRespondData = {
-    mission: MissionInterface
+    mission: DispatchInterface
     responding: ShopItemData[]
 }
 

@@ -4,13 +4,13 @@ import { invoke } from "@tauri-apps/api/tauri";
 
 import tt, { LngLatBounds } from "@tomtom-international/web-sdk-maps";
 
-import { GameEmitter } from "./emitter";
-import { getDB } from "../indexed_db";
-import { Mission, generateMissionData } from "./gen/mission";
+import { GameEmitter } from "./utils/emitter";
+import { getDB } from "./utils/idb";
+import { Dispatch, generateMissionData } from "./gen/mission";
 
 import { BuildingInterface } from "@shared/types/building.types";
 import { DatabaseGetOptions } from "@shared/types/idb.types";
-import { MissionInterface } from "@shared/types/missions.types";
+import { DispatchInterface } from "@shared/types/missions.types";
 
 // import { currentMonitor, appWindow, PhysicalPosition } from "@tauri-apps/api/window";
 
@@ -132,7 +132,7 @@ export function init() {
 
             console.log(`[DEBUG] ${activeMissionData}`);
 
-            activeMissionData.forEach((mission: MissionInterface) => {
+            activeMissionData.forEach((mission: DispatchInterface) => {
                 const marker = new tt.Marker({ draggable: false, color: 'orange' });
                 const popup = new tt.Popup({ anchor: 'top', closeButton: false });
 
@@ -166,7 +166,7 @@ export function init() {
                     const area = bld.mission_area
                     if (area) {
                         const newMissionData = await generateMissionData(area);
-                        const newMission = new Mission(newMissionData);
+                        const newMission = new Dispatch(newMissionData);
 
                         const marker = new tt.Marker({ draggable: false, color: 'orange' });
                         const popup = new tt.Popup({ anchor: 'top', closeButton: false });

@@ -61,8 +61,6 @@ export async function getDB(db_opt: DatabaseGetOptions): Promise<[]> {
                     db.close();
                 }
 
-                console.debug(buffer);
-
                 return buffer as [];
             }
             else {
@@ -70,8 +68,6 @@ export async function getDB(db_opt: DatabaseGetOptions): Promise<[]> {
                 return [];
             }
     }
-
-
 }
 
 export async function postDB(db_opt: DatabasePostOptions) {
@@ -100,8 +96,6 @@ export async function postDB(db_opt: DatabasePostOptions) {
 
     const trx = db.transaction(db_store, 'readwrite');
     const str = trx.objectStore(db_store);
-
-    console.log(db_opt.data);
 
     await str.put(db_opt.data)
     await trx.done;
