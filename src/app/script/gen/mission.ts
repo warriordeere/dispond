@@ -8,14 +8,14 @@ import * as turf_boolean_point_in_polygon from '@turf/boolean-point-in-polygon';
 import * as turf_random from '@turf/random'
 import * as truf_helpers from "@turf/helpers";
 
-import { MissionEmitter } from "@/app/script/emitter";
+import { MissionEmitter } from "@/app/script/utils/emitter";
 
-import { MissionFileObject, MissionInterface, MissionTypeOptions, callerObject } from "@/app/shared/types/missions.types";
-import { NamesFile } from "@/app/shared/types/savegame.types";
-import { GeometryData } from "@/app/shared/types/ttcst.types";
+import { DispatchFileObject, DispatchInterface, DispatchTypeOptions, ClientObject } from "@shared/types/dispatches.types";
+import { NamesFile } from "@shared/types/savegame.types";
+import { GeometryData } from "@shared/types/ttcst.types";
 
-export async function generateMissionData(area: GeometryData): Promise<MissionInterface> {
-    async function randomMission(): Promise<MissionTypeOptions> {
+export async function generateMissionData(area: GeometryData): Promise<DispatchInterface> {
+    async function randomMission(): Promise<DispatchTypeOptions> {
         const missionList = await fetch('/api/list?dir=missions&type=json')
             .then((r: any) => {
                 return r.json() as String[];
@@ -29,7 +29,7 @@ export async function generateMissionData(area: GeometryData): Promise<MissionIn
         const msflpath = didx !== -1 ? msfl.substring(didx + 5) : "";
         const mission = await fetch(`api/data/file?path=${msflpath}`)
             .then((r) => {
-                return r.json() as unknown as MissionFileObject;
+                return r.json() as unknown as DispatchFileObject;
             })
             .catch((e) => {
                 throw new Error(e);
@@ -38,7 +38,7 @@ export async function generateMissionData(area: GeometryData): Promise<MissionIn
         return mission.type;
     }
 
-    async function randomCaller(): Promise<callerObject> {
+    async function randomCaller(): Promise<ClientObject> {
         const callerObject: NamesFile = await fetch('api/data/file?path=misc/names.json')
             .then((r) => {
                 return r.json() as unknown as NamesFile;
@@ -88,10 +88,10 @@ export async function generateMissionData(area: GeometryData): Promise<MissionIn
     }
 }
 
-export class Mission {
-    data: MissionInterface
+export class Dispatch {
+    data: DispatchInterface
 
-    constructor(mission: MissionInterface) {
+    constructor(mission: DispatchInterface) {
         this.data = {
             id: mission.id,
             caller: mission.caller,

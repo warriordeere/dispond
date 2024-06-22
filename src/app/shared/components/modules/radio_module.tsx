@@ -1,5 +1,5 @@
 import "@shared/style/globals.css";
-import "@shared/style/radio_menu.css";
+import "@shared/style/modules/radio_module.css";
 
 import { ItemRadioInterface } from "@shared/types/modules.types";
 

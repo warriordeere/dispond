@@ -5,13 +5,13 @@ import '@shared/style/globals.css';
 
 import React, { useEffect, useRef, useState } from 'react';
 
-import { getDB } from '@/app/indexed_db';
-import { MissionEmitter } from '@/app/script/emitter';
+import { getDB } from '@/app/script/utils/idb';
+import { MissionEmitter } from '@/app/script/utils/emitter';
 
 import { ShopItemData } from '../types/types';
 import { MissionRespondData } from '../types/building.types';
 import { DatabaseGetOptions } from '../types/idb.types';
-import { MissionInterface } from '../types/missions.types';
+import { DispatchInterface } from '../types/dispatches.types';
 
 import { BsFire, BsPersonCircle } from "react-icons/bs";
 import { FaMapMarkerAlt } from "react-icons/fa";
@@ -19,12 +19,12 @@ import { BiSolidBellRing } from 'react-icons/bi';
 
 export default function CallItem() {
 
-    const [missionData, setMissionData] = useState<MissionInterface[]>([]);
+    const [missionData, setMissionData] = useState<DispatchInterface[]>([]);
     const [vehicleData, setVehicleData] = useState<ShopItemData[]>([]);
-    const [selectedMission, setSelectedMission] = useState<MissionInterface | null>(null);
+    const [selectedMission, setSelectedMission] = useState<DispatchInterface | null>(null);
     const dialog = useRef<HTMLDialogElement>(null);
 
-    function handleOpenDialog(item: MissionInterface) {
+    function handleOpenDialog(item: DispatchInterface) {
         setSelectedMission(item);
         if (dialog.current) {
             dialog.current.showModal();
@@ -63,7 +63,7 @@ export default function CallItem() {
 
             await getDB(dbopt_mission)
                 .then((r) => {
-                    setMissionData(r as MissionInterface[]);
+                    setMissionData(r as DispatchInterface[]);
                     return r;
                 })
                 .catch((err) => {
@@ -86,7 +86,7 @@ export default function CallItem() {
     return (
         <>
             {
-                missionData.map((item: MissionInterface) => {
+                missionData.map((item: DispatchInterface) => {
                     return (
                         <>
                             <dialog ref={dialog} key={`dialog-${item.id}`} className='indev-dialog'>

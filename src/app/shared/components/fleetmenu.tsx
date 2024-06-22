@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 
-import { getDB, postDB } from '@/app/indexed_db';
+import { getDB, postDB } from '@/app/script/utils/idb';
 
 import { BsPencilFill, BsCashCoin } from 'react-icons/bs';
 import { FaCar, FaCartShopping } from 'react-icons/fa6';

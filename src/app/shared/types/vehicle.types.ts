@@ -1,3 +1,5 @@
+import { LanguageString } from "./types"
+
 export enum VehicleTypeOptions {
     "VEHICLE_TYPE_ENGINE_A" = "vehicle_type_lf",
     "VEHICLE_TYPE_ENGINE_B" = "vehicle_type_hlf",
@@ -16,12 +18,12 @@ export interface VehicleFileObject {
     file_type: "vehicle/vehicle",
     type: VehicleTypeOptions,
     category: {
-        de_DE: string,
-        en_US: string
+        [LanguageString.LANGUAGE_STRING_DE_DE]: string,
+        [LanguageString.LANGUAGE_STRING_EN_US]: string
     },
     desc: {
-        de_DE: string,
-        en_US: string
+        [LanguageString.LANGUAGE_STRING_DE_DE]: string,
+        [LanguageString.LANGUAGE_STRING_EN_US]: string
     },
     clothing: ClothingTypes[]
     perks: VehiclePerksObject

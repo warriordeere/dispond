@@ -4,21 +4,26 @@ import '@shared/style/globals.css';
 import '@shared/style/game.css'
 
 import { useEffect } from "react";
-import { GameEmitter } from "../script/emitter";
+import { GameEmitter } from "../script/utils/emitter";
 
 import TTMap from "../shared/components/map";
-import RadioMenu from '../shared/components/radio_menu';
-import MenuModule from '../shared/components/menu_module';
+import RadioMenu from '../shared/components/modules/radio_module';
+import MenuModule from '../shared/components/modules/menu_module';
 import Toolbox from "../shared/components/toolbox";
+import { App } from '../script/utils/app';
 
 export default function Page() {
-
     useEffect(() => {
+        App.initMap();
+        App.initBuildings();
+        App.loadActiveDispatches();
+
         const session = crypto.randomUUID()
         const game_data = {
             game_id: "My Save",
             session_id: session
         }
+
         localStorage.setItem('game', JSON.stringify(game_data))
         sessionStorage.setItem('game_session', session);
 

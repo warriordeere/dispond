@@ -1,7 +1,7 @@
-import { locationObject } from "./types"
+import { LanguageString, locationObject } from "./types"
 import { LoadoutOptions, VehicleTypeOptions } from "./vehicle.types"
 
-export enum MissionTypeOptions {
+export enum DispatchTypeOptions {
     "DISPATCH_TYPE_FIRE_A" = 'fire_a',
     "DISPATCH_TYPE_FIRE_B" = 'fire_b',
     "DISPATCH_TYPE_FIRE_C" = 'fire_c',
@@ -12,12 +12,12 @@ export enum MissionTypeOptions {
     "DISPATCH_TYPE_TECH_C" = 'tech_c',
 }
 
-export interface MissionFileObject {
+export interface DispatchFileObject {
     file_type: "dispatch/mission",
-    type: MissionTypeOptions,
+    type: DispatchTypeOptions,
     category: {
-        de_DE: string,
-        en_US: string
+        [LanguageString.LANGUAGE_STRING_DE_DE]: string,
+        [LanguageString.LANGUAGE_STRING_EN_US]: string
     },
     desc: {
         de_DE: string,
@@ -27,15 +27,15 @@ export interface MissionFileObject {
     required_loadout: LoadoutOptions[]
 }
 
-export interface MissionInterface {
+export interface DispatchInterface {
     id: string,
-    caller: callerObject,
+    caller: ClientObject,
     location: locationObject,
-    mission: MissionTypeOptions,
+    mission: DispatchTypeOptions,
     time: number
 }
 
-export type callerObject = {
+export type ClientObject = {
     last_name: string,
     first_name: string
 }

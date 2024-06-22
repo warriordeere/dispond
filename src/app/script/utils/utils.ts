@@ -2,6 +2,7 @@ import { invoke } from "@tauri-apps/api/tauri";
 
 import { GeometryData } from "@shared/types/ttcst.types";
 import { PresenceData, PresenceInterface } from "@shared/types/utils.types";
+import { DispatchFileObject, DispatchInterface, DispatchTypeOptions } from "@/app/shared/types/dispatches.types";
 
 export function updatePresence(presence: PresenceData) {
 
@@ -45,4 +46,16 @@ export function animateRespond(route: GeometryData) {
     // const marker = new tt.Marker().setLngLat(route.features[0].geometry.coordinates)
 
     // moveToStep(marker, route, 0);
+}
+
+export async function dispatchTypeToString(dispatch: DispatchTypeOptions): Promise<any> {
+    const dispatchData: DispatchInterface = await fetch(`api/data/dispatch?type=${dispatch}`)
+        .then((r) => {
+            return r.json() as unknown as DispatchInterface;
+        })
+        .catch((e) => {
+            throw new Error(e);
+        });
+
+    console.log(dispatchData);
 }

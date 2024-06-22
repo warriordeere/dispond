@@ -1,11 +1,11 @@
 'use client'
 
 import { API_KEY } from '@/app/page';
-import { MAP_SPAWN } from '@/app/script/setup';
 
 import '@shared/style/landing.css';
 import '@shared/style/globals.css';
 
+import tt from '@tomtom-international/web-sdk-maps';
 import { useRouter } from 'next/navigation';
 
 import { LuGamepad2 } from "react-icons/lu";
@@ -13,11 +13,29 @@ import { FaMedal } from "react-icons/fa6";
 import { FaPlay } from 'react-icons/fa';
 import { PiCurrencyEurFill } from "react-icons/pi";
 import { BiSolidTimeFive } from 'react-icons/bi';
+import { useEffect, useState } from 'react';
 
 export default function Landing() {
     const router = useRouter();
-    const gameRoute = '/play';
-    
+    const gameRoute = 'play?primary=type_dispatch_menu&secondary=type_unit_overview';
+    const [staticMapSrc, setStaticMapSrc] = useState<string>()
+
+    useEffect(() => {
+        async function fetchSpawnPoint() {
+            const spawnPoint = (await fetch('api/data/saves?filter=spawn'))
+                .json()
+                .then((r) => {
+                    return r[0] as [number, number];
+                });
+
+            const coords = tt.LngLat.convert(await spawnPoint);
+
+            setStaticMapSrc(`https://api.tomtom.com/map/1/staticimage?layer=hybrid&style=main&format=png&key=${API_KEY}&zoom=12&center=${coords.lng},${coords.lat}&width=800&height=500&language=NGT`);
+        }
+
+        fetchSpawnPoint();
+    }, []);
+
     return (
         <section className="landing">
             <div className="front">
@@ -36,7 +54,7 @@ export default function Landing() {
                     router.push(gameRoute)
                 }}>
                     <span className="savegame-bg">
-                        <img src={`https://api.tomtom.com/map/1/staticimage?layer=hybrid&style=main&format=png&key=${API_KEY}&zoom=12&center=${MAP_SPAWN}&width=800&height=500&language=NGT`} />
+                        <img src={staticMapSrc} />
                     </span>
                     <div className="savegame-preview">
                         <div className="sg-detail sg-name">Neues Spiel</div>

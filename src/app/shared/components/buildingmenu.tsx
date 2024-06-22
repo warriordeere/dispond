@@ -13,7 +13,7 @@ import { services } from "@tomtom-international/web-sdk-services";
 import SearchBox from '@tomtom-international/web-sdk-plugin-searchbox';
 
 import { map_inst } from "./map";
-import { postDB } from "@/app/indexed_db";
+import { postDB } from "@/app/script/utils/idb";
 
 import { BsBuildingFillAdd, BsBuildingFillGear, BsCashCoin, BsFillBuildingFill, BsPencilFill } from "react-icons/bs"
 import { buildingTypes, BuildingInterface } from '@shared/types/building.types';

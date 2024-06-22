@@ -1,8 +1,8 @@
 'use client'
 
-import '@shared/style/content_module.css'
+import '@shared/style/modules/content_module.css'
 
-import { getDB } from "@/app/indexed_db";
+import { getDB } from "@/app/script/utils/idb";
 
 import { useEffect, useState } from "react";
 
@@ -12,11 +12,11 @@ import { BsFillGrid3X3GapFill } from "react-icons/bs";
 
 import { ShopItemData, GeneralItemTypes } from "@shared/types/types";
 import { DatabaseGetOptions } from "@shared/types/idb.types";
-import { MissionInterface } from "@shared/types/missions.types";
+import { DispatchInterface } from "@shared/types/dispatches.types";
 
 export function DispatchContentModule() {
 
-    const [missionData, setMissionData] = useState<MissionInterface[]>([]);
+    const [missionData, setMissionData] = useState<DispatchInterface[]>([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -29,7 +29,7 @@ export function DispatchContentModule() {
 
             await getDB(dbopts)
                 .then((r) => {
-                    setMissionData(r as MissionInterface[]);
+                    setMissionData(r as DispatchInterface[]);
                     return r;
                 })
                 .catch((err) => {
@@ -60,9 +60,9 @@ export function DispatchContentModule() {
             </div>
             <div className="menu-content">
                 {
-                    missionData.map((dispatch: MissionInterface) => {
+                    missionData.map((dispatch: DispatchInterface) => {
                         return (
-                            <DispatchContentItem data={dispatch} />
+                            <DispatchContentItem key={dispatch.id} data={dispatch} />
                         );
                     })
                 }
@@ -71,7 +71,7 @@ export function DispatchContentModule() {
     )
 }
 
-function DispatchContentItem({ data }: { data: MissionInterface }) {
+function DispatchContentItem({ data }: { data: DispatchInterface }) {
     return (
         <div className="dispatch-item">
             <div className="dispatch-icon">
@@ -81,7 +81,7 @@ function DispatchContentItem({ data }: { data: MissionInterface }) {
                 {data.mission}
             </h3>
             <p className="dispatch-detail">
-                {data.mission} [TODO] Fetch Specific Data From File!! 
+                {data.mission} [TODO] Fetch Specific Data From File!!
             </p>
             <div className="dispatch-units">
                 <div className="unit-tag">
@@ -149,8 +149,6 @@ export function ItemDisplayModule({ item, type }: { item: string, type: GeneralI
         }
 
         fetchData();
-
-        console.log(itemData);
     }, []);
 
     return (
