@@ -1,14 +1,14 @@
 'use client'
 
 import "@shared/style/globals.css";
-import "@shared/style/menu_module.css";
+import "@shared/style/modules/menu_module.css";
 
 import React, { useEffect, useState } from "react";
 
 import { DispatchContentModule, ItemDisplayModule, UnitContentModule } from "./content_module";
-import { StatusDisplayBox } from "./system_message";
+import { StatusDisplayBox } from "../system_message";
 
-import { MenuModuleTypes, MenuContentInterface, SearchParamsOptions, MenuModuleContentTypes } from "../types/modules.types";
+import { MenuModuleTypes, MenuContentInterface, SearchParamsOptions, MenuModuleContentTypes } from "../../types/modules.types";
 
 export default function MenuModule({ module_type }: { module_type: MenuModuleTypes }) {
 

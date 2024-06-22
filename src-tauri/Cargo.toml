@@ -1,7 +1,7 @@
 [package]
 name = "dispond"
-version = "0.3.2"
-description = "A Tauri App"
+version = "0.4.0"
+description = "Dispatch Simulator"
 authors = ["Warrior Deere"]
 license = ""
 repository = "https://github.com/WarriorDeere/dispond"

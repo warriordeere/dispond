@@ -8,8 +8,8 @@
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "Dispond",
-    "version": "0.3.2"
+    "productName": "dispond",
+    "version": "0.4.0"
   },
   "tauri": {
     "allowlist": {
@@ -90,7 +90,7 @@
         "resizable": true,
         "maximized": true,
         "decorations": false,
-        "title": "Dispond v0.3.2"
+        "title": "dispond v0.4.0"
       }
     ]
   }

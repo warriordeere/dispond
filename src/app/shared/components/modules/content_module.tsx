@@ -1,6 +1,6 @@
 'use client'
 
-import '@shared/style/content_module.css'
+import '@shared/style/modules/content_module.css'
 
 import { getDB } from "@/app/indexed_db";
 
@@ -61,8 +61,9 @@ export function DispatchContentModule() {
             <div className="menu-content">
                 {
                     missionData.map((dispatch: MissionInterface) => {
+                        console.log(dispatch);
                         return (
-                            <DispatchContentItem data={dispatch} />
+                            <DispatchContentItem key={dispatch.id} data={dispatch} />
                         );
                     })
                 }
@@ -81,7 +82,7 @@ function DispatchContentItem({ data }: { data: MissionInterface }) {
                 {data.mission}
             </h3>
             <p className="dispatch-detail">
-                {data.mission} [TODO] Fetch Specific Data From File!! 
+                {data.mission} [TODO] Fetch Specific Data From File!!
             </p>
             <div className="dispatch-units">
                 <div className="unit-tag">
@@ -149,8 +150,6 @@ export function ItemDisplayModule({ item, type }: { item: string, type: GeneralI
         }
 
         fetchData();
-
-        console.log(itemData);
     }, []);
 
     return (

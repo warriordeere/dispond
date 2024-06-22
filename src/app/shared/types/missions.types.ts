@@ -1,4 +1,4 @@
-import { locationObject } from "./types"
+import { LanguageString, locationObject } from "./types"
 import { LoadoutOptions, VehicleTypeOptions } from "./vehicle.types"
 
 export enum MissionTypeOptions {
@@ -16,8 +16,8 @@ export interface MissionFileObject {
     file_type: "dispatch/mission",
     type: MissionTypeOptions,
     category: {
-        de_DE: string,
-        en_US: string
+        [LanguageString.LANGUAGE_STRING_DE_DE]: string,
+        [LanguageString.LANGUAGE_STRING_EN_US]: string
     },
     desc: {
         de_DE: string,
