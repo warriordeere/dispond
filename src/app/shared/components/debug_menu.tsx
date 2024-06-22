@@ -2,14 +2,15 @@
 
 import '@shared/style/globals.css'
 
-import { generateMissionData } from '@/app/script/gen/mission';
+import { Dispatch, generateMissionData } from '@/app/script/gen/mission';
 import { DEBUG_ONLY_fc } from '@/app/tests';
+import { GameEmitter } from '@script/utils/emitter';
+import { App } from '@script/utils/app';
+import { dispatchTypeToString } from '@script/utils/utils';
 
 import Draggable from 'react-draggable';
 import { useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { GameEmitter } from '@/app/script/utils/emitter';
-import { App } from '@/app/script/utils/app';
 
 export function DebugMenu() {
 
@@ -38,7 +39,11 @@ export function DebugMenu() {
         // // url.searchParams.set('secondary', 'type_item_display');
         // // url.searchParams.set('view', '2e69959b-aefa-4248-bf5e-478ec1a4a0b4');
 
-        console.log(await generateMissionData(DEBUG_ONLY_fc));
+        // console.log(await generateMissionData(DEBUG_ONLY_fc));
+
+        const dispatchData = await generateMissionData(DEBUG_ONLY_fc);
+        const dispatch = new Dispatch(dispatchData);
+        dispatchTypeToString(dispatch.data.mission);
 
         // // window.location.assign(url.href);
 

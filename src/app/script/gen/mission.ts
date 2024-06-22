@@ -10,9 +10,9 @@ import * as truf_helpers from "@turf/helpers";
 
 import { MissionEmitter } from "@/app/script/utils/emitter";
 
-import { DispatchFileObject, DispatchInterface, DispatchTypeOptions, ClientObject } from "@/app/shared/types/dispatches.types";
-import { NamesFile } from "@/app/shared/types/savegame.types";
-import { GeometryData } from "@/app/shared/types/ttcst.types";
+import { DispatchFileObject, DispatchInterface, DispatchTypeOptions, ClientObject } from "@shared/types/dispatches.types";
+import { NamesFile } from "@shared/types/savegame.types";
+import { GeometryData } from "@shared/types/ttcst.types";
 
 export async function generateMissionData(area: GeometryData): Promise<DispatchInterface> {
     async function randomMission(): Promise<DispatchTypeOptions> {
