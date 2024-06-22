@@ -1,5 +1,6 @@
 import { openDB, IDBPDatabase } from 'idb';
-import { SavegameDataSchema, DatabasePostOptions, DatabaseStores, DBVersionInterface, DatabaseGetOptions } from './shared/types/types';
+
+import { DBVersionInterface, SavegameDataSchema, DatabaseStores, DatabaseGetOptions, DatabasePostOptions } from '@shared/types/idb.types';
 
 async function DBVersion(db_name: string): Promise<DBVersionInterface> {
     const db = await openDB<SavegameDataSchema>(db_name);
@@ -59,14 +60,6 @@ export async function getDB(db_opt: DatabaseGetOptions): Promise<[]> {
                     await trx.done;
                     db.close();
                 }
-
-                // db_opt.key.forEach(
-                //     async (idx) => {
-                //         buffer.push(await trx.store.get(idx));
-                //         await trx.done;
-                //         db.close();
-                //     }
-                // )
 
                 console.debug(buffer);
 

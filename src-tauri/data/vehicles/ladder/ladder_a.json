@@ -1,0 +1,28 @@
+{
+    "file_type": "vehicle/vehicle",
+    "type": "VEHICLE_TYPE_LADDER_A",
+    "category": {
+        "de_DE": "DLA(K)-23/12",
+        "en_US": "DLA(K)-23/12"
+    },
+    "desc": {
+        "de_DE": "Drehleiter (mit Korb)",
+        "en_US": "Ladder"
+    },
+    "perks": {
+        "units": 3,
+        "extinguishing_cap": 0,
+        "clothing": [
+            "CLOTHING_SCBA"
+        ],
+        "loadout_cap": 2,
+        "loadout_items": {
+            "item_fire_fighting": [
+                "LOADOUT_ITEM_FOAM_PIPE",
+                "LOADOUT_ITEM_FIRE_HOSE"
+            ],
+            "item_assistance": [],
+            "item_misc": []
+        }
+    }
+}

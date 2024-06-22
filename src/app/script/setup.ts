@@ -1,10 +1,16 @@
+import { map_inst } from "@shared/components/map";
+
 import { invoke } from "@tauri-apps/api/tauri";
-import { GameEmitter } from "../emitter";
-import { BuildingInterface, DatabaseOptions, MissionInterface, PresenceInterface } from "../shared/types/types";
+
+import tt, { LngLatBounds } from "@tomtom-international/web-sdk-maps";
+
+import { GameEmitter } from "./emitter";
 import { getDB } from "../indexed_db";
-import { map_inst } from "../shared/components/map";
-import tt, { LngLatBounds, Marker } from "@tomtom-international/web-sdk-maps";
 import { Mission, generateMissionData } from "./gen/mission";
+
+import { BuildingInterface } from "@shared/types/building.types";
+import { DatabaseGetOptions } from "@shared/types/idb.types";
+import { MissionInterface } from "@shared/types/missions.types";
 
 // import { currentMonitor, appWindow, PhysicalPosition } from "@tauri-apps/api/window";
 
@@ -48,12 +54,13 @@ export function init() {
     //         throw new Error(e);
     //     })
 
-    GameEmitter.on('EVENT_GAME_START', async (data) => {
+    GameEmitter.on('EVENT_GAME_START', async (data: any) => {
 
-        const getFromDBOptions: DatabaseOptions = {
+        const getFromDBOptions: DatabaseGetOptions = {
             database: 'DB_SAVEGAME_DATA',
             store: 'DB_STORE_BUILDINGS',
-            schema: 'SCHEMA_SAVEGAME_DATA'
+            schema: 'SCHEMA_SAVEGAME_DATA',
+            key: "DB_GET_REQUEST_OPTION_ALL"
         }
 
         const buildingData: BuildingInterface[] = await getDB(getFromDBOptions);
@@ -108,10 +115,11 @@ export function init() {
         }
 
         async function loadActiveMissions() {
-            const options: DatabaseOptions = {
+            const options: DatabaseGetOptions = {
                 database: 'DB_SAVEGAME_DATA',
                 store: 'DB_STORE_ACTIVE_MISSIONS',
-                schema: 'SCHEMA_SAVEGAME_DATA'
+                schema: 'SCHEMA_SAVEGAME_DATA',
+                key: "DB_GET_REQUEST_OPTION_ALL"
             }
 
             const activeMissionData = await getDB(options)
@@ -122,13 +130,15 @@ export function init() {
                     throw new Error(err);
                 });
 
+            console.log(`[DEBUG] ${activeMissionData}`);
+
             activeMissionData.forEach((mission: MissionInterface) => {
                 const marker = new tt.Marker({ draggable: false, color: 'orange' });
                 const popup = new tt.Popup({ anchor: 'top', closeButton: false });
 
                 marker.setLngLat(mission.location.coords);
                 marker.addTo(map_inst);
-                popup.setHTML(`<strong>${mission.mission.specific}</strong><br>${mission.location.free_address}`);
+                popup.setHTML(`<strong>${mission.mission}</strong><br>${mission.location.free_address}`);
                 popup.addTo(map_inst);
                 marker.setPopup(popup);
                 marker.togglePopup();
@@ -136,10 +146,11 @@ export function init() {
         }
 
         async function startMissionGen() {
-            const options: DatabaseOptions = {
+            const options: DatabaseGetOptions = {
                 database: 'DB_SAVEGAME_DATA',
                 store: 'DB_STORE_ACTIVE_MISSIONS',
-                schema: 'SCHEMA_SAVEGAME_DATA'
+                schema: 'SCHEMA_SAVEGAME_DATA',
+                key: "DB_GET_REQUEST_OPTION_ALL"
             }
 
             const activeMissionData = await getDB(options)
@@ -162,7 +173,7 @@ export function init() {
 
                         marker.setLngLat(newMission.data.location.coords);
                         marker.addTo(map_inst);
-                        popup.setHTML(`<strong>${newMission.data.mission.specific}</strong><br>${newMission.data.location.free_address}`);
+                        popup.setHTML(`<strong>${newMission.data.mission}</strong><br>${newMission.data.location.free_address}`);
                         popup.addTo(map_inst);
                         marker.setPopup(popup);
                         marker.togglePopup();

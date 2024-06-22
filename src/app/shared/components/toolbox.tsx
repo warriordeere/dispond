@@ -1,12 +1,12 @@
+import "@shared/style/globals.css";
+import "@shared/style/toolbox.css";
+
 import { RxQuestionMark } from "react-icons/rx";
 import { BsBuildingFill } from "react-icons/bs";
 import { FaCar } from "react-icons/fa";
-
-import { ToolboxButtonTypes } from "../types/types";
-
-import "../style/globals.css";
-import "../style/toolbox.css";
 import { IoMdAddCircle } from "react-icons/io";
+
+import { ToolboxButtonTypes } from "@shared/types/modules.types";
 
 export default function Toolbox() {
     return (

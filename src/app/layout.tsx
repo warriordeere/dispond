@@ -3,9 +3,9 @@
 import dynamic from "next/dynamic";
 import { Tooltip } from "react-tooltip";
 
-import { DebugMenu } from "./shared/components/debug_menu";
+import { DebugMenu } from "@shared/components/debug_menu";
 
-const WindowTitlebar = dynamic(() => import("../app/shared/components/titlebar/titlebar"), { ssr: false })
+const WindowTitlebar = dynamic(() => import("./shared/components/titlebar"), { ssr: false })
 
 export default function RootLayout({
   children,

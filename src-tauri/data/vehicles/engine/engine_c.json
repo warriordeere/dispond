@@ -1,0 +1,28 @@
+{
+    "file_type": "vehicle/vehicle",
+    "type": "VEHICLE_TYPE_ENGINE_C",
+    "category": {
+        "de_DE": "TLF 3000",
+        "en_US": "TLF 3000"
+    },
+    "desc": {
+        "de_DE": "Tanklöschfahrzeug",
+        "en_US": "Tender"
+    },
+    "perks": {
+        "units": 3,
+        "extinguishing_cap": 3000,
+        "clothing": [
+            "CLOTHING_SCBA"
+        ],
+        "loadout_cap": 2,
+        "loadout_items": {
+            "item_fire_fighting": [
+                "LOADOUT_ITEM_FOAM_PIPE",
+                "LOADOUT_ITEM_FIRE_HOSE"
+            ],
+            "item_assistance": [],
+            "item_misc": []
+        }
+    }
+}
