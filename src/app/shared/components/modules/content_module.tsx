@@ -12,7 +12,7 @@ import { BsFillGrid3X3GapFill } from "react-icons/bs";
 
 import { ShopItemData, GeneralItemTypes } from "@shared/types/types";
 import { DatabaseGetOptions } from "@shared/types/idb.types";
-import { DispatchInterface } from "@shared/types/missions.types";
+import { DispatchInterface } from "@shared/types/dispatches.types";
 
 export function DispatchContentModule() {
 

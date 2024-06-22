@@ -10,7 +10,7 @@ import { DatabaseGetOptions } from "@shared/types/idb.types";
 import { GeometryData } from "@shared/types/ttcst.types";
 import { AppMetaData } from "@shared/types/app.types";
 import { LanguageString } from "@shared/types/types";
-import { DispatchInterface } from "@/app/shared/types/missions.types";
+import { DispatchInterface } from "@/app/shared/types/dispatches.types";
 
 export const App = new class INTERNAL_APP_CLASS {
 

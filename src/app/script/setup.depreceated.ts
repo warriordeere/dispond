@@ -10,7 +10,7 @@ import { Dispatch, generateMissionData } from "./gen/mission";
 
 import { BuildingInterface } from "@shared/types/building.types";
 import { DatabaseGetOptions } from "@shared/types/idb.types";
-import { DispatchInterface } from "@shared/types/missions.types";
+import { DispatchInterface } from "@shared/types/dispatches.types";
 
 // import { currentMonitor, appWindow, PhysicalPosition } from "@tauri-apps/api/window";
 

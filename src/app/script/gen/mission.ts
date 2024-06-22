@@ -10,7 +10,7 @@ import * as truf_helpers from "@turf/helpers";
 
 import { MissionEmitter } from "@/app/script/utils/emitter";
 
-import { DispatchFileObject, DispatchInterface, DispatchTypeOptions, ClientObject } from "@/app/shared/types/missions.types";
+import { DispatchFileObject, DispatchInterface, DispatchTypeOptions, ClientObject } from "@/app/shared/types/dispatches.types";
 import { NamesFile } from "@/app/shared/types/savegame.types";
 import { GeometryData } from "@/app/shared/types/ttcst.types";
 
