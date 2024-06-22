@@ -1,13 +1,13 @@
 'use client'
 
-import { useEffect, useRef } from 'react';
-
-import "@tomtom-international/web-sdk-maps/dist/maps.css";
-import tt from '@tomtom-international/web-sdk-maps';
 import { API_KEY } from '@/app/page';
 
-import '../style/globals.css';
-import '../style/map.css';
+import "@tomtom-international/web-sdk-maps/dist/maps.css";
+import '@shared/style/globals.css';
+import '@shared/style/map.css';
+
+import tt from '@tomtom-international/web-sdk-maps';
+import { useEffect, useRef } from 'react';
 
 export let map_inst: tt.Map;
 

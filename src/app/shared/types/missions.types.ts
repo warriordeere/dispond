@@ -1,3 +1,4 @@
+import { locationObject } from "./types"
 import { LoadoutOptions, VehicleTypeOptions } from "./vehicle.types"
 
 export enum MissionTypeOptions {
@@ -24,4 +25,17 @@ export interface MissionFileObject {
     },
     required_units: VehicleTypeOptions[],
     required_loadout: LoadoutOptions[]
+}
+
+export interface MissionInterface {
+    id: string,
+    caller: callerObject,
+    location: locationObject,
+    mission: MissionTypeOptions,
+    time: number
+}
+
+export type callerObject = {
+    last_name: string,
+    first_name: string
 }

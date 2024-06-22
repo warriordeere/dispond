@@ -1,20 +1,24 @@
 'use client'
 
-import { BsBuildingFillAdd, BsBuildingFillGear, BsCashCoin, BsFillBuildingFill, BsPencilFill } from "react-icons/bs"
+import '@tomtom-international/web-sdk-plugin-searchbox/dist/SearchBox.css';
+
+import { API_KEY } from "@/app/page";
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import '@tomtom-international/web-sdk-plugin-searchbox/dist/SearchBox.css';
-import SearchBox from '@tomtom-international/web-sdk-plugin-searchbox';
-import { services } from "@tomtom-international/web-sdk-services";
-import tt, { LngLatLike } from "@tomtom-international/web-sdk-maps";
 import * as tts from "@tomtom-international/web-sdk-services"
+import tt, { LngLatLike } from "@tomtom-international/web-sdk-maps";
+import { services } from "@tomtom-international/web-sdk-services";
+import SearchBox from '@tomtom-international/web-sdk-plugin-searchbox';
 
-import { API_KEY } from "@/app/page";
-import { map_inst } from "../map";
-import { BuildingInterface, DatabasePostOptions, GeometryData, buildingTypes } from "../../types/types";
+import { map_inst } from "./map";
 import { postDB } from "@/app/indexed_db";
+
+import { BsBuildingFillAdd, BsBuildingFillGear, BsCashCoin, BsFillBuildingFill, BsPencilFill } from "react-icons/bs"
+import { buildingTypes, BuildingInterface } from '@shared/types/building.types';
+import { DatabasePostOptions } from '@shared/types/idb.types';
+import { GeometryData } from '@shared/types/ttcst.types';
 
 export function BuildingMenu() {
     const router = useRouter();

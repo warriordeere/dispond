@@ -1,7 +1,7 @@
-import "../style/globals.css";
-import "../style/radio_menu.css";
+import "@shared/style/globals.css";
+import "@shared/style/radio_menu.css";
 
-import { ItemRadioInterface } from "../types/types";
+import { ItemRadioInterface } from "@shared/types/modules.types";
 
 export default function RadioMenu() {
     return (

@@ -1,4 +1,4 @@
-import { GeometryData } from "@/app/shared/types/types";
+import { GeometryData } from "@shared/types/ttcst.types";
 
 export const DEBUG_ONLY_fc: GeometryData = {
     "type": "FeatureCollection",

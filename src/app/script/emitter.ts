@@ -1,11 +1,17 @@
-import { postDB } from "./indexed_db";
-import { map_inst } from "./shared/components/map";
-import { BuildingEvents, DatabasePostOptions, GameEvents, MissionEvents, ShopItemData, VehicleEvents } from "./shared/types/types";
+import { API_KEY } from "../page";
+import { map_inst } from "../shared/components/map";
+
 import tt from "@tomtom-international/web-sdk-services";
-import { API_KEY } from "./page";
-import { LngLat, Marker } from "@tomtom-international/web-sdk-maps";
-import { animateRespond } from "./script/utils";
-var EventEmitter = require('events')
+
+import { postDB } from "../indexed_db";
+import { animateRespond } from "./utils";
+// const EventEmitter = require('events');
+import EventEmitter from "events";
+
+import { VehicleEvents, BuildingEvents, GameEvents, MissionEvents } from "../shared/types/emitter.types";
+import { DatabasePostOptions } from "@shared/types/idb.types";
+import { ShopItemData } from "@shared/types/types";
+
 
 export const VehicleEmitter: VehicleEvents = new EventEmitter();
 export const BuildingEmitter: BuildingEvents = new EventEmitter();
@@ -52,6 +58,7 @@ MissionEmitter.on('EVENT_MISSION_RESPOND', (data) => {
         })
             .then((r) => {
                 const geojson = r.toGeoJson();
+                // @ts-ignore [TODO] FIX-IT!!!
                 animateRespond(geojson);
 
                 // map_inst.addLayer({

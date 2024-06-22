@@ -1,13 +1,20 @@
 'use client'
 
-import './calls.css';
-import '../../style/globals.css';
+import '@shared/style/calls.css';
+import '@shared/style/globals.css';
+
+import React, { useEffect, useRef, useState } from 'react';
+
+import { getDB } from '@/app/indexed_db';
+import { MissionEmitter } from '@/app/script/emitter';
+
+import { ShopItemData } from '../types/types';
+import { MissionRespondData } from '../types/building.types';
+import { DatabaseGetOptions } from '../types/idb.types';
+import { MissionInterface } from '../types/missions.types';
+
 import { BsFire, BsPersonCircle } from "react-icons/bs";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { getDB } from '@/app/indexed_db';
-import React, { useEffect, useRef, useState } from 'react';
-import { DatabaseOptions, MissionInterface, MissionRespondData, ShopItemData } from '../../types/types';
-import { MissionEmitter } from '@/app/emitter';
 import { BiSolidBellRing } from 'react-icons/bi';
 
 export default function CallItem() {
@@ -40,16 +47,18 @@ export default function CallItem() {
 
     useEffect(() => {
         async function fetchData() {
-            const dbopt_mission: DatabaseOptions = {
+            const dbopt_mission: DatabaseGetOptions = {
                 database: 'DB_SAVEGAME_DATA',
                 store: 'DB_STORE_ACTIVE_MISSIONS',
-                schema: 'SCHEMA_SAVEGAME_DATA'
+                schema: 'SCHEMA_SAVEGAME_DATA',
+                key: "DB_GET_REQUEST_OPTION_ALL"
             }
 
-            const dbopt_vehicles: DatabaseOptions = {
+            const dbopt_vehicles: DatabaseGetOptions = {
                 database: 'DB_SAVEGAME_DATA',
                 store: 'DB_STORE_PURCHASED_ITEMS',
-                schema: 'SCHEMA_SAVEGAME_DATA'
+                schema: 'SCHEMA_SAVEGAME_DATA',
+                key: "DB_GET_REQUEST_OPTION_ALL"
             }
 
             await getDB(dbopt_mission)
@@ -114,10 +123,10 @@ export default function CallItem() {
                                         <BsFire />
                                     </span>
                                     <span className="call-type">
-                                        {item.mission.type}
+                                        {item.mission}
                                     </span>
                                     <span className="call-specific">
-                                        {item.mission.specific}
+                                        {item.mission} [TODO] Fetch Specific Data From File!!
                                     </span>
 
                                     <span className="location-icon">

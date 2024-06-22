@@ -1,15 +1,18 @@
 'use client'
 
-import './landing.css';
-import '../../style/globals.css';
+import { API_KEY } from '@/app/page';
+import { MAP_SPAWN } from '@/app/script/setup';
+
+import '@shared/style/landing.css';
+import '@shared/style/globals.css';
+
 import { useRouter } from 'next/navigation';
+
 import { LuGamepad2 } from "react-icons/lu";
 import { FaMedal } from "react-icons/fa6";
 import { FaPlay } from 'react-icons/fa';
 import { PiCurrencyEurFill } from "react-icons/pi";
 import { BiSolidTimeFive } from 'react-icons/bi';
-import { API_KEY } from '@/app/page';
-import { MAP_SPAWN } from '@/app/script/setup';
 
 export default function Landing() {
     const router = useRouter();

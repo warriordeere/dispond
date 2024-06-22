@@ -1,18 +1,24 @@
-import { BsPencilFill, BsCashCoin } from 'react-icons/bs';
-import { FaCar, FaCartShopping } from 'react-icons/fa6';
 
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 
-import { BuildingInterface, DatabaseOptions, GeometryData, ShopItemData, VehicleTypes } from '../../types/types';
 import { getDB, postDB } from '@/app/indexed_db';
+
+import { BsPencilFill, BsCashCoin } from 'react-icons/bs';
+import { FaCar, FaCartShopping } from 'react-icons/fa6';
+
+import { ShopItemData } from '@shared/types/types';
+import { DatabaseGetOptions } from '@shared/types/idb.types';
+import { VehicleTypeOptions } from '@shared/types/vehicle.types';
+import { BuildingInterface } from '@shared/types/building.types';
 
 export async function FleetManageMenu() {
 
-    const dbopt: DatabaseOptions = {
+    const dbopt: DatabaseGetOptions = {
         database: 'DB_SAVEGAME_DATA',
         store: 'DB_STORE_PURCHASED_ITEMS',
-        schema: 'SCHEMA_SAVEGAME_DATA'
+        schema: 'SCHEMA_SAVEGAME_DATA',
+        key: "DB_GET_REQUEST_OPTION_ALL"
     }
 
     const db_data = await getDB(dbopt);
@@ -66,19 +72,24 @@ export function FleetMenu() {
 export function VehicleShop() {
 
     const [vehicle_id, setVehicleId] = useState<string>(crypto.randomUUID());
-    const [vehicle_type, setVehicleType] = useState<VehicleTypes>('VEHICLE_TYPE_HLF');
+    const [vehicle_type, setVehicleType] = useState<VehicleTypeOptions>(VehicleTypeOptions.VEHICLE_TYPE_ENGINE_B);
     const [vehicle_cost, setVehicleCost] = useState<number>(0);
 
     async function handleVehiclePurchase() {
         setVehicleId(crypto.randomUUID());
-        setVehicleType('VEHICLE_TYPE_HLF');
+        setVehicleType(VehicleTypeOptions.VEHICLE_TYPE_ENGINE_B);
+        setVehicleCost(0);
 
         // [Important!] todo: add functionality to choose wích building will be the "home" for the new vhc
-        const vhcHome: BuildingInterface[] = await getDB({
+
+        const db_opt: DatabaseGetOptions = {
+            key: 'DB_GET_REQUEST_OPTION_ALL',
             database: 'DB_SAVEGAME_DATA',
-            store: 'DB_STORE_BUILDINGS',
+            store: 'DB_STORE_PURCHASED_ITEMS',
             schema: 'SCHEMA_SAVEGAME_DATA'
-        });
+        }
+
+        const vhcHome: BuildingInterface[] = await getDB(db_opt);
 
         const data: ShopItemData = {
             item_type: 'SHOP_ITEM_TYPE_VEHICLE',
