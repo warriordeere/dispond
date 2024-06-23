@@ -11,6 +11,7 @@ import { dispatchTypeToString } from '@script/utils/utils';
 import Draggable from 'react-draggable';
 import { useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { DispatchTypeOptions } from '../types/dispatches.types';
 
 export function DebugMenu() {
 
@@ -43,7 +44,8 @@ export function DebugMenu() {
 
         const dispatchData = await generateMissionData(DEBUG_ONLY_fc);
         const dispatch = new Dispatch(dispatchData);
-        dispatchTypeToString(dispatch.data.mission);
+
+        console.log(dispatchTypeToString(dispatch.data.type));
 
         // // window.location.assign(url.href);
 

@@ -61,6 +61,27 @@
 .dispatch-icon {
     grid-row: 1/3;
     grid-column: 1/2;
+    padding: .5rem;
+    margin: .25rem;
+    border-radius: .5rem;
+}
+
+.dispatch-icon:has(.dispatch-icon-fire) {
+    background-color: var(--primary);
+    color: var(--text-100);
+}
+
+.dispatch-icon:has(.dispatch-icon-tech) {
+    background-color: orange;
+    color: white;
+}
+
+.dispatch-icon svg {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .dispatch-title {
@@ -77,7 +98,7 @@
     grid-column: 2/3;
 }
 
-.dispatch-units {
+.dispatch-unit-set {
     grid-row: 1/3;
     grid-column: 3/4;
     display: flex;

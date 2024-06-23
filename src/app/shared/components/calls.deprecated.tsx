@@ -123,10 +123,10 @@ export default function CallItem() {
                                         <BsFire />
                                     </span>
                                     <span className="call-type">
-                                        {item.mission}
+                                        {item.type}
                                     </span>
                                     <span className="call-specific">
-                                        {item.mission} [TODO] Fetch Specific Data From File!!
+                                        {item.type} [TODO] Fetch Specific Data From File!!
                                     </span>
 
                                     <span className="location-icon">

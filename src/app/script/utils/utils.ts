@@ -48,14 +48,26 @@ export function animateRespond(route: GeometryData) {
     // moveToStep(marker, route, 0);
 }
 
-export async function dispatchTypeToString(dispatch: DispatchTypeOptions): Promise<any> {
-    const dispatchData: DispatchInterface = await fetch(`api/data/dispatch?type=${dispatch}`)
+export async function dispatchTypeToString(dispatch: DispatchTypeOptions): Promise<string> {
+    const dispatchData: DispatchFileObject[] = await fetch(`api/data/dispatch?id=${dispatch}`)
         .then((r) => {
-            return r.json() as unknown as DispatchInterface;
+            return r.json() as unknown as DispatchFileObject[];
         })
         .catch((e) => {
             throw new Error(e);
         });
 
-    console.log(dispatchData);
+    return dispatchData[0].category.de_DE;
+}
+
+export async function dispatchDescToString(dispatch: DispatchTypeOptions): Promise<string> {
+    const dispatchData: DispatchFileObject[] = await fetch(`api/data/dispatch?id=${dispatch}`)
+        .then((r) => {
+            return r.json() as unknown as DispatchFileObject[];
+        })
+        .catch((e) => {
+            throw new Error(e);
+        });
+
+    return dispatchData[0].desc.de_DE;
 }

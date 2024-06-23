@@ -1,6 +1,6 @@
 {
     "file_type": "dispatch/mission",
-    "type": "DISPATCH_TYPE_TECH_A",
+    "type": "tech_a",
     "category": {
         "de_DE": "TH1",
         "en_US": "Assistance 1"

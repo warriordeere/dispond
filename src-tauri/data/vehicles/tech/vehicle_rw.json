@@ -1,6 +1,6 @@
 {
     "file_type": "vehicle/vehicle",
-    "type": "VEHICLE_TYPE_TECH_A",
+    "type": "vehicle_rw",
     "category": {
         "de_DE": "RW",
         "en_US": "RW"

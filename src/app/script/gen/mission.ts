@@ -83,7 +83,7 @@ export async function generateMissionData(area: GeometryData): Promise<DispatchI
             postal_code: geo_result.postalCode,
             street_n_number: geo_result.streetNameAndNumber
         },
-        mission: await randomMission(),
+        type: await randomMission(),
         time: Date.now()
     }
 }
@@ -91,14 +91,14 @@ export async function generateMissionData(area: GeometryData): Promise<DispatchI
 export class Dispatch {
     data: DispatchInterface
 
-    constructor(mission: DispatchInterface) {
+    constructor(dispatch: DispatchInterface) {
         this.data = {
-            id: mission.id,
-            caller: mission.caller,
-            location: mission.location,
-            mission: mission.mission,
-            time: mission.time
+            id: dispatch.id,
+            caller: dispatch.caller,
+            location: dispatch.location,
+            type: dispatch.type,
+            time: dispatch.time
         }
-        MissionEmitter.emit('EVENT_MISSION_CREATE', mission);
+        MissionEmitter.emit('EVENT_MISSION_CREATE', dispatch);
     }
 }

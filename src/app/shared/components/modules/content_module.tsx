@@ -8,11 +8,15 @@ import { useEffect, useState } from "react";
 
 import { TbArrowsExchange } from "react-icons/tb";
 import { FaThList } from "react-icons/fa";
-import { BsFillGrid3X3GapFill } from "react-icons/bs";
+import { BsFillGrid3X3GapFill, BsTools } from "react-icons/bs";
+import { ImFire } from "react-icons/im";
+import { MdOutlineQuestionMark } from "react-icons/md";
 
 import { ShopItemData, GeneralItemTypes } from "@shared/types/types";
 import { DatabaseGetOptions } from "@shared/types/idb.types";
-import { DispatchInterface } from "@shared/types/dispatches.types";
+import { DispatchFileObject, DispatchInterface, DispatchTypeOptions } from "@shared/types/dispatches.types";
+import { dispatchDescToString, dispatchTypeToString } from '@/app/script/utils/utils';
+import { VehicleTypeOptions } from '../../types/vehicle.types';
 
 export function DispatchContentModule() {
 
@@ -72,30 +76,47 @@ export function DispatchContentModule() {
 }
 
 function DispatchContentItem({ data }: { data: DispatchInterface }) {
+
+    const [dispatchCategory, setDispatchCategory] = useState<string>();
+    const [dispatchDesc, setDispatchDesc] = useState<string>();
+    const [unitSet, setUnitSet] = useState<VehicleTypeOptions[]>();
+
+    useEffect(() => {
+        async function fetchData() {
+            setDispatchCategory(await dispatchTypeToString(data.type));
+            setDispatchDesc(await dispatchDescToString(data.type));
+
+            const dispatchFile = await fetch(`api/data/dispatch?id=${data.type}`) as unknown as DispatchFileObject;
+
+            if (dispatchFile && dispatchFile.recommended_unit_set) {
+                setUnitSet(dispatchFile.recommended_unit_set[0]);
+            }
+        }
+
+        fetchData();
+    }, [unitSet]);
+
     return (
         <div className="dispatch-item">
             <div className="dispatch-icon">
-                icon
+                <DispatchIcon type={data.type} />
             </div>
             <h3 className="dispatch-title">
-                {data.mission}
+                {dispatchCategory}
             </h3>
             <p className="dispatch-detail">
-                {data.mission} [TODO] Fetch Specific Data From File!!
+                {dispatchDesc}
             </p>
-            <div className="dispatch-units">
-                <div className="unit-tag">
-                    <p>FL-GR 11/11/1</p>
-                </div>
-                <div className="unit-tag">
-                    <p>FL-GR 11/49/1</p>
-                </div>
-                <div className="unit-tag">
-                    <p>FL-GR 11/24/1</p>
-                </div>
-                <div className="unit-tag">
-                    <p>FL-GR 11/33/1</p>
-                </div>
+            <div className="dispatch-unit-set">
+                {
+                    unitSet ? (
+                        unitSet.map((unit) => {
+                            return (
+                                <DispatchUnitSetItem recommended_unit={unit} />
+                            );
+                        })
+                    ) : null
+                }
             </div>
         </div>
     );
@@ -167,4 +188,25 @@ export function ItemDisplayModule({ item, type }: { item: string, type: GeneralI
             </details>
         </div >
     )
+}
+
+function DispatchIcon({ type }: { type: DispatchTypeOptions }) {
+    if (type.startsWith('fire')) {
+        return <ImFire className='dispatch-icon-fire' />;
+    }
+
+    if (type.startsWith('tech')) {
+        return <BsTools className='dispatch-icon-tech' />;
+    }
+
+    return <MdOutlineQuestionMark className='dispatch-icon-unknown' />;
+}
+
+function DispatchUnitSetItem({ recommended_unit }: { recommended_unit: VehicleTypeOptions }) {
+    switch (recommended_unit) {
+        case 'vehicle_type_dlk':
+            return (
+                <p className='unit-tag'>GR 11/23/1</p>
+            );
+    }
 }

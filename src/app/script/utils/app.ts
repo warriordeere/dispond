@@ -132,7 +132,7 @@ export const App = new class INTERNAL_APP_CLASS {
         mrk.setLngLat(dispatch.location.coords);
         mrk.addTo(map_inst);
 
-        pup.setHTML(`<strong>${dispatch.mission}</strong><br>${dispatch.location.free_address}`);
+        pup.setHTML(`<strong>${dispatch.type}</strong><br>${dispatch.location.free_address}`);
         pup.addTo(map_inst);
 
         mrk.setPopup(pup);

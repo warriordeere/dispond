@@ -1,6 +1,6 @@
 {
     "file_type": "dispatch/mission",
-    "type": "DISPATCH_TYPE_FIRE_A",
+    "type": "fire_e",
     "category": {
         "de_DE": "B1",
         "en_US": "Fire 1"
