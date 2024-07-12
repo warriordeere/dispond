@@ -1,6 +1,6 @@
 {
     "file_type": "vehicle/vehicle",
-    "type": "VEHICLE_TYPE_ENGINE_A",
+    "type": "vehicle_lf",
     "category": {
         "de_DE": "LF-20",
         "en_US": "LF-20"

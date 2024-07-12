@@ -9,12 +9,14 @@
         "de_DE": "Brand, Menschenleben in Gefahr",
         "en_US": "Medium Fire; Human Life In Danger"
     },
-    "required_units": [
-        "VEHICLE_TYPE_ENGINE_A",
-        "VEHICLE_TYPE_ENGINE_B",
-        "VEHICLE_TYPE_ENGINE_C",
-        "VEHICLE_TYPE_LADDER_A",
-        "VEHICLE_TYPE_TACTICAL_A"
+    "recommended_unit_set": [
+        [
+            "vehicle_lf",
+            "vehicle_hlf",
+            "vehicle_tlf",
+            "vehicle_dlk",
+            "vehicle_lf"
+        ]
     ],
     "required_loadout": [
         "LOADOUT_ITEM_FOAM_PIPE",

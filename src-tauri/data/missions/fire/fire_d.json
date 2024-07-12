@@ -9,13 +9,15 @@
         "de_DE": "Großbrand",
         "en_US": "Heavy Fire"
     },
-    "required_units": [
-        "VEHICLE_TYPE_ENGINE_A",
-        "VEHICLE_TYPE_ENGINE_B",
-        "VEHICLE_TYPE_ENGINE_C",
-        "VEHICLE_TYPE_LADDER_A",
-        "VEHICLE_TYPE_TACTICAL_A",
-        "VEHICLE_TYPE_TACTICAL_B"
+    "recommended_unit_set": [
+        [
+            "vehicle_lf",
+            "vehicle_hlf",
+            "vehicle_tlf",
+            "vehicle_dlk",
+            "vehicle_elw",
+            "vehicle_kdow"
+        ]
     ],
     "required_loadout": [
         "LOADOUT_ITEM_FOAM_PIPE",

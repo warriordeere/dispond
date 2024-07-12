@@ -17,6 +17,7 @@ import { DatabaseGetOptions } from "@shared/types/idb.types";
 import { DispatchFileObject, DispatchInterface, DispatchTypeOptions } from "@shared/types/dispatches.types";
 import { dispatchDescToString, dispatchTypeToString } from '@/app/script/utils/utils';
 import { VehicleTypeOptions } from '../../types/vehicle.types';
+import Link from 'next/link';
 
 export function DispatchContentModule() {
 
@@ -97,7 +98,10 @@ function DispatchContentItem({ data }: { data: DispatchInterface }) {
     }, [unitSet]);
 
     return (
-        <div className="dispatch-item">
+        <Link
+            href={'/play?primary=type_dispatch_menu&secondary=type_item_display&view=1'}
+            className="dispatch-item"
+        >
             <div className="dispatch-icon">
                 <DispatchIcon type={data.type} />
             </div>
@@ -118,7 +122,7 @@ function DispatchContentItem({ data }: { data: DispatchInterface }) {
                     ) : null
                 }
             </div>
-        </div>
+        </Link>
     );
 }
 
@@ -181,7 +185,10 @@ export function ItemDisplayModule({ item, type }: { item: string, type: GeneralI
                 <p>
                     {
                         itemData.map((foo) => {
-                            return <>{foo.id}</>
+                            if (foo) {
+                                return <>{foo.id}</>
+                            }
+                            else throw new Error('500 Internal Server Error');
                         })
                     }
                 </p>

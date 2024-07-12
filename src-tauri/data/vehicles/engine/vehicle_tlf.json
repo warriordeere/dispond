@@ -1,6 +1,6 @@
 {
     "file_type": "vehicle/vehicle",
-    "type": "VEHICLE_TYPE_ENGINE_C",
+    "type": "vehicle_tlf",
     "category": {
         "de_DE": "TLF 3000",
         "en_US": "TLF 3000"

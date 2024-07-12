@@ -72,12 +72,12 @@ export function FleetMenu() {
 export function VehicleShop() {
 
     const [vehicle_id, setVehicleId] = useState<string>(crypto.randomUUID());
-    const [vehicle_type, setVehicleType] = useState<VehicleTypeOptions>(VehicleTypeOptions.VEHICLE_TYPE_ENGINE_B);
+    const [vehicle_type, setVehicleType] = useState<VehicleTypeOptions>('vehicle_type_lf');
     const [vehicle_cost, setVehicleCost] = useState<number>(0);
 
     async function handleVehiclePurchase() {
         setVehicleId(crypto.randomUUID());
-        setVehicleType(VehicleTypeOptions.VEHICLE_TYPE_ENGINE_B);
+        setVehicleType('vehicle_type_lf');
         setVehicleCost(0);
 
         // [Important!] todo: add functionality to choose wích building will be the "home" for the new vhc

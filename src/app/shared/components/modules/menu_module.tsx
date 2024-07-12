@@ -8,16 +8,21 @@ import React, { useEffect, useState } from "react";
 import { DispatchContentModule, ItemDisplayModule, UnitContentModule } from "./content_module";
 import { StatusDisplayBox } from "../system_message";
 
-import { MenuModuleTypes, MenuContentInterface, SearchParamsOptions, MenuModuleContentTypes } from "../../types/modules.types";
+import { MenuModuleTypes, MenuContentInterface, SearchParamsOptions, MenuModuleContentTypes, LargeMenuModuleContentTypes } from "../../types/modules.types";
 
 export default function MenuModule({ module_type }: { module_type: MenuModuleTypes }) {
 
+    const [largeMenuParams, setLargeMenuParams] = useState<MenuContentInterface>();
     const [primaryParams, setPrimaryParams] = useState<MenuContentInterface>();
     const [secondaryParams, setSecondaryParams] = useState<MenuContentInterface>();
 
     useEffect(() => {
         function getContentType() {
             const url = new URLSearchParams(window.location.search);
+
+            setLargeMenuParams({
+                content_type: url.get(SearchParamsOptions.SEARCHPARAMS_MENU_MODULE_LARGE) as LargeMenuModuleContentTypes
+            })
 
             setPrimaryParams({
                 content_type: url.get(SearchParamsOptions.SEARCHPARAMS_MENU_MODULE_PRIMARY) as MenuModuleContentTypes,
@@ -67,6 +72,21 @@ export default function MenuModule({ module_type }: { module_type: MenuModuleTyp
             }
             else return <StatusDisplayBox http_status_code={400} />;
 
+        case "MENU_TYPE_LARGE":
+            if (largeMenuParams) {
+                return (
+                    <section className="large-menu menu-container">
+                        <MenuContent params={
+                            {
+                                content_type: largeMenuParams.content_type
+                            }
+                        } />
+                    </section>
+
+                )
+            }
+            else return <StatusDisplayBox http_status_code={400} />;
+
         default: throw new Error("Unknown 'MENU_MODULE_TYPE'")
     }
 
@@ -74,6 +94,7 @@ export default function MenuModule({ module_type }: { module_type: MenuModuleTyp
 
 
 export function MenuContent({ params }: { params: MenuContentInterface }) {
+    console.log('test1');    
     switch (params.content_type) {
         case MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_DISPATCH_MENU:
             return <DispatchContentModule />
@@ -86,6 +107,18 @@ export function MenuContent({ params }: { params: MenuContentInterface }) {
                 return <ItemDisplayModule item={params.item} type={"SHOP_ITEM_TYPE_VEHICLE"} />
             }
             else return <StatusDisplayBox http_status_code={400} />;
+
+        case LargeMenuModuleContentTypes.LARGE_MENU_MODULE_CONTENT_TYPE_BUILDING_MENU:
+            return <h2>Test1</h2>
+
+        case LargeMenuModuleContentTypes.LARGE_MENU_MODULE_CONTENT_TYPE_VEHICLE_MENU:
+            return <h2>Test1</h2>
+
+        case LargeMenuModuleContentTypes.LARGE_MENU_MODULE_CONTENT_TYPE_SHOP_MENU:
+            console.log('test');
+            return (
+                <h2>Test1</h2>
+            );
 
         default:
             return <StatusDisplayBox http_status_code={404} detail_string="Unknown Menu Content Type" />

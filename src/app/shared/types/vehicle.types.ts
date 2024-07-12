@@ -10,7 +10,8 @@ export type VehicleTypeOptions =
     "vehicle_type_rw" |
     "vehicle_type_gwl" |
     "vehicle_type_gwa" |
-    "vehicle_type_gwd" |
+    "vehicle_type_gwdecon" |
+    "vehicle_type_gwmess" |
     "vehicle_type_sw"
 
 

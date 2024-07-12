@@ -1,6 +1,6 @@
 import { LngLatLike } from "@tomtom-international/web-sdk-maps"
 import { savegameInterface } from "./savegame.types"
-import { ShopItemData} from "./types"
+import { ShopItemData } from "./types"
 import { BuildingInterface, MissionRespondData } from "./building.types"
 import { DispatchInterface } from "./dispatches.types"
 
@@ -12,6 +12,9 @@ export interface BuildingEvents {
 export interface GameEvents {
     on(eventName: 'EVENT_GAME_START', handler: (data: savegameInterface) => void): void
     emit(eventName: 'EVENT_GAME_START', data: savegameInterface): void
+
+    on(eventName: 'EVENT_GAME_OPEN_MODULE_DIALOG', handler: () => void): void
+    emit(eventName: 'EVENT_GAME_OPEN_MODULE_DIALOG'): void
 }
 
 export interface VehicleEvents {

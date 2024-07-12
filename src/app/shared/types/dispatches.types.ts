@@ -22,7 +22,7 @@ export interface DispatchFileObject {
         de_DE: string,
         en_US: string
     },
-    required_units: VehicleTypeOptions[],
+    recommended_unit_set: VehicleTypeOptions[][],
     required_loadout: LoadoutOptions[]
 }
 
