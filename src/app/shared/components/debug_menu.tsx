@@ -11,7 +11,7 @@ import { dispatchTypeToString } from '@script/utils/utils';
 import Draggable from 'react-draggable';
 import { useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { DispatchTypeOptions } from '../types/dispatches.types';
+import { DispatchFileObject, DispatchTypeOptions } from '../types/dispatches.types';
 
 export function DebugMenu() {
 

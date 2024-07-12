@@ -15,7 +15,6 @@ export default function MenuModule({ module_type }: { module_type: MenuModuleTyp
     const [primaryParams, setPrimaryParams] = useState<MenuContentInterface>();
     const [secondaryParams, setSecondaryParams] = useState<MenuContentInterface>();
 
-
     useEffect(() => {
         function getContentType() {
             const url = new URLSearchParams(window.location.search);
