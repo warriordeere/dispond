@@ -4,6 +4,17 @@ import { ShopItemData } from "./types"
 import { BuildingInterface, MissionRespondData } from "./building.types"
 import { DispatchInterface } from "./dispatches.types"
 
+export type MenuEventTypes =
+    "EVENT_MENU_BUILDING_OPEN" | "EVENT_MENU_VEHICLE_OPEN" | "EVENT_MENU_SHOP_OPEN"
+
+export interface MenuEvents {
+    on(eventName: MenuEventTypes, handler: () => void): void
+    emit(eventName: MenuEventTypes): void
+
+    on(eventName: "EVENT_MENU_ITEM_DISPLAY_OPEN", handler: (item_id: string) => void): void
+    emit(eventName: "EVENT_MENU_ITEM_DISPLAY_OPEN", item_id: string): void
+}
+
 export interface BuildingEvents {
     on(eventName: 'EVENT_BUILDING_CREATE', handler: (data: BuildingInterface) => void): void
     emit(eventName: 'EVENT_BUILDING_CREATE', data: BuildingInterface): void
@@ -12,9 +23,6 @@ export interface BuildingEvents {
 export interface GameEvents {
     on(eventName: 'EVENT_GAME_START', handler: (data: savegameInterface) => void): void
     emit(eventName: 'EVENT_GAME_START', data: savegameInterface): void
-
-    on(eventName: 'EVENT_GAME_OPEN_MODULE_DIALOG', handler: () => void): void
-    emit(eventName: 'EVENT_GAME_OPEN_MODULE_DIALOG'): void
 }
 
 export interface VehicleEvents {

@@ -2,16 +2,19 @@
 
 import '@shared/style/globals.css'
 
-import { Dispatch, generateMissionData } from '@/app/script/gen/mission';
+import { App } from '@script/utils/app';
+import { postDB } from '@script/utils/idb';
 import { DEBUG_ONLY_fc } from '@/app/tests';
 import { GameEmitter } from '@script/utils/emitter';
-import { App } from '@script/utils/app';
-import { dispatchTypeToString } from '@script/utils/utils';
 
-import Draggable from 'react-draggable';
 import { useRef } from 'react';
+import Draggable from 'react-draggable';
 import { useRouter } from 'next/navigation';
-import { DispatchFileObject, DispatchTypeOptions } from '../types/dispatches.types';
+import tt from '@tomtom-international/web-sdk-services';
+import { LngLatLike } from '@tomtom-international/web-sdk-services';
+
+import { API_KEY } from '@/app/page';
+import { BuildingInterface } from '../types/building.types';
 
 export function DebugMenu() {
 
@@ -42,10 +45,10 @@ export function DebugMenu() {
 
         // console.log(await generateMissionData(DEBUG_ONLY_fc));
 
-        const dispatchData = await generateMissionData(DEBUG_ONLY_fc);
-        const dispatch = new Dispatch(dispatchData);
+        // const dispatchData = await generateMissionData(DEBUG_ONLY_fc);
+        // const dispatch = new Dispatch(dispatchData);
 
-        console.log(dispatchTypeToString(dispatch.data.type));
+        // console.log(dispatchTypeToString(dispatch.data.type));
 
         // // window.location.assign(url.href);
 
@@ -55,6 +58,31 @@ export function DebugMenu() {
         //     store: "DB_STORE_BUILDINGS",
         //     key: ["a144cd90-d5b7-425d-b296-e8e671dd23b3"]
         // }))
+
+        const lcd: LngLatLike = { lng: 51.1499811, lat: 14.975742 };
+        const rev = tt.services.reverseGeocode({ key: API_KEY!, position: lcd })
+            .then((r: any) => {
+                return r.addresses[0].address;
+            });
+        const geo_result = await rev;
+
+        await postDB({
+            database: 'DB_SAVEGAME_DATA',
+            store: 'DB_STORE_BUILDINGS',
+            schema: 'SCHEMA_SAVEGAME_DATA',
+            data: {
+                id: crypto.randomUUID(),
+                mission_area: DEBUG_ONLY_fc,
+                name: "Berufsfeuerwehr Görlitz",
+                location: {
+                    coords: lcd,
+                    free_address: geo_result.freeformAddress,
+                    municapality: geo_result.municipality,
+                    postal_code: geo_result.postalCode,
+                    street_n_number: geo_result.streetNameAndNumber
+                }
+            } as BuildingInterface
+        })
     }
 
     function fireEvent() {

@@ -6,9 +6,9 @@ import { BsBuildingFill } from "react-icons/bs";
 import { FaCar } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
 
-import { MenuModuleContentTypes, SearchParamsOptions, ToolboxButtonTypes } from "@shared/types/modules.types";
+import { ToolboxButtonTypes } from "@shared/types/modules.types";
 import { FaCartShopping } from "react-icons/fa6";
-import DialogModule from "./modules/dialog_module";
+import { MenuEmitter } from "@/app/script/utils/emitter";
 
 export default function Toolbox() {
     return (
@@ -23,15 +23,15 @@ export default function Toolbox() {
 
 
 function handleBuildingMenuClick() {
-    window.location.replace('/play?large_menu=type_building_menu');
+    MenuEmitter.emit('EVENT_MENU_BUILDING_OPEN');
 }
 
 function handleVehicleMenuClick() {
-    window.location.replace('/play?large_menu=type_vehicle_menu');
+    MenuEmitter.emit('EVENT_MENU_VEHICLE_OPEN');
 }
 
 function handleShopMenuClick() {
-    window.location.replace('/play?large_menu=type_shop_menu');
+    MenuEmitter.emit('EVENT_MENU_SHOP_OPEN');
 }
 
 function ToolboxButton({ type }: { type: ToolboxButtonTypes }) {

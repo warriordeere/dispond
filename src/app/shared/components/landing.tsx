@@ -17,7 +17,7 @@ import { useEffect, useState } from 'react';
 
 export default function Landing() {
     const router = useRouter();
-    const gameRoute = 'play?primary=type_dispatch_menu&secondary=type_unit_overview';
+    const gameRoute = 'play';
     const [staticMapSrc, setStaticMapSrc] = useState<string>()
 
     useEffect(() => {

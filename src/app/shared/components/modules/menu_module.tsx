@@ -3,99 +3,97 @@
 import "@shared/style/globals.css";
 import "@shared/style/modules/menu_module.css";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { DispatchContentModule, ItemDisplayModule, UnitContentModule } from "./content_module";
 import { StatusDisplayBox } from "../system_message";
+import { BuildingMenuContentModule } from "./module_content/building";
 
-import { MenuModuleTypes, MenuContentInterface, SearchParamsOptions, MenuModuleContentTypes, LargeMenuModuleContentTypes } from "../../types/modules.types";
+import { DispatchContentModule } from "./module_content/dispatch";
+import { ItemDisplayContentModule } from "./module_content/item_display";
+import { UnitContentModule } from "./module_content/unit";
 
-export default function MenuModule({ module_type }: { module_type: MenuModuleTypes }) {
+import { isMenuOptionDouble, isMenuOptionSingle } from "@script/utils/type_guard";
+import { MenuEmitter } from "@script/utils/emitter";
 
-    const [largeMenuParams, setLargeMenuParams] = useState<MenuContentInterface>();
-    const [primaryParams, setPrimaryParams] = useState<MenuContentInterface>();
-    const [secondaryParams, setSecondaryParams] = useState<MenuContentInterface>();
+import { MenuModuleTypes, MenuContentInterface, MenuModuleContentTypes, LargeMenuModuleContentTypes, MenuWrapperSetOptionDouble, MenuWrapperSetOptionSingle } from "@shared/types/modules.types";
+
+export function MenuWrapper() {
+
+    const [menuWrapperSet, setMenuWrapperSet] = useState<MenuWrapperSetOptionDouble | MenuWrapperSetOptionSingle>();
 
     useEffect(() => {
-        function getContentType() {
-            const url = new URLSearchParams(window.location.search);
 
-            setLargeMenuParams({
-                content_type: url.get(SearchParamsOptions.SEARCHPARAMS_MENU_MODULE_LARGE) as LargeMenuModuleContentTypes
-            })
+        MenuEmitter.on('EVENT_MENU_BUILDING_OPEN', () => {
+            setMenuWrapperSet({
+                large: LargeMenuModuleContentTypes.LARGE_MENU_MODULE_CONTENT_TYPE_BUILDING_MENU
+            });
+        });
 
-            setPrimaryParams({
-                content_type: url.get(SearchParamsOptions.SEARCHPARAMS_MENU_MODULE_PRIMARY) as MenuModuleContentTypes,
-                item: url.get(SearchParamsOptions.SEARCHPARAMS_DISPLAY_ITEM_ID) as string
-            })
+        MenuEmitter.on('EVENT_MENU_SHOP_OPEN', () => {
+            setMenuWrapperSet({
+                large: LargeMenuModuleContentTypes.LARGE_MENU_MODULE_CONTENT_TYPE_SHOP_MENU
+            });
+        });
 
-            setSecondaryParams({
-                content_type: url.get(SearchParamsOptions.SEARCHPARAMS_MENU_MODULE_SECONDARY) as MenuModuleContentTypes,
-                item: url.get(SearchParamsOptions.SEARCHPARAMS_DISPLAY_ITEM_ID) as string
-            })
-        }
+        MenuEmitter.on('EVENT_MENU_VEHICLE_OPEN', () => {
+            setMenuWrapperSet({
+                large: LargeMenuModuleContentTypes.LARGE_MENU_MODULE_CONTENT_TYPE_VEHICLE_MENU
+            });
+        });
 
-        getContentType();
+        MenuEmitter.on('EVENT_MENU_ITEM_DISPLAY_OPEN', (item_id) => {
+            setMenuWrapperSet({
+                primary: MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_DISPATCH_MENU,
+                secondary: MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_ITEM_DISPLAY,
+                item_id: item_id
+            });
+        });
+
     }, []);
 
-
-
-    switch (module_type) {
-        case "MENU_MODULE_TYPE_PRIMARY":
-            if (primaryParams) {
-                return (
-                    <section className="primary-menu menu-container">
-                        <MenuContent params={
-                            {
-                                content_type: primaryParams.content_type,
-                                item: primaryParams?.item
-                            }
-                        } />
-                    </section>
-                )
-            }
-            else return <StatusDisplayBox http_status_code={400} />;
-
-        case "MENU_MODULE_TYPE_SECONDARY":
-            if (secondaryParams) {
-                return (
-                    <section className="secondary-menu menu-container">
-                        <MenuContent params={
-                            {
-                                content_type: secondaryParams.content_type,
-                                item: secondaryParams?.item
-                            }
-                        } />
-                    </section>
-
-                )
-            }
-            else return <StatusDisplayBox http_status_code={400} />;
-
-        case "MENU_TYPE_LARGE":
-            if (largeMenuParams) {
-                return (
-                    <section className="large-menu menu-container">
-                        <MenuContent params={
-                            {
-                                content_type: largeMenuParams.content_type
-                            }
-                        } />
-                    </section>
-
-                )
-            }
-            else return <StatusDisplayBox http_status_code={400} />;
-
-        default: throw new Error("Unknown 'MENU_MODULE_TYPE'")
+    if (isMenuOptionSingle(menuWrapperSet)) {
+        return (
+            <>
+                <MenuModule module_type="MENU_MODULE_TYPE_LARGE" module_content={menuWrapperSet.large} />
+            </>
+        );
     }
+    else if (isMenuOptionDouble(menuWrapperSet)) {
+        return (
+            <>
+                <MenuModule module_type="MENU_MODULE_TYPE_PRIMARY" module_content={menuWrapperSet.primary} item_id={menuWrapperSet.item_id} />
+                <MenuModule module_type="MENU_MODULE_TYPE_SECONDARY" module_content={menuWrapperSet.secondary} item_id={menuWrapperSet.item_id} />
+            </>
+        );
+    } else {
+        return (
+            <>
+                <MenuModule module_type="MENU_MODULE_TYPE_PRIMARY" module_content={MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_DISPATCH_MENU} />
+                <MenuModule module_type="MENU_MODULE_TYPE_SECONDARY" module_content={MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_UNIT_OVERVIEW} />
+            </>
+        );
+    }
+}
 
+function MenuModule({ module_type, module_content, item_id }:
+    {
+        module_type: MenuModuleTypes,
+        module_content: MenuModuleContentTypes | LargeMenuModuleContentTypes,
+        item_id?: string
+    }) {
+
+    const styleClassString = module_type.toLowerCase().slice(17);
+
+    return (
+        <section className={`${styleClassString}-menu menu-container`}>
+            <MenuContent content_type={module_content} item={item_id} />
+        </section>
+    )
 }
 
 
-export function MenuContent({ params }: { params: MenuContentInterface }) {
-    console.log('test1');    
-    switch (params.content_type) {
+function MenuContent({ content_type, item }: MenuContentInterface) {
+    switch (content_type) {
         case MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_DISPATCH_MENU:
             return <DispatchContentModule />
 
@@ -103,19 +101,18 @@ export function MenuContent({ params }: { params: MenuContentInterface }) {
             return <UnitContentModule />
 
         case MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_ITEM_DISPLAY:
-            if (params.item) {
-                return <ItemDisplayModule item={params.item} type={"SHOP_ITEM_TYPE_VEHICLE"} />
+            if (item) {
+                return <ItemDisplayContentModule item={item} type={"SHOP_ITEM_TYPE_VEHICLE"} />
             }
             else return <StatusDisplayBox http_status_code={400} />;
 
         case LargeMenuModuleContentTypes.LARGE_MENU_MODULE_CONTENT_TYPE_BUILDING_MENU:
-            return <h2>Test1</h2>
+            return <BuildingMenuContentModule />
 
         case LargeMenuModuleContentTypes.LARGE_MENU_MODULE_CONTENT_TYPE_VEHICLE_MENU:
             return <h2>Test1</h2>
 
         case LargeMenuModuleContentTypes.LARGE_MENU_MODULE_CONTENT_TYPE_SHOP_MENU:
-            console.log('test');
             return (
                 <h2>Test1</h2>
             );

@@ -10,7 +10,7 @@ export enum LargeMenuModuleContentTypes {
     "LARGE_MENU_MODULE_CONTENT_TYPE_SHOP_MENU" = "type_shop_menu"
 }
 
-export type MenuModuleTypes = "MENU_MODULE_TYPE_PRIMARY" | "MENU_MODULE_TYPE_SECONDARY" | "MENU_TYPE_LARGE"
+export type MenuModuleTypes = "MENU_MODULE_TYPE_PRIMARY" | "MENU_MODULE_TYPE_SECONDARY" | "MENU_MODULE_TYPE_LARGE"
 
 export enum SearchParamsOptions {
     "SEARCHPARAMS_MENU_MODULE_LARGE" = "menu_large",
@@ -31,4 +31,18 @@ export interface ItemRadioInterface {
     id: string
     label: string
     state: number // 0 - 9; See https://de.wikipedia.org/wiki/Funkmeldesystem
+}
+
+export interface MenuWrapperSetInterface {
+    module_set: MenuWrapperSetOptionDouble | MenuWrapperSetOptionSingle
+}
+
+export interface MenuWrapperSetOptionSingle {
+    large: LargeMenuModuleContentTypes
+}
+
+export interface MenuWrapperSetOptionDouble {
+    primary: MenuModuleContentTypes,
+    secondary: MenuModuleContentTypes
+    item_id?: string
 }

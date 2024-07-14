@@ -3,6 +3,7 @@ import { invoke } from "@tauri-apps/api/tauri";
 import { GeometryData } from "@shared/types/ttcst.types";
 import { PresenceData, PresenceInterface } from "@shared/types/utils.types";
 import { DispatchFileObject, DispatchInterface, DispatchTypeOptions } from "@/app/shared/types/dispatches.types";
+import { BuildingTypeOptions } from "@/app/shared/types/building.types";
 
 export function updatePresence(presence: PresenceData) {
 
@@ -70,4 +71,24 @@ export async function dispatchDescToString(dispatch: DispatchTypeOptions): Promi
         });
 
     return dispatchData[0].desc.de_DE;
+}
+
+export async function buildingTypeToString(building_type: BuildingTypeOptions): Promise<string> {
+
+    switch (building_type) {
+        case 'BUILDING_TYPE_EMS':
+            return 'Rettungswache';
+        case "BUILDING_TYPE_FIREBRIGADE":
+            return 'Berufsfeuerwehr'
+        case "BUILDING_TYPE_VOLUNTEER_FIREBRIGADE":
+            return 'freiwillige Feuerwehr'
+        case "BUILDING_TYPE_POLICE":
+            return 'Polizeiwache'
+        case "BUILDING_TYPE_HWY_POLICE":
+            return 'Autobahnpolizei'
+        case "BUILDING_TYPE_HOSPITAL":
+            return 'Krankenhaus'
+        default:
+            return '???'
+    }
 }

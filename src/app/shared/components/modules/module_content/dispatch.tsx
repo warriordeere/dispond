@@ -2,7 +2,8 @@
 
 import '@shared/style/modules/content_module.css'
 
-import { getDB } from "@/app/script/utils/idb";
+import { getDB } from "@script/utils/idb";
+import { dispatchDescToString, dispatchTypeToString } from '@script/utils/utils';
 
 import { useEffect, useState } from "react";
 
@@ -12,12 +13,11 @@ import { BsFillGrid3X3GapFill, BsTools } from "react-icons/bs";
 import { ImFire } from "react-icons/im";
 import { MdOutlineQuestionMark } from "react-icons/md";
 
-import { ShopItemData, GeneralItemTypes } from "@shared/types/types";
 import { DatabaseGetOptions } from "@shared/types/idb.types";
+import { VehicleTypeOptions } from '@shared/types/vehicle.types';
 import { DispatchFileObject, DispatchInterface, DispatchTypeOptions } from "@shared/types/dispatches.types";
-import { dispatchDescToString, dispatchTypeToString } from '@/app/script/utils/utils';
-import { VehicleTypeOptions } from '../../types/vehicle.types';
-import Link from 'next/link';
+import { MenuEmitter } from '@/app/script/utils/emitter';
+import { map_inst } from '../../map';
 
 export function DispatchContentModule() {
 
@@ -82,6 +82,10 @@ function DispatchContentItem({ data }: { data: DispatchInterface }) {
     const [dispatchDesc, setDispatchDesc] = useState<string>();
     const [unitSet, setUnitSet] = useState<VehicleTypeOptions[]>();
 
+    function handleItemViewRequest(item_id: string) {
+        MenuEmitter.emit('EVENT_MENU_ITEM_DISPLAY_OPEN', item_id);
+    }
+
     useEffect(() => {
         async function fetchData() {
             setDispatchCategory(await dispatchTypeToString(data.type));
@@ -98,9 +102,22 @@ function DispatchContentItem({ data }: { data: DispatchInterface }) {
     }, [unitSet]);
 
     return (
-        <Link
-            href={'/play?primary=type_dispatch_menu&secondary=type_item_display&view=1'}
+        <button
             className="dispatch-item"
+            onClick={
+                () => {
+                    handleItemViewRequest(data.id)
+                }
+            }
+            onMouseEnter={
+                () => {
+                    map_inst.easeTo({
+                        center: data.location.coords,
+                        zoom: 12,
+                        duration: 1000
+                    })
+                }
+            }
         >
             <div className="dispatch-icon">
                 <DispatchIcon type={data.type} />
@@ -122,79 +139,8 @@ function DispatchContentItem({ data }: { data: DispatchInterface }) {
                     ) : null
                 }
             </div>
-        </Link>
+        </button>
     );
-}
-
-export function UnitContentModule() {
-    return (
-        <div className="content-module unit-menu">
-            <p>Units</p>
-        </div>
-    )
-}
-
-export function ItemDisplayModule({ item, type }: { item: string, type: GeneralItemTypes }) {
-
-    const [itemData, setItemData] = useState<ShopItemData[]>([]);
-
-    useEffect(() => {
-
-        let dbopts: DatabaseGetOptions;
-
-        switch (type) {
-            case "SHOP_ITEM_TYPE_BUILDING":
-                dbopts = {
-                    database: 'DB_SAVEGAME_DATA',
-                    store: 'DB_STORE_BUILDINGS',
-                    schema: 'SCHEMA_SAVEGAME_DATA',
-                    key: 'DB_GET_REQUEST_OPTION_ALL'
-                }
-                break;
-
-            case "SHOP_ITEM_TYPE_VEHICLE":
-                dbopts = {
-                    database: 'DB_SAVEGAME_DATA',
-                    store: 'DB_STORE_PURCHASED_ITEMS',
-                    schema: 'SCHEMA_SAVEGAME_DATA',
-                    key: [item],
-                }
-                break;
-        }
-
-        async function fetchData() {
-            await getDB(dbopts)
-                .then((r) => {
-                    setItemData(r as ShopItemData[]);
-                    return r;
-                })
-                .catch((err) => {
-                    throw new Error(err);
-                });
-        }
-
-        fetchData();
-    }, []);
-
-    return (
-        <div className="content-module item-display">
-            <details>
-                <summary>
-                    <h2>Item: {item}</h2>
-                </summary>
-                <p>
-                    {
-                        itemData.map((foo) => {
-                            if (foo) {
-                                return <>{foo.id}</>
-                            }
-                            else throw new Error('500 Internal Server Error');
-                        })
-                    }
-                </p>
-            </details>
-        </div >
-    )
 }
 
 function DispatchIcon({ type }: { type: DispatchTypeOptions }) {

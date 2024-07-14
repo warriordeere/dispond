@@ -1,6 +1,6 @@
 import { DispatchInterface } from "./dispatches.types"
 import { GeometryData } from "./ttcst.types"
-import { ShopItemData } from "./types"
+import { locationObject, ShopItemData } from "./types"
 
 export interface buildingFile {
     created_at: Date | number
@@ -11,15 +11,18 @@ export interface buildingFile {
 export interface BuildingInterface {
     id: string
     name: string
-    position: {
-        lng: number
-        lat: number
-    }
-    type: buildingTypes
+    location: locationObject,
+    type: BuildingTypeOptions
     mission_area: GeometryData
 }
 
-export type buildingTypes = 'FIREBRIGADE' | 'VOLUNTEER_FIREBRIGADE'
+export type BuildingTypeOptions =
+    'BUILDING_TYPE_FIREBRIGADE' |
+    'BUILDING_TYPE_VOLUNTEER_FIREBRIGADE' |
+    'BUILDING_TYPE_POLICE' |
+    'BUILDING_TYPE_HWY_POLICE' |
+    'BUILDING_TYPE_EMS' |
+    'BUILDING_TYPE_HOSPITAL'
 
 
 export type MissionRespondData = {
