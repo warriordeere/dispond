@@ -4,6 +4,7 @@ import { getDB } from "@script/utils/idb";
 
 import { DatabaseGetOptions } from "@shared/types/idb.types";
 import { GeneralItemTypes, ShopItemData } from "@shared/types/types";
+import { StatusDisplayBox } from "../../system_message";
 
 export function ItemDisplayContentModule({ item, type }: { item: string, type: GeneralItemTypes }) {
 
@@ -59,7 +60,9 @@ export function ItemDisplayContentModule({ item, type }: { item: string, type: G
                             if (foo) {
                                 return <>{foo.id}</>
                             }
-                            else throw new Error('500 Internal Server Error');
+                            else {
+                                return <StatusDisplayBox http_status_code={500} />
+                            }
                         })
                     }
                 </p>

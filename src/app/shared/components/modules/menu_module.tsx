@@ -16,6 +16,7 @@ import { isMenuOptionDouble, isMenuOptionSingle } from "@script/utils/type_guard
 import { MenuEmitter } from "@script/utils/emitter";
 
 import { MenuModuleTypes, MenuContentInterface, MenuModuleContentTypes, LargeMenuModuleContentTypes, MenuWrapperSetOptionDouble, MenuWrapperSetOptionSingle } from "@shared/types/modules.types";
+import { VehicleContentModule } from "./module_content/vehicle";
 
 export function MenuWrapper() {
 
@@ -25,7 +26,8 @@ export function MenuWrapper() {
 
         MenuEmitter.on('EVENT_MENU_BUILDING_OPEN', () => {
             setMenuWrapperSet({
-                large: LargeMenuModuleContentTypes.LARGE_MENU_MODULE_CONTENT_TYPE_BUILDING_MENU
+                primary: MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_DISPATCH_MENU,
+                secondary: MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_BUILDING_MENU
             });
         });
 
@@ -37,7 +39,15 @@ export function MenuWrapper() {
 
         MenuEmitter.on('EVENT_MENU_VEHICLE_OPEN', () => {
             setMenuWrapperSet({
-                large: LargeMenuModuleContentTypes.LARGE_MENU_MODULE_CONTENT_TYPE_VEHICLE_MENU
+                primary: MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_DISPATCH_MENU,
+                secondary: MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_VEHICLE_MENU
+            });
+        });
+
+        MenuEmitter.on('EVENT_MENU_UNIT_OPEN', () => {
+            setMenuWrapperSet({
+                primary: MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_DISPATCH_MENU,
+                secondary: MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_UNIT_OVERVIEW
             });
         });
 
@@ -106,11 +116,11 @@ function MenuContent({ content_type, item }: MenuContentInterface) {
             }
             else return <StatusDisplayBox http_status_code={400} />;
 
-        case LargeMenuModuleContentTypes.LARGE_MENU_MODULE_CONTENT_TYPE_BUILDING_MENU:
+        case MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_BUILDING_MENU:
             return <BuildingMenuContentModule />
 
-        case LargeMenuModuleContentTypes.LARGE_MENU_MODULE_CONTENT_TYPE_VEHICLE_MENU:
-            return <h2>Test1</h2>
+        case MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_VEHICLE_MENU:
+            return <VehicleContentModule />
 
         case LargeMenuModuleContentTypes.LARGE_MENU_MODULE_CONTENT_TYPE_SHOP_MENU:
             return (

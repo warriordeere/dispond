@@ -5,7 +5,7 @@ import { BuildingInterface, MissionRespondData } from "./building.types"
 import { DispatchInterface } from "./dispatches.types"
 
 export type MenuEventTypes =
-    "EVENT_MENU_BUILDING_OPEN" | "EVENT_MENU_VEHICLE_OPEN" | "EVENT_MENU_SHOP_OPEN"
+    "EVENT_MENU_BUILDING_OPEN" | "EVENT_MENU_VEHICLE_OPEN" | "EVENT_MENU_SHOP_OPEN" | "EVENT_MENU_UNIT_OPEN"
 
 export interface MenuEvents {
     on(eventName: MenuEventTypes, handler: () => void): void

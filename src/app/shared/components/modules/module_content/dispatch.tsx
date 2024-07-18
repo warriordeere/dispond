@@ -18,6 +18,7 @@ import { VehicleTypeOptions } from '@shared/types/vehicle.types';
 import { DispatchFileObject, DispatchInterface, DispatchTypeOptions } from "@shared/types/dispatches.types";
 import { MenuEmitter } from '@/app/script/utils/emitter';
 import { map_inst } from '../../map';
+import { ModuleHeader } from './base';
 
 export function DispatchContentModule() {
 
@@ -47,22 +48,9 @@ export function DispatchContentModule() {
 
     return (
         <div className="content-module dispatch-menu">
-            <div className="menu-head-wrapper">
-                <div className="menu-title">
-                    <h2>Einsatzliste</h2>
-                </div>
-                <div className="menu-ui">
-                    <button>
-                        <BsFillGrid3X3GapFill />
-                    </button>
-                    <button>
-                        <FaThList />
-                    </button>
-                    <button>
-                        <TbArrowsExchange />
-                    </button>
-                </div>
-            </div>
+            <ModuleHeader data={{
+                title: 'Einsätze'
+            }} />
             <div className="menu-content">
                 {
                     missionData.map((dispatch: DispatchInterface) => {
@@ -103,7 +91,7 @@ function DispatchContentItem({ data }: { data: DispatchInterface }) {
 
     return (
         <button
-            className="dispatch-item"
+            className="dispatch-item menu-item"
             onClick={
                 () => {
                     handleItemViewRequest(data.id)
@@ -119,7 +107,7 @@ function DispatchContentItem({ data }: { data: DispatchInterface }) {
                 }
             }
         >
-            <div className="dispatch-icon">
+            <div className="dispatch-icon menu-item-icon">
                 <DispatchIcon type={data.type} />
             </div>
             <h3 className="dispatch-title">

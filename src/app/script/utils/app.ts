@@ -53,11 +53,11 @@ export const App = new class INTERNAL_APP_CLASS {
             const marker = new tt.Marker({ draggable: false, color: '#ff0000' });
             const popup = new tt.Popup({ anchor: 'top', closeButton: false })
 
-            if (!building.position && !building.name) {
+            if (!building.location.coords && !building.name) {
                 throw new Error(`[ERROR] Unexpected Value`);
             }
 
-            marker.setLngLat(building.position);
+            marker.setLngLat(building.location.coords);
             marker.addTo(map_inst);
 
             popup.setText(building.name);
@@ -66,7 +66,7 @@ export const App = new class INTERNAL_APP_CLASS {
             marker.setPopup(popup);
             marker.togglePopup();
 
-            console.log(`[DEBUG] Spawned Building: ${building.id}@${building.position.lat},${building.position.lng}`);
+            console.log(`[DEBUG] Spawned Building: ${building.id}@${building.location.coords}`);
         });
     }
 

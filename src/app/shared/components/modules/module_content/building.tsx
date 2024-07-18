@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { map_inst } from "../../map";
+import { ModuleHeader } from "./base";
 
 import { getDB } from "@script/utils/idb";
 import { MenuEmitter } from "@script/utils/emitter";
@@ -10,11 +11,8 @@ import { DatabaseGetOptions } from "@shared/types/idb.types";
 import { BuildingInterface, BuildingTypeOptions } from "@shared/types/building.types";
 
 import { ImFire } from "react-icons/im";
-import { FaThList } from "react-icons/fa";
-import { TbArrowsExchange } from "react-icons/tb";
 import { RiPoliceBadgeFill } from "react-icons/ri";
 import { MdOutlineQuestionMark } from "react-icons/md";
-import { BsFillGrid3X3GapFill } from "react-icons/bs";
 
 export function BuildingMenuContentModule() {
 
@@ -44,22 +42,9 @@ export function BuildingMenuContentModule() {
 
     return (
         <div className="content-module building-menu">
-            <div className="menu-head-wrapper">
-                <div className="menu-title">
-                    <h2>Gebäudeübersicht</h2>
-                </div>
-                <div className="menu-ui">
-                    <button>
-                        <BsFillGrid3X3GapFill />
-                    </button>
-                    <button>
-                        <FaThList />
-                    </button>
-                    <button>
-                        <TbArrowsExchange />
-                    </button>
-                </div>
-            </div>
+            <ModuleHeader data={{
+                title: 'Gebäude'
+            }} />
             <div className="menu-content">
                 {
                     buildingData.map((building: BuildingInterface) => {
@@ -92,7 +77,7 @@ function BuildingContentItem({ data }: { data: BuildingInterface }) {
 
     return (
         <button
-            className="building-item"
+            className="building-item menu-item"
             onClick={
                 () => {
                     handleItemViewRequest(data.id)
@@ -108,13 +93,13 @@ function BuildingContentItem({ data }: { data: BuildingInterface }) {
                 }
             }
         >
-            <div className="building-icon">
+            <div className="building-icon menu-item-icon">
                 <BuildingIcon type={data.type} />
             </div>
             <div className="building-name">
                 <h3>{data.name}</h3>
             </div>
-            <div className="building-name">
+            <div className="building-type">
                 <p>{buildingType}</p>
             </div>
             <div className="building-address">
