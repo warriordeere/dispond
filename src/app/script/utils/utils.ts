@@ -4,6 +4,7 @@ import { GeometryData } from "@shared/types/ttcst.types";
 import { PresenceData, PresenceInterface } from "@shared/types/utils.types";
 import { DispatchFileObject, DispatchInterface, DispatchTypeOptions } from "@/app/shared/types/dispatches.types";
 import { BuildingTypeOptions } from "@/app/shared/types/building.types";
+import { VehicleFileObject, VehicleTypeOptions } from "@/app/shared/types/vehicle.types";
 
 export function updatePresence(presence: PresenceData) {
 
@@ -91,4 +92,16 @@ export async function buildingTypeToString(building_type: BuildingTypeOptions): 
         default:
             return '???'
     }
+}
+
+export async function vehicleTypeToString(vehicle_type: VehicleTypeOptions): Promise<string> {
+    const vehicleData: VehicleFileObject[] = await fetch(`api/data/dispatch?id=${vehicle_type}`)
+        .then((r) => {
+            return r.json() as unknown as VehicleFileObject[];
+        })
+        .catch((e) => {
+            throw new Error(e);
+        });
+
+    return vehicleData[0].category.de_DE;
 }

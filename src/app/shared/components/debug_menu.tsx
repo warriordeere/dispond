@@ -59,7 +59,7 @@ export function DebugMenu() {
         //     key: ["a144cd90-d5b7-425d-b296-e8e671dd23b3"]
         // }))
 
-        const lcd: LngLatLike = [14.97676, 51.149965];
+        const lcd: LngLatLike = [14.9695377, 51.1543045];
         const rev = tt.services.reverseGeocode({ key: API_KEY!, position: lcd })
             .then((r: any) => {
                 return r.addresses[0].address;
@@ -73,8 +73,8 @@ export function DebugMenu() {
             data: {
                 id: crypto.randomUUID(),
                 mission_area: DEBUG_ONLY_fc,
-                type: 'BUILDING_TYPE_FIREBRIGADE',
-                name: "Berufsfeuerwehr Görlitz 1",
+                type: 'BUILDING_TYPE_VOLUNTEER_FIREBRIGADE',
+                name: "Freiwillige Feuerwehr Görlitz Innenstadt",
                 location: {
                     coords: lcd,
                     free_address: geo_result.freeformAddress,

@@ -14,6 +14,11 @@ export type VehicleTypeOptions =
     "vehicle_type_gwmess" |
     "vehicle_type_sw"
 
+export interface VehicleShopItemInterface {
+    id: string
+    vehicle_type: VehicleTypeOptions
+    parent: string
+}
 
 export interface VehicleFileObject {
     file_type: "vehicle/vehicle",

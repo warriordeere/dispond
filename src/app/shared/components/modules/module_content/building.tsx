@@ -13,8 +13,7 @@ import { BuildingInterface, BuildingTypeOptions } from "@shared/types/building.t
 
 import { ImFire } from "react-icons/im";
 import { RiPoliceBadgeFill } from "react-icons/ri";
-import { BsFillHouseAddFill } from "react-icons/bs";
-import { MdModeEdit, MdOutlineQuestionMark } from "react-icons/md";
+import { MdAdd, MdModeEdit, MdOutlineQuestionMark } from "react-icons/md";
 
 export function BuildingMenuContentModule() {
 
@@ -44,7 +43,7 @@ export function BuildingMenuContentModule() {
 
     const footerBtns: ModuleFooterButtonInterface[] = [
         {
-            icon: <BsFillHouseAddFill />,
+            icon: <MdAdd />,
             title: "Gebäude hinzufügen",
             on: {
                 click: handleFooterBtn

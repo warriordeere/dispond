@@ -1,8 +1,7 @@
 import { DBSchema } from "idb"
-import { ShopItemData, } from "./types"
 import { BuildingInterface } from "./building.types"
 import { DispatchInterface } from "./dispatches.types"
-
+import { VehicleShopItemInterface } from "./vehicle.types"
 
 export interface SavegameDataSchema extends DBSchema {
     'DB_STORE_BUILDINGS': {
@@ -15,14 +14,14 @@ export interface SavegameDataSchema extends DBSchema {
         value: DispatchInterface
         indexes: { 'by-id': string }
     },
-    'DB_STORE_PURCHASED_ITEMS': {
+    'DB_STORE_OWNED_VEHICLES': {
         key: string
-        value: ShopItemData
+        value: VehicleShopItemInterface
         indexes: { 'by-id': string }
     },
 }
 
-export type DatabaseStores = 'DB_STORE_BUILDINGS' | 'DB_STORE_ACTIVE_MISSIONS' | 'DB_STORE_PURCHASED_ITEMS'
+export type DatabaseStores = 'DB_STORE_BUILDINGS' | 'DB_STORE_ACTIVE_MISSIONS' | 'DB_STORE_OWNED_VEHICLES'
 
 export interface DatabaseOptions {
     database: 'DB_SAVEGAME_DATA'
@@ -31,7 +30,7 @@ export interface DatabaseOptions {
 }
 
 export interface DatabasePostOptions extends DatabaseOptions {
-    data: BuildingInterface | DispatchInterface | ShopItemData
+    data: BuildingInterface | DispatchInterface | VehicleShopItemInterface
 }
 
 export interface DatabaseGetOptions extends DatabaseOptions {
