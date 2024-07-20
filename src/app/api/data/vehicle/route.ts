@@ -1,5 +1,6 @@
-import { DispatchFileObject } from "@/app/shared/types/dispatches.types";
 import { NextRequest, NextResponse } from "next/server";
+
+import { VehicleFileObject } from "@/app/shared/types/vehicle.types";
 
 import * as fs from "node:fs";
 import * as path from "node:path";
@@ -28,14 +29,14 @@ export function GET(req: NextRequest) {
         tmpBuf.push(rslt);
     });
 
-    const buf: DispatchFileObject[] = new Array();
+    const buf: VehicleFileObject[] = new Array();
 
     tmpBuf.forEach((p) => {
         if (!fs.existsSync(p)) {
             return;
         }
 
-        const dispatch: DispatchFileObject = JSON.parse(fs.readFileSync(path.resolve(p), 'utf8'));
+        const dispatch: VehicleFileObject = JSON.parse(fs.readFileSync(path.resolve(p), 'utf8'));
 
         buf.push(dispatch);
     });
@@ -48,7 +49,7 @@ export function GET(req: NextRequest) {
 }
 
 function fetchList(): string[] {
-    const dir = path.resolve('./src-tauri/data/missions');
+    const dir = path.resolve('./src-tauri/data/vehicles');
     const buf: string[] = new Array();
 
     fs.readdir(dir, { recursive: true, withFileTypes: true }, (e, files) => {

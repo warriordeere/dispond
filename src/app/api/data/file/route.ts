@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
 
     if (typeof fp !== 'string') {
         return NextResponse.json(
-            { message: `[Error] 400 Invalid File Path Or Unexpected Request Syntax` },
+            { message: `[Error] 400 Bad Request` },
             { status: 400 }
         );
     }

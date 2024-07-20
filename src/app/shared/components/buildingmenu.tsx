@@ -16,7 +16,7 @@ import { map_inst } from "./map";
 import { postDB } from "@/app/script/utils/idb";
 
 import { BsBuildingFillAdd, BsBuildingFillGear, BsCashCoin, BsFillBuildingFill, BsPencilFill } from "react-icons/bs"
-import { buildingTypes, BuildingInterface } from '@shared/types/building.types';
+import { BuildingTypeOptions, BuildingInterface } from '@shared/types/building.types';
 import { DatabasePostOptions } from '@shared/types/idb.types';
 import { GeometryData } from '@shared/types/ttcst.types';
 
@@ -51,7 +51,7 @@ export function AddBuildingMenu() {
     let building_cost: number = 120;
     const [building_id, setBuildingId] = useState<string | undefined>();
     const [building_name, setBuildingName] = useState<string | undefined>();
-    const [building_type, setBuildingType] = useState<buildingTypes | undefined>();
+    const [building_type, setBuildingType] = useState<BuildingTypeOptions | undefined>();
     const [building_location, setBuildingLocation] = useState<LngLatLike | undefined>();
     const [building_area, setBuildingArea] = useState<GeometryData | undefined>();
 
@@ -65,7 +65,7 @@ export function AddBuildingMenu() {
         const typeValue = document.querySelector('#bm-type-inp');
         typeValue?.addEventListener('change', (event: Event) => {
             const target = event.target as HTMLInputElement
-            setBuildingType(target.value as buildingTypes);
+            setBuildingType(target.value as BuildingTypeOptions);
         })
 
     }, [])

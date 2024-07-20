@@ -3,6 +3,8 @@ import { invoke } from "@tauri-apps/api/tauri";
 import { GeometryData } from "@shared/types/ttcst.types";
 import { PresenceData, PresenceInterface } from "@shared/types/utils.types";
 import { DispatchFileObject, DispatchInterface, DispatchTypeOptions } from "@/app/shared/types/dispatches.types";
+import { BuildingTypeOptions } from "@/app/shared/types/building.types";
+import { VehicleFileObject, VehicleTypeOptions } from "@/app/shared/types/vehicle.types";
 
 export function updatePresence(presence: PresenceData) {
 
@@ -48,14 +50,58 @@ export function animateRespond(route: GeometryData) {
     // moveToStep(marker, route, 0);
 }
 
-export async function dispatchTypeToString(dispatch: DispatchTypeOptions): Promise<any> {
-    const dispatchData: DispatchInterface = await fetch(`api/data/dispatch?type=${dispatch}`)
+export async function dispatchTypeToString(dispatch: DispatchTypeOptions): Promise<string> {
+    const dispatchData: DispatchFileObject[] = await fetch(`api/data/dispatch?id=${dispatch}`)
         .then((r) => {
-            return r.json() as unknown as DispatchInterface;
+            return r.json() as unknown as DispatchFileObject[];
         })
         .catch((e) => {
             throw new Error(e);
         });
 
-    console.log(dispatchData);
+    return dispatchData[0].category.de_DE;
+}
+
+export async function dispatchDescToString(dispatch: DispatchTypeOptions): Promise<string> {
+    const dispatchData: DispatchFileObject[] = await fetch(`api/data/dispatch?id=${dispatch}`)
+        .then((r) => {
+            return r.json() as unknown as DispatchFileObject[];
+        })
+        .catch((e) => {
+            throw new Error(e);
+        });
+
+    return dispatchData[0].desc.de_DE;
+}
+
+export async function buildingTypeToString(building_type: BuildingTypeOptions): Promise<string> {
+
+    switch (building_type) {
+        case 'BUILDING_TYPE_EMS':
+            return 'Rettungswache';
+        case "BUILDING_TYPE_FIREBRIGADE":
+            return 'Berufsfeuerwehr'
+        case "BUILDING_TYPE_VOLUNTEER_FIREBRIGADE":
+            return 'freiwillige Feuerwehr'
+        case "BUILDING_TYPE_POLICE":
+            return 'Polizeiwache'
+        case "BUILDING_TYPE_HWY_POLICE":
+            return 'Autobahnpolizei'
+        case "BUILDING_TYPE_HOSPITAL":
+            return 'Krankenhaus'
+        default:
+            return '???'
+    }
+}
+
+export async function vehicleTypeToString(vehicle_type: VehicleTypeOptions): Promise<string> {
+    const vehicleData: VehicleFileObject[] = await fetch(`api/data/dispatch?id=${vehicle_type}`)
+        .then((r) => {
+            return r.json() as unknown as VehicleFileObject[];
+        })
+        .catch((e) => {
+            throw new Error(e);
+        });
+
+    return vehicleData[0].category.de_DE;
 }

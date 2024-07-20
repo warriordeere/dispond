@@ -5,10 +5,9 @@ import tt from "@tomtom-international/web-sdk-services";
 
 import { postDB } from "./idb";
 import { animateRespond } from "./utils";
-// const EventEmitter = require('events');
 import EventEmitter from "events";
 
-import { VehicleEvents, BuildingEvents, GameEvents, MissionEvents } from "../../shared/types/emitter.types";
+import { VehicleEvents, BuildingEvents, GameEvents, MissionEvents, MenuEvents } from "../../shared/types/emitter.types";
 import { DatabasePostOptions } from "@shared/types/idb.types";
 import { ShopItemData } from "@shared/types/types";
 
@@ -17,6 +16,7 @@ export const VehicleEmitter: VehicleEvents = new EventEmitter();
 export const BuildingEmitter: BuildingEvents = new EventEmitter();
 export const GameEmitter: GameEvents = new EventEmitter();
 export const MissionEmitter: MissionEvents = new EventEmitter();
+export const MenuEmitter: MenuEvents = new EventEmitter();
 
 BuildingEmitter.on('EVENT_BUILDING_CREATE', async (data) => {
     const options: DatabasePostOptions = {

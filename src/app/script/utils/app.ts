@@ -11,6 +11,7 @@ import { GeometryData } from "@shared/types/ttcst.types";
 import { AppMetaData } from "@shared/types/app.types";
 import { LanguageString } from "@shared/types/types";
 import { DispatchInterface } from "@/app/shared/types/dispatches.types";
+import { dispatchTypeToString } from "./utils";
 
 export const App = new class INTERNAL_APP_CLASS {
 
@@ -52,11 +53,11 @@ export const App = new class INTERNAL_APP_CLASS {
             const marker = new tt.Marker({ draggable: false, color: '#ff0000' });
             const popup = new tt.Popup({ anchor: 'top', closeButton: false })
 
-            if (!building.position && !building.name) {
+            if (!building.location.coords && !building.name) {
                 throw new Error(`[ERROR] Unexpected Value`);
             }
 
-            marker.setLngLat(building.position);
+            marker.setLngLat(building.location.coords);
             marker.addTo(map_inst);
 
             popup.setText(building.name);
@@ -65,7 +66,7 @@ export const App = new class INTERNAL_APP_CLASS {
             marker.setPopup(popup);
             marker.togglePopup();
 
-            console.log(`[DEBUG] Spawned Building: ${building.id}`);
+            console.log(`[DEBUG] Spawned Building: ${building.id}@${building.location.coords}`);
         });
     }
 
@@ -90,7 +91,7 @@ export const App = new class INTERNAL_APP_CLASS {
 
             this.loadDispatchUI(dispatch.data);
 
-            console.log(`[DEBUG Summoned New Dispatch: ${dispatch.data.id} @ ${dispatch.data.location}`);
+            console.log(`[DEBUG] Summoned New Dispatch: ${dispatch.data.id}@${dispatch.data.location.coords}`);
         })
 
         //welp... i'll add this to my todo though - this is fine🔥
@@ -121,18 +122,18 @@ export const App = new class INTERNAL_APP_CLASS {
         const dispatchAry = await getDB(db_opt);
         dispatchAry.forEach((dispatch: DispatchInterface) => {
             this.loadDispatchUI(dispatch);
-            console.log(`[DEBUG Loaded Active Dispatch: ${dispatch.id} @ ${dispatch.location}`);
+            console.log(`[DEBUG] Spawned Active Dispatch: ${dispatch.id}@${dispatch.location.coords}`);
         });
     }
 
-    private loadDispatchUI(dispatch: DispatchInterface) {
+    private async loadDispatchUI(dispatch: DispatchInterface) {
         const mrk = new tt.Marker({ draggable: false, color: 'orange' });
         const pup = new tt.Popup({ anchor: 'top', closeButton: false });
 
         mrk.setLngLat(dispatch.location.coords);
         mrk.addTo(map_inst);
 
-        pup.setHTML(`<strong>${dispatch.mission}</strong><br>${dispatch.location.free_address}`);
+        pup.setHTML(`<strong>${await dispatchTypeToString(dispatch.type)}</strong><br>${dispatch.location.free_address}`);
         pup.addTo(map_inst);
 
         mrk.setPopup(pup);

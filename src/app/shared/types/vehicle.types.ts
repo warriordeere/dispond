@@ -1,17 +1,23 @@
 import { LanguageString } from "./types"
 
-export enum VehicleTypeOptions {
-    "VEHICLE_TYPE_ENGINE_A" = "vehicle_type_lf",
-    "VEHICLE_TYPE_ENGINE_B" = "vehicle_type_hlf",
-    "VEHICLE_TYPE_ENGINE_C" = "vehicle_type_tlf",
-    "VEHICLE_TYPE_LADDER_A" = "vehicle_type_dlk",
-    "VEHICLE_TYPE_TACTICAL_A" = "vehicle_type_elw",
-    "VEHICLE_TYPE_TACTICAL_B" = "vehicle_type_kdow",
-    "VEHICLE_TYPE_TECH_A" = "vehicle_type_rw",
-    "VEHICLE_TYPE_LOGISTIC_A" = "vehicle_type_gwl",
-    "VEHICLE_TYPE_LOGISTIC_B" = "vehicle_type_gwa",
-    "VEHICLE_TYPE_LOGISTIC_C" = "vehicle_type_gwd",
-    "VEHICLE_TYPE_SUPPLY_A" = "vehicle_type_sw"
+export type VehicleTypeOptions =
+    "vehicle_type_lf" |
+    "vehicle_type_hlf" |
+    "vehicle_type_tlf" |
+    "vehicle_type_dlk" |
+    "vehicle_type_elw" |
+    "vehicle_type_kdow" |
+    "vehicle_type_rw" |
+    "vehicle_type_gwl" |
+    "vehicle_type_gwa" |
+    "vehicle_type_gwdecon" |
+    "vehicle_type_gwmess" |
+    "vehicle_type_sw"
+
+export interface VehicleShopItemInterface {
+    id: string
+    vehicle_type: VehicleTypeOptions
+    parent: string
 }
 
 export interface VehicleFileObject {

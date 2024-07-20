@@ -40,7 +40,7 @@ export function StatusDisplayBox({ http_status_code, detail_string }: { http_sta
         default:
             return (
                 <div>
-                    <code>[ERROR] Invalid HTTP-Status Code!</code>
+                    <code>[ERROR] Unknown HTTP-Status Code!</code>
                     <p>Use HTTP-Status Codes From <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status">https://developer.mozilla.org/en-US/docs/Web/HTTP/Status</a></p>
                 </div>
             );

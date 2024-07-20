@@ -1,0 +1,29 @@
+{
+    "file_type": "vehicle/vehicle",
+    "type": "vehicle_gwmess",
+    "category": {
+        "de_DE": "GW-Mess",
+        "en_US": "GW-Mess"
+    },
+    "desc": {
+        "de_DE": "GW-Messwagen",
+        "en_US": "GW-Messwagen"
+    },
+    "perks": {
+        "units": 3,
+        "extinguishing_cap": 0,
+        "clothing": [],
+        "loadout_cap": 4,
+        "loadout_items": {
+            "item_fire_fighting": [],
+            "item_assistance": [
+                "LOADOUT_ITEM_LEAKKIT_BIG",
+                "LOADOUT_ITEM_DOORKIT",
+                "LOADOUT_ITEM_TECHKIT"
+            ],
+            "item_misc": [
+                "LOADOUT_ITEM_LIGHTKIT"
+            ]
+        }
+    }
+}
