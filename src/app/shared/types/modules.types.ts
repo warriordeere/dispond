@@ -1,3 +1,5 @@
+import React from "react"
+
 export enum MenuModuleContentTypes {
     "MENU_MODULE_CONTENT_TYPE_DISPATCH_MENU" = "type_dispatch_menu",
     "MENU_MODULE_CONTENT_TYPE_UNIT_OVERVIEW" = "type_unit_overview",
@@ -47,4 +49,25 @@ export interface MenuWrapperSetOptionDouble {
     primary: MenuModuleContentTypes,
     secondary: MenuModuleContentTypes
     item_id?: string
+}
+
+export interface ModuleHeaderInterface {
+    data: {
+        icon?: React.JSX.Element,
+        title: string
+    }
+}
+
+export interface ModuleFooterInterface {
+    data: {
+        button: ModuleFooterButtonInterface[]
+    }
+}
+
+export interface ModuleFooterButtonInterface {
+    icon: React.JSX.Element
+    title: string
+    on: {
+        click: () => void
+    }
 }

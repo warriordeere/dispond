@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
 
 import { map_inst } from "../../map";
-import { ModuleHeader } from "./base";
+import { ModuleFooter, ModuleHeader } from "./base";
 
 import { getDB } from "@script/utils/idb";
 import { MenuEmitter } from "@script/utils/emitter";
 import { buildingTypeToString } from "@script/utils/utils";
 
 import { DatabaseGetOptions } from "@shared/types/idb.types";
+import { ModuleFooterButtonInterface } from "@/app/shared/types/modules.types";
 import { BuildingInterface, BuildingTypeOptions } from "@shared/types/building.types";
 
 import { ImFire } from "react-icons/im";
 import { RiPoliceBadgeFill } from "react-icons/ri";
-import { MdOutlineQuestionMark } from "react-icons/md";
+import { BsFillHouseAddFill } from "react-icons/bs";
+import { MdModeEdit, MdOutlineQuestionMark } from "react-icons/md";
 
 export function BuildingMenuContentModule() {
 
@@ -40,6 +42,27 @@ export function BuildingMenuContentModule() {
         fetchData();
     }, []);
 
+    const footerBtns: ModuleFooterButtonInterface[] = [
+        {
+            icon: <BsFillHouseAddFill />,
+            title: "Gebäude hinzufügen",
+            on: {
+                click: handleFooterBtn
+            }
+        },
+        {
+            icon: <MdModeEdit />,
+            title: "Gebäude Bearbeiten",
+            on: {
+                click: handleFooterBtn
+            }
+        }
+    ]
+
+    function handleFooterBtn() {
+        console.log('Footer Btn click');
+    }
+
     return (
         <div className="content-module building-menu">
             <ModuleHeader data={{
@@ -54,6 +77,9 @@ export function BuildingMenuContentModule() {
                     })
                 }
             </div>
+            <ModuleFooter data={{
+                button: footerBtns
+            }} />
         </div>
     )
 }

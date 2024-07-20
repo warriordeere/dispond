@@ -79,7 +79,8 @@ export function MenuWrapper() {
         return (
             <>
                 <MenuModule module_type="MENU_MODULE_TYPE_PRIMARY" module_content={MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_DISPATCH_MENU} />
-                <MenuModule module_type="MENU_MODULE_TYPE_SECONDARY" module_content={MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_UNIT_OVERVIEW} />
+                {/* <MenuModule module_type="MENU_MODULE_TYPE_SECONDARY" module_content={MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_UNIT_OVERVIEW} /> */}
+                <MenuModule module_type="MENU_MODULE_TYPE_SECONDARY" module_content={MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_BUILDING_MENU} />
             </>
         );
     }
