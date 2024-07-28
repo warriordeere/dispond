@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { map_inst } from "../../map";
-import { ModuleFooter, ModuleHeader } from "./base";
+import { ModuleHeader } from "./base";
 
 import { getDB } from "@script/utils/idb";
 import { MenuEmitter } from "@script/utils/emitter";
@@ -43,13 +43,6 @@ export function BuildingMenuContentModule() {
 
     const footerBtns: ModuleFooterButtonInterface[] = [
         {
-            icon: <MdAdd />,
-            title: "Gebäude hinzufügen",
-            on: {
-                click: handleFooterBtn
-            }
-        },
-        {
             icon: <MdModeEdit />,
             title: "Gebäude Bearbeiten",
             on: {
@@ -76,9 +69,6 @@ export function BuildingMenuContentModule() {
                     })
                 }
             </div>
-            <ModuleFooter data={{
-                button: footerBtns
-            }} />
         </div>
     )
 }
@@ -118,9 +108,9 @@ function BuildingContentItem({ data }: { data: BuildingInterface }) {
                 }
             }
         >
-            <div className="building-icon menu-item-icon">
+            <button className="building-icon menu-item-icon">
                 <BuildingIcon type={data.type} />
-            </div>
+            </button>
             <div className="building-name">
                 <h3>{data.name}</h3>
             </div>
@@ -130,7 +120,7 @@ function BuildingContentItem({ data }: { data: BuildingInterface }) {
             <div className="building-address">
                 <p>{data.location.free_address}</p>
             </div>
-        </button>
+        </button >
     );
 }
 

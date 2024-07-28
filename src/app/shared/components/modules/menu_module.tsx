@@ -17,6 +17,7 @@ import { MenuEmitter } from "@script/utils/emitter";
 
 import { MenuModuleTypes, MenuContentInterface, MenuModuleContentTypes, LargeMenuModuleContentTypes, MenuWrapperSetOptionDouble, MenuWrapperSetOptionSingle } from "@shared/types/modules.types";
 import { VehicleContentModule } from "./module_content/vehicle";
+import { ShopContentModule } from "./module_content/shop";
 
 export function MenuWrapper() {
 
@@ -124,10 +125,7 @@ function MenuContent({ content_type, item }: MenuContentInterface) {
             return <VehicleContentModule />
 
         case LargeMenuModuleContentTypes.LARGE_MENU_MODULE_CONTENT_TYPE_SHOP_MENU:
-            return (
-                <h2>Test1</h2>
-            );
-
+            return <ShopContentModule />
         default:
             return <StatusDisplayBox http_status_code={404} detail_string="Unknown Menu Content Type" />
     }

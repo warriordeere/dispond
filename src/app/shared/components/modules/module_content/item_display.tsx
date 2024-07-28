@@ -2,13 +2,15 @@ import { useState, useEffect } from "react";
 
 import { getDB } from "@script/utils/idb";
 
-import { DatabaseGetOptions } from "@shared/types/idb.types";
-import { GeneralItemTypes, ShopItemData } from "@shared/types/types";
 import { StatusDisplayBox } from "../../system_message";
+
+import { GeneralItemTypes } from "@shared/types/types";
+import { DatabaseGetOptions } from "@shared/types/idb.types";
+import { VehicleShopItemInterface } from "@/app/shared/types/vehicle.types";
 
 export function ItemDisplayContentModule({ item, type }: { item: string, type: GeneralItemTypes }) {
 
-    const [itemData, setItemData] = useState<ShopItemData[]>([]);
+    const [itemData, setItemData] = useState<VehicleShopItemInterface[]>([]);
 
     useEffect(() => {
 
@@ -27,7 +29,7 @@ export function ItemDisplayContentModule({ item, type }: { item: string, type: G
             case "SHOP_ITEM_TYPE_VEHICLE":
                 dbopts = {
                     database: 'DB_SAVEGAME_DATA',
-                    store: 'DB_STORE_PURCHASED_ITEMS',
+                    store: 'DB_STORE_OWNED_VEHICLES',
                     schema: 'SCHEMA_SAVEGAME_DATA',
                     key: [item],
                 }
@@ -37,7 +39,7 @@ export function ItemDisplayContentModule({ item, type }: { item: string, type: G
         async function fetchData() {
             await getDB(dbopts)
                 .then((r) => {
-                    setItemData(r as ShopItemData[]);
+                    setItemData(r as VehicleShopItemInterface[]);
                     return r;
                 })
                 .catch((err) => {

@@ -7,16 +7,15 @@ import { getDB, postDB } from '@/app/script/utils/idb';
 import { BsPencilFill, BsCashCoin } from 'react-icons/bs';
 import { FaCar, FaCartShopping } from 'react-icons/fa6';
 
-import { ShopItemData } from '@shared/types/types';
 import { DatabaseGetOptions } from '@shared/types/idb.types';
-import { VehicleTypeOptions } from '@shared/types/vehicle.types';
+import { VehicleShopItemInterface, VehicleTypeOptions } from '@shared/types/vehicle.types';
 import { BuildingInterface } from '@shared/types/building.types';
 
 export async function FleetManageMenu() {
 
     const dbopt: DatabaseGetOptions = {
         database: 'DB_SAVEGAME_DATA',
-        store: 'DB_STORE_PURCHASED_ITEMS',
+        store: 'DB_STORE_OWNED_VEHICLES',
         schema: 'SCHEMA_SAVEGAME_DATA',
         key: "DB_GET_REQUEST_OPTION_ALL"
     }
@@ -28,10 +27,10 @@ export async function FleetManageMenu() {
         <>
             <div>fleet manage menu</div>
             {
-                allVehiles.map((vehicle: ShopItemData) => {
+                allVehiles.map((vehicle: VehicleShopItemInterface) => {
                     return (
                         <code>
-                            <h2>{vehicle.item_secondary_type}</h2>
+                            <h2>{vehicle.vehicle_type}</h2>
                             <p>{vehicle.id}</p>
                         </code>
                     )

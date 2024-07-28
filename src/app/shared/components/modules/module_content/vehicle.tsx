@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { ModuleFooter, ModuleHeader } from "./base";
+import { ModuleHeader } from "./base";
 
 import { getDB } from "@script/utils/idb";
 import { MenuEmitter } from "@script/utils/emitter";
@@ -39,13 +39,6 @@ export function VehicleContentModule() {
 
     const footerBtns: ModuleFooterButtonInterface[] = [
         {
-            icon: <MdAdd />,
-            title: "Fahrzeug hinzufügen",
-            on: {
-                click: handleFooterBtn
-            }
-        },
-        {
             icon: <MdModeEdit />,
             title: "Fahrzeug Bearbeiten",
             on: {
@@ -72,9 +65,6 @@ export function VehicleContentModule() {
                     })
                 }
             </div>
-            <ModuleFooter data={{
-                button: footerBtns
-            }} />
         </div>
     )
 }

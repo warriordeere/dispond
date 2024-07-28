@@ -92,7 +92,7 @@ export function AddBuildingMenu() {
             const data: BuildingInterface = {
                 id: building_id,
                 name: building_name,
-                position: building_location as any,
+                location: building_location as any,
                 type: building_type,
                 mission_area: building_area
             }
