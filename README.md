@@ -14,8 +14,36 @@ Dispond is **your** management-simulation to take on the role of a dispatch cent
 - [Contact](#contact)
 
 ## License
- <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://github.com/WarriorDeere/dispond">Dispond</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/WarriorDeere">Warrior Deere</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a></p>
+# MIT License
 
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+# Commons Clause
+
+## 1. Grant of License
+Subject to the terms of the MIT License above, the Commons Clause modifies the MIT License as follows:
+
+## 2. Commercial Use
+The Software may not be used for commercial purposes. For the purposes of this License, "commercial use" means any use of the Software that is primarily intended for or directed towards commercial advantage or monetary compensation.
+
+## 3. Redistribution
+Redistribution of the Software is not permitted without explicit written permission from the author. This includes, but is not limited to, distribution of the Software as part of a software package or in any form that allows others to use or access the Software.
+
+## 4. Attribution
+Any use of the Software must include proper attribution to the original author.
+
+## 5. No Warranty
+The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+
+See the LICENSE file for the full text of these terms.
 
 ## Contact
 **Developer:** 
