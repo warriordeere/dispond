@@ -21,7 +21,7 @@ export interface VehicleShopItemInterface {
 }
 
 export interface VehicleFileObject {
-    file_type: "vehicle/vehicle",
+    file_type: VehicleFileType,
     type: VehicleTypeOptions,
     category: {
         [LanguageString.LANGUAGE_STRING_DE_DE]: string,
@@ -34,6 +34,8 @@ export interface VehicleFileObject {
     clothing: ClothingTypes[]
     perks: VehiclePerksObject
 }
+
+export type VehicleFileType = "vehicle/engine" | "vehicle/hazard" | "vehicle/ladder" | "vehicle/tactical" | "vehicle/tech"
 
 export interface VehiclePerksObject {
     units: number
