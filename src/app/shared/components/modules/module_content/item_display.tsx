@@ -4,11 +4,11 @@ import { getDB } from "@script/utils/idb";
 
 import { StatusDisplayBox } from "../../system_message";
 
-import { GeneralItemTypes } from "@shared/types/types";
+import { ShopCategoryTypes } from "@shared/types/types";
 import { DatabaseGetOptions } from "@shared/types/idb.types";
 import { VehicleShopItemInterface } from "@/app/shared/types/vehicle.types";
 
-export function ItemDisplayContentModule({ item, type }: { item: string, type: GeneralItemTypes }) {
+export function ItemDisplayContentModule({ item, type }: { item: string, type: ShopCategoryTypes }) {
 
     const [itemData, setItemData] = useState<VehicleShopItemInterface[]>([]);
 

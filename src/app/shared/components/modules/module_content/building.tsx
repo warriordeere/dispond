@@ -83,7 +83,6 @@ function BuildingContentItem({ data }: { data: BuildingInterface }) {
 
     useEffect(() => {
         async function fetchData() {
-            console.log(data.type);
             setBuildingType(await buildingTypeToString(data.type));
         }
 
@@ -108,9 +107,9 @@ function BuildingContentItem({ data }: { data: BuildingInterface }) {
                 }
             }
         >
-            <button className="building-icon menu-item-icon">
+            <div className="building-icon menu-item-icon">
                 <BuildingIcon type={data.type} />
-            </button>
+            </div>
             <div className="building-name">
                 <h3>{data.name}</h3>
             </div>
