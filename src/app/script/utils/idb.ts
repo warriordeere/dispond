@@ -20,7 +20,7 @@ async function initDB(db_name: string): Promise<IDBPDatabase<any>> {
     const dbv = await DBVersion(db_name);
     return openDB<SavegameDataSchema>(db_name, new Number(dbv.crvs) as number, {
         upgrade(db) {
-            const valid_stores: DatabaseStores[] = ['DB_STORE_ACTIVE_MISSIONS', 'DB_STORE_BUILDINGS', 'DB_STORE_PURCHASED_ITEMS'];
+            const valid_stores: DatabaseStores[] = ['DB_STORE_ACTIVE_MISSIONS', 'DB_STORE_BUILDINGS', 'DB_STORE_OWNED_VEHICLES'];
             valid_stores.forEach((store) => {
                 if (!db.objectStoreNames.contains(store)) {
                     const new_str = db.createObjectStore(store, { keyPath: 'id' });

@@ -1,11 +1,11 @@
 import { ShopCategoryTypes } from "@/app/shared/types/types";
 import { ModuleHeader } from "./base";
 import { useEffect, useState } from "react";
-import { DatabaseGetOptions } from "@/app/shared/types/idb.types";
-import { getDB } from "@/app/script/utils/idb";
+import { DatabaseGetOptions, DatabasePostOptions } from "@/app/shared/types/idb.types";
+import { getDB, postDB } from "@/app/script/utils/idb";
 import { BuildingInterface } from "@/app/shared/types/building.types";
 import { StatusDisplayBox } from "../../system_message";
-import { VehicleFileObject } from "@/app/shared/types/vehicle.types";
+import { VehicleFileObject, VehicleShopItemInterface } from "@/app/shared/types/vehicle.types";
 
 export function ShopContentModule() {
     return (
@@ -51,7 +51,7 @@ function CategoryVehicle() {
                 const r =
                     await fetch(`/api/data/vehicle?id=${v.replace('.json', '')}`)
                         .then((r) => {
-                            return r.json() as unknown as VehicleFileObject;
+                            return r.json() as unknown as VehicleFileObject[];
                         })
                         .catch((e: any) => {
                             return e;
@@ -60,8 +60,8 @@ function CategoryVehicle() {
                             setLoading(false)
                         });
 
-                vhcBuf.push(r);
-            })
+                vhcBuf.push(r[0]);
+            });
 
             setVhcAry(vhcBuf)
         }
@@ -79,14 +79,47 @@ function CategoryVehicle() {
                     vhcAry.map((vhc: VehicleFileObject) => {
                         const uuid = crypto.randomUUID();
                         return (
-                            <div key={uuid}>
-                                <h2>Vehicle:</h2>
-                                <p>{JSON.stringify(vhc)}</p>
-                            </div>
-                        )
+                            <VehicleCard key={uuid} vhc={vhc} />
+                        );
                     })
                 ) : null
             }
         </div>
     );
+}
+
+function VehicleCard({ vhc }: { vhc: VehicleFileObject }) {
+
+    function handleVehicleBtn() {
+
+        console.log('[DEBUG] Handle Interaction?!');        
+
+        const item: VehicleShopItemInterface = {
+            id: crypto.randomUUID(),
+            vehicle_type: vhc.type,
+            parent: "cf989aee-f550-40eb-8528-4bb351877ea4"
+        }
+
+        const dbpost: DatabasePostOptions = {
+            data: item,
+            database: "DB_SAVEGAME_DATA",
+            store: "DB_STORE_OWNED_VEHICLES",
+            schema: "SCHEMA_SAVEGAME_DATA"
+        }
+
+        postDB(dbpost)
+            .catch((e) => {
+                throw new Error(e)
+            });
+    }
+
+    return (
+        <div className="vehicle-card">
+            <div className="vehicle-label-container">
+                <h2 className="vehicle-name">{vhc.category.de_DE}</h2>
+                <sub className="vehicle-desc">{vhc.desc.de_DE}</sub>
+                <button onClick={handleVehicleBtn} className="vehicle-btn-buy">Kaufen</button>
+            </div>
+        </div>
+    )
 }

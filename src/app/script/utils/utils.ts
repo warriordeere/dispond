@@ -95,13 +95,16 @@ export async function buildingTypeToString(building_type: BuildingTypeOptions): 
 }
 
 export async function vehicleTypeToString(vehicle_type: VehicleTypeOptions): Promise<string> {
-    const vehicleData: VehicleFileObject[] = await fetch(`api/data/dispatch?id=${vehicle_type}`)
+    console.log(vehicle_type);
+    const vehicleData: VehicleFileObject[] = await fetch(`api/data/vehicle?id=${vehicle_type}`)
         .then((r) => {
             return r.json() as unknown as VehicleFileObject[];
         })
         .catch((e) => {
             throw new Error(e);
         });
+
+    console.log(vehicleData);
 
     return vehicleData[0].category.de_DE;
 }
