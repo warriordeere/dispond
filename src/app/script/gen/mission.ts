@@ -16,7 +16,7 @@ import { GeometryData } from "@shared/types/ttcst.types";
 
 export async function generateMissionData(area: GeometryData): Promise<DispatchInterface> {
     async function randomMission(): Promise<DispatchTypeOptions> {
-        const missionList = await fetch('/api/list?dir=missions&type=json')
+        const missionList = await fetch('/api/v1/list?dir=missions&type=json')
             .then((r: any) => {
                 return r.json() as String[];
             })
@@ -27,7 +27,7 @@ export async function generateMissionData(area: GeometryData): Promise<DispatchI
         const msfl = missionList[Math.floor(Math.random() * missionList.length)]
         const didx = msfl.indexOf('data');
         const msflpath = didx !== -1 ? msfl.substring(didx + 5) : "";
-        const mission = await fetch(`api/data/file?path=${msflpath}`)
+        const mission = await fetch(`api/v1/data/file?path=${msflpath}`)
             .then((r) => {
                 return r.json() as unknown as DispatchFileObject;
             })
@@ -39,7 +39,7 @@ export async function generateMissionData(area: GeometryData): Promise<DispatchI
     }
 
     async function randomCaller(): Promise<ClientObject> {
-        const callerObject: NamesFile = await fetch('api/data/file?path=misc/names.json')
+        const callerObject: NamesFile = await fetch('api/v1/data/file?path=misc/names.json')
             .then((r) => {
                 return r.json() as unknown as NamesFile;
             })

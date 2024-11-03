@@ -51,7 +51,7 @@ export function animateRespond(route: GeometryData) {
 }
 
 export async function dispatchTypeToString(dispatch: DispatchTypeOptions): Promise<string> {
-    const dispatchData: DispatchFileObject[] = await fetch(`api/data/dispatch?id=${dispatch}`)
+    const dispatchData: DispatchFileObject[] = await fetch(`api/v1/data/dispatch?id=${dispatch}`)
         .then((r) => {
             return r.json() as unknown as DispatchFileObject[];
         })
@@ -63,7 +63,7 @@ export async function dispatchTypeToString(dispatch: DispatchTypeOptions): Promi
 }
 
 export async function dispatchDescToString(dispatch: DispatchTypeOptions): Promise<string> {
-    const dispatchData: DispatchFileObject[] = await fetch(`api/data/dispatch?id=${dispatch}`)
+    const dispatchData: DispatchFileObject[] = await fetch(`api/v1/data/dispatch?id=${dispatch}`)
         .then((r) => {
             return r.json() as unknown as DispatchFileObject[];
         })
@@ -96,7 +96,7 @@ export async function buildingTypeToString(building_type: BuildingTypeOptions): 
 
 export async function vehicleTypeToString(vehicle_type: VehicleTypeOptions): Promise<string> {
     console.log(vehicle_type);
-    const vehicleData: VehicleFileObject[] = await fetch(`api/data/vehicle?id=${vehicle_type}`)
+    const vehicleData: VehicleFileObject[] = await fetch(`api/v1/data/vehicle?id=${vehicle_type}`)
         .then((r) => {
             return r.json() as unknown as VehicleFileObject[];
         })

@@ -3,6 +3,8 @@ import path from "path";
 
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = 'force-static'
+
 export async function GET(req: NextRequest) {
 
     const fp = req.nextUrl.searchParams.get('path');

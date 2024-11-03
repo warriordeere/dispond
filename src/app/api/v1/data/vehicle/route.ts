@@ -5,6 +5,8 @@ import { VehicleFileObject } from "@/app/shared/types/vehicle.types";
 import * as fs from "node:fs";
 import * as path from "node:path";
 
+export const dynamic = 'force-static'
+
 export function GET(req: NextRequest) {
     const prms = req.nextUrl.searchParams.get('id');
 

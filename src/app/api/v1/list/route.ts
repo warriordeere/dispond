@@ -1,7 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 import * as fs from "node:fs";
 import * as path from "node:path";
+
+export const dynamic = 'force-static'
 
 export async function GET(req: NextRequest) {
 
@@ -9,7 +11,7 @@ export async function GET(req: NextRequest) {
     const file_type = req.nextUrl.searchParams.get('type');
 
     if (!base_dir || !file_type) {
-        return NextResponse.json(
+        return Response.json(
             { message: `[Error] 400 Unexpected Parameter Value. Parameters: 'dir': '${base_dir}'; 'type': '${file_type}'` },
             { status: 400 }
         );
@@ -19,7 +21,7 @@ export async function GET(req: NextRequest) {
     const dir = path.resolve(bdir, base_dir);
 
     if (!dir.startsWith(bdir)) {
-        return NextResponse.json(
+        return Response.json(
             { message: `[Error] 403 Access Denied` },
             { status: 403 }
         );
@@ -28,7 +30,7 @@ export async function GET(req: NextRequest) {
     const buf: String[] = new Array();
 
     if (!fs.existsSync(dir)) {
-        return NextResponse.json(
+        return Response.json(
             { message: `[Error] 404 Path Not Found. Requested Path: ${dir}` },
             { status: 404 }
         );
@@ -36,7 +38,7 @@ export async function GET(req: NextRequest) {
 
     fs.readdir(dir, { recursive: true, withFileTypes: true }, (e, files) => {
         if (e) {
-            return NextResponse.json(
+            return Response.json(
                 { message: `[Error] 500 Internal Server Error. Error: ${e}` },
                 { status: 500 }
             );
@@ -52,11 +54,11 @@ export async function GET(req: NextRequest) {
     });
 
     if (!buf.length) {
-        return NextResponse.json(
+        return Response.json(
             { message: `[Error] 404 No Files With Given Parameters Found. Parameters: dir: '${base_dir}'; type: '${file_type}'` },
             { status: 404 }
         );
     }
 
-    return NextResponse.json(buf);
+    return Response.json(buf);
 }

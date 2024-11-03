@@ -17,7 +17,7 @@ export default function RootLayout({
       <body>
         <Tooltip id="generic-ttp-id" style={{ zIndex: 999 }} />
         <WindowTitlebar />
-        <DebugMenu />
+        {/* <DebugMenu /> */}
         {children}
       </body>
     </html>

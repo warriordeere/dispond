@@ -25,7 +25,7 @@ export const App = new class INTERNAL_APP_CLASS {
     }
 
     async initMap() {
-        const spawnPoint = (await fetch('api/data/saves?filter=spawn'))
+        const spawnPoint = (await fetch('api/v1/data/saves?filter=spawn'))
             .json()
             .then((r) => {
                 return r[0] as [number, number];

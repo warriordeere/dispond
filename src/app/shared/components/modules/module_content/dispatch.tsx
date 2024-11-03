@@ -79,7 +79,7 @@ function DispatchContentItem({ data }: { data: DispatchInterface }) {
             setDispatchCategory(await dispatchTypeToString(data.type));
             setDispatchDesc(await dispatchDescToString(data.type));
 
-            const dispatchFile = await fetch(`api/data/dispatch?id=${data.type}`) as unknown as DispatchFileObject;
+            const dispatchFile = await fetch(`api/v1/data/dispatch?id=${data.type}`) as unknown as DispatchFileObject;
 
             if (dispatchFile && dispatchFile.recommended_unit_set) {
                 setUnitSet(dispatchFile.recommended_unit_set[0]);

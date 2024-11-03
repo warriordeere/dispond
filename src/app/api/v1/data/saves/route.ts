@@ -5,6 +5,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { savegameInterface } from "@/app/shared/types/savegame.types";
 import { ApiDataSavesFilter } from "@/app/shared/types/api.types";
 
+export const dynamic = 'force-static'
+
 export async function GET(req: NextRequest) {
 
     const paramStr = req.nextUrl.searchParams.get('filter');
@@ -13,13 +15,13 @@ export async function GET(req: NextRequest) {
     const savedGamesFile = path.join(docDir, 'Arcavigi Interactive', 'dispond', 'saves', 'saves.json');
 
     if (!fs.existsSync(savedGamesFile)) {
-        return NextResponse.json({ message: '[ERROR] module:setup.ts - File Not Found', status: 404 });
+        return Response.json({ message: '[ERROR] module:setup.ts - File Not Found', status: 404 });
     }
 
     const savesObject = JSON.parse(fs.readFileSync(savedGamesFile, 'utf8')) as unknown as savegameInterface;
 
     if (!paramStr) {
-        return NextResponse.json(savesObject);
+        return Response.json(savesObject);
     }
 
     const paramAry = paramStr.split(' ');
@@ -40,13 +42,13 @@ export async function GET(req: NextRequest) {
                 return buf.push(savesObject.game.spawn);
 
             default:
-                return NextResponse.json({ message: '[ERROR] module:setup.ts - Unexpected Filter Value', status: 400 });
+                return Response.json({ message: '[ERROR] module:setup.ts - Unexpected Filter Value', status: 400 });
         }
     });
 
     if (!buf.length) {
-        return NextResponse.json({ message: '[ERROR] module:setup.ts - Internal Server Error', status: 500 });
+        return Response.json({ message: '[ERROR] module:setup.ts - Internal Server Error', status: 500 });
     }
 
-    return NextResponse.json(buf);
+    return Response.json(buf);
 }
