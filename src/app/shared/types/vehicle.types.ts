@@ -1,3 +1,4 @@
+import { LngLatLike } from "@tomtom-international/web-sdk-maps"
 import { LanguageString } from "./types"
 
 export type VehicleTypeOptions =
@@ -14,9 +15,13 @@ export type VehicleTypeOptions =
     "vehicle_type_gwmess" |
     "vehicle_type_sw"
 
-export interface VehicleShopItemInterface {
+export interface VehicleInterface {
     id: string
     vehicle_type: VehicleTypeOptions
+    positon: {
+        lng: number
+        lat: number
+    }
     parent: string
 }
 

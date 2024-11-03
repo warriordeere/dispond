@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
 
     if (!base_dir || !file_type) {
         return Response.json(
-            { message: `[Error] 400 Unexpected Parameter Value. Parameters: 'dir': '${base_dir}'; 'type': '${file_type}'` },
+            { message: `[Error] 400 Unexpected Parameter Value. Valid Parameters are: 'dir': '${base_dir}' or 'type': '${file_type}'` },
             { status: 400 }
         );
     }

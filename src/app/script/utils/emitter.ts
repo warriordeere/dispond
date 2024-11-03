@@ -9,7 +9,8 @@ import EventEmitter from "events";
 
 import { VehicleEvents, BuildingEvents, GameEvents, MissionEvents, MenuEvents } from "../../shared/types/emitter.types";
 import { DatabasePostOptions } from "@shared/types/idb.types";
-import { ShopItemData } from "@shared/types/types";
+import { VehicleInterface } from "@/app/shared/types/vehicle.types";
+import { LngLatLike } from "@tomtom-international/web-sdk-maps";
 
 
 export const VehicleEmitter: VehicleEvents = new EventEmitter();
@@ -46,9 +47,9 @@ MissionEmitter.on('EVENT_MISSION_ITEM_TOGGLE', (data) => {
 
 MissionEmitter.on('EVENT_MISSION_RESPOND', (data) => {
     const mission_loc = data.mission.location.coords;
-    data.responding.forEach((vhc: ShopItemData) => {
+    data.responding.forEach((vhc: VehicleInterface) => {
 
-        const { lat, lng } = vhc.item_position;
+        const { lng, lat } = vhc.positon;
         // also use vehicleHeight, vehicleLength, vehicleWidth, vehicleMaxSpeed, vehicleWeight  and travelMode: 'truck' for more realism
 
         tt.services.calculateRoute({

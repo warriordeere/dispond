@@ -6,14 +6,14 @@ import { getDB } from "@script/utils/idb";
 import { MenuEmitter } from "@script/utils/emitter";
 
 import { DatabaseGetOptions } from "@shared/types/idb.types";
-import { VehicleShopItemInterface } from "@shared/types/vehicle.types";
+import { VehicleInterface } from "@shared/types/vehicle.types";
 import { ModuleFooterButtonInterface } from "@shared/types/modules.types";
 
 import { MdAdd, MdModeEdit } from "react-icons/md";
 import { vehicleTypeToString } from "@/app/script/utils/utils";
 
 export function VehicleContentModule() {
-    const [vehicleData, setVehicleData] = useState<VehicleShopItemInterface[]>([]);
+    const [vehicleData, setVehicleData] = useState<VehicleInterface[]>([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -26,7 +26,7 @@ export function VehicleContentModule() {
 
             await getDB(dbopts)
                 .then((r) => {
-                    setVehicleData(r as VehicleShopItemInterface[]);
+                    setVehicleData(r as VehicleInterface[]);
                     return r;
                 })
                 .catch((err) => {
@@ -58,7 +58,7 @@ export function VehicleContentModule() {
             }} />
             <div className="menu-content">
                 {
-                    vehicleData.map((vehicle: VehicleShopItemInterface) => {
+                    vehicleData.map((vehicle: VehicleInterface) => {
                         return (
                             <VehicleContentItem key={vehicle.id} data={vehicle} />
                         );
@@ -69,7 +69,7 @@ export function VehicleContentModule() {
     )
 }
 
-function VehicleContentItem({ data }: { data: VehicleShopItemInterface }) {
+function VehicleContentItem({ data }: { data: VehicleInterface }) {
 
     function handleItemViewRequest(item_id: string) {
         MenuEmitter.emit('EVENT_MENU_ITEM_DISPLAY_OPEN', item_id);

@@ -92,12 +92,10 @@ function DispatchContentItem({ data }: { data: DispatchInterface }) {
     return (
         <button
             className="dispatch-item menu-item"
+            onDoubleClick={() => {
+                handleItemViewRequest(data.id)
+            }}
             onClick={
-                () => {
-                    handleItemViewRequest(data.id)
-                }
-            }
-            onMouseEnter={
                 () => {
                     map_inst.easeTo({
                         center: data.location.coords,

@@ -1,6 +1,7 @@
 import { DispatchInterface } from "./dispatches.types"
 import { GeometryData } from "./ttcst.types"
-import { locationObject, ShopItemData } from "./types"
+import { locationObject } from "./types"
+import { VehicleInterface } from "./vehicle.types"
 
 export interface buildingFile {
     created_at: Date | number
@@ -27,7 +28,7 @@ export type BuildingTypeOptions =
 
 export type MissionRespondData = {
     mission: DispatchInterface
-    responding: ShopItemData[]
+    responding: VehicleInterface[]
 }
 
 export type MissionAreaObject = {

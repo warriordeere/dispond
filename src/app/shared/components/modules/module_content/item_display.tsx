@@ -6,11 +6,11 @@ import { StatusDisplayBox } from "../../system_message";
 
 import { ShopCategoryTypes } from "@shared/types/types";
 import { DatabaseGetOptions } from "@shared/types/idb.types";
-import { VehicleShopItemInterface } from "@/app/shared/types/vehicle.types";
+import { VehicleInterface } from "@/app/shared/types/vehicle.types";
 
 export function ItemDisplayContentModule({ item, type }: { item: string, type: ShopCategoryTypes }) {
 
-    const [itemData, setItemData] = useState<VehicleShopItemInterface[]>([]);
+    const [itemData, setItemData] = useState<VehicleInterface[]>([]);
 
     useEffect(() => {
 
@@ -39,7 +39,7 @@ export function ItemDisplayContentModule({ item, type }: { item: string, type: S
         async function fetchData() {
             await getDB(dbopts)
                 .then((r) => {
-                    setItemData(r as VehicleShopItemInterface[]);
+                    setItemData(r as VehicleInterface[]);
                     return r;
                 })
                 .catch((err) => {

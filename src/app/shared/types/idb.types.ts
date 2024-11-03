@@ -1,7 +1,7 @@
 import { DBSchema } from "idb"
 import { BuildingInterface } from "./building.types"
 import { DispatchInterface } from "./dispatches.types"
-import { VehicleShopItemInterface } from "./vehicle.types"
+import { VehicleInterface } from "./vehicle.types"
 
 export interface SavegameDataSchema extends DBSchema {
     'DB_STORE_BUILDINGS': {
@@ -16,7 +16,7 @@ export interface SavegameDataSchema extends DBSchema {
     },
     'DB_STORE_OWNED_VEHICLES': {
         key: string
-        value: VehicleShopItemInterface
+        value: VehicleInterface
         indexes: { 'by-id': string }
     },
 }
@@ -30,7 +30,7 @@ export interface DatabaseOptions {
 }
 
 export interface DatabasePostOptions extends DatabaseOptions {
-    data: BuildingInterface | DispatchInterface | VehicleShopItemInterface
+    data: BuildingInterface | DispatchInterface | VehicleInterface
 }
 
 export interface DatabaseGetOptions extends DatabaseOptions {

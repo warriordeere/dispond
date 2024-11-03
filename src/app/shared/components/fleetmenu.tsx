@@ -8,7 +8,7 @@ import { BsPencilFill, BsCashCoin } from 'react-icons/bs';
 import { FaCar, FaCartShopping } from 'react-icons/fa6';
 
 import { DatabaseGetOptions } from '@shared/types/idb.types';
-import { VehicleShopItemInterface, VehicleTypeOptions } from '@shared/types/vehicle.types';
+import { VehicleInterface, VehicleTypeOptions } from '@shared/types/vehicle.types';
 import { BuildingInterface } from '@shared/types/building.types';
 
 export async function FleetManageMenu() {
@@ -27,7 +27,7 @@ export async function FleetManageMenu() {
         <>
             <div>fleet manage menu</div>
             {
-                allVehiles.map((vehicle: VehicleShopItemInterface) => {
+                allVehiles.map((vehicle: VehicleInterface) => {
                     return (
                         <code>
                             <h2>{vehicle.vehicle_type}</h2>
@@ -84,27 +84,27 @@ export function VehicleShop() {
         const db_opt: DatabaseGetOptions = {
             key: 'DB_GET_REQUEST_OPTION_ALL',
             database: 'DB_SAVEGAME_DATA',
-            store: 'DB_STORE_PURCHASED_ITEMS',
+            store: 'DB_STORE_OWNED_VEHICLES',
             schema: 'SCHEMA_SAVEGAME_DATA'
         }
 
         const vhcHome: BuildingInterface[] = await getDB(db_opt);
 
-        const data: ShopItemData = {
-            item_type: 'SHOP_ITEM_TYPE_VEHICLE',
-            id: vehicle_id,
-            item_secondary_type: vehicle_type,
-            item_cost: vehicle_cost,
-            item_owner: vhcHome[0].id,
-            item_position: vhcHome[0].position
-        }
+        // const data: VehicleInterface = {
+        //     item_type: 'SHOP_ITEM_TYPE_VEHICLE',
+        //     id: vehicle_id,
+        //     item_secondary_type: vehicle_type,
+        //     item_cost: vehicle_cost,
+        //     item_owner: vhcHome[0].id,
+        //     item_position: vhcHome[0].position
+        // }
 
-        postDB({
-            data: data,
-            database: 'DB_SAVEGAME_DATA',
-            store: 'DB_STORE_PURCHASED_ITEMS',
-            schema: 'SCHEMA_SAVEGAME_DATA'
-        });
+        // postDB({
+        //     data: data,
+        //     database: 'DB_SAVEGAME_DATA',
+        //     store: 'DB_STORE_PURCHASED_ITEMS',
+        //     schema: 'SCHEMA_SAVEGAME_DATA'
+        // });
     }
 
     return (

@@ -92,12 +92,10 @@ function BuildingContentItem({ data }: { data: BuildingInterface }) {
     return (
         <button
             className="building-item menu-item"
+            onDoubleClick={() => {
+                handleItemViewRequest(data.id)
+            }}
             onClick={
-                () => {
-                    handleItemViewRequest(data.id)
-                }
-            }
-            onMouseEnter={
                 () => {
                     map_inst.easeTo({
                         center: data.location.coords,

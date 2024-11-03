@@ -4,7 +4,7 @@ import { GeometryData } from "@shared/types/ttcst.types";
 import { PresenceData, PresenceInterface } from "@shared/types/utils.types";
 import { DispatchFileObject, DispatchInterface, DispatchTypeOptions } from "@/app/shared/types/dispatches.types";
 import { BuildingTypeOptions } from "@/app/shared/types/building.types";
-import { VehicleFileObject, VehicleTypeOptions } from "@/app/shared/types/vehicle.types";
+import { ClothingTypes, ItemAssistanceTypes, ItemFireFightingTypes, ItemMiscTypes, VehicleFileObject, VehicleTypeOptions } from "@/app/shared/types/vehicle.types";
 
 export function updatePresence(presence: PresenceData) {
 
@@ -95,7 +95,6 @@ export async function buildingTypeToString(building_type: BuildingTypeOptions): 
 }
 
 export async function vehicleTypeToString(vehicle_type: VehicleTypeOptions): Promise<string> {
-    console.log(vehicle_type);
     const vehicleData: VehicleFileObject[] = await fetch(`api/v1/data/vehicle?id=${vehicle_type}`)
         .then((r) => {
             return r.json() as unknown as VehicleFileObject[];
@@ -104,7 +103,39 @@ export async function vehicleTypeToString(vehicle_type: VehicleTypeOptions): Pro
             throw new Error(e);
         });
 
-    console.log(vehicleData);
-
     return vehicleData[0].category.de_DE;
+}
+
+export async function loadoutTypeToString(loadout_type: ItemFireFightingTypes | ItemAssistanceTypes | ItemMiscTypes): Promise<string> {
+    switch (loadout_type) {
+        case 'LOADOUT_ITEM_DOORKIT':
+            return 'Rucksack Türöffnung, ';
+        case 'LOADOUT_ITEM_FIRE_HOSE':
+            return 'Strahlrohr, ';
+        case 'LOADOUT_ITEM_FOAM_PIPE':
+            return 'Schaumrohr, ';
+        case 'LOADOUT_ITEM_HAZMATKIT':
+            return 'Gefahrgutazsrüstung, ';
+        case 'LOADOUT_ITEM_LEAKKIT_BIG':
+            return 'Ölbindemittel (groß), ';
+        case 'LOADOUT_ITEM_LEAKKIT_SMALL':
+            return 'Ölbindemittel (klein), ';
+        case 'LOADOUT_ITEM_LIGHTKIT':
+            return 'Lichtmast, ';
+        case 'LOADOUT_ITEM_TECHKIT':
+            return 'Rettungssatz (Schere, Spreizer), ';
+        default:
+            return 'Unknown Loadout Type, '
+    }
+}
+
+export async function clothingTypeToString(clothing_type: ClothingTypes): Promise<string> {
+    switch (clothing_type) {
+        case 'CLOTHING_HAZMAT':
+            return 'Chemieschutzanzug, ';
+        case 'CLOTHING_SCBA':
+            return 'Atemschutzanzug, ';
+        default:
+            return 'Unknown Clothing Type, '
+    }
 }
