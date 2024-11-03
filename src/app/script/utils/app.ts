@@ -20,7 +20,7 @@ export const App = new class INTERNAL_APP_CLASS {
             app: 'dispond',
             copyright: ['Warrior Deere', 'Arcavigi Interactive'],
             language: LanguageString.LANGUAGE_STRING_DE_DE,
-            version: '0.4.0'
+            version: '0.5.0'
         };
     }
 
