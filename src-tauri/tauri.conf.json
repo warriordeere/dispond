@@ -3,95 +3,64 @@
   "build": {
     "beforeBuildCommand": "npm run build",
     "beforeDevCommand": "npm run dev",
-    "devPath": "http://localhost:3000",
-    "distDir": "../out",
-    "withGlobalTauri": true
+    "frontendDist": "../out",
+    "devUrl": "http://localhost:3000"
   },
-  "package": {
-    "productName": "dispond",
-    "version": "0.5.0"
-  },
-  "tauri": {
-    "allowlist": {
-      "all": false,
-      "window": {
-        "all": false,
-        "close": true,
-        "hide": true,
-        "show": true,
-        "maximize": true,
-        "minimize": true,
-        "unmaximize": true,
-        "unminimize": true,
-        "startDragging": true,
-        "setPosition": true
-      },
-      "fs": {
-        "readFile": true,
-        "writeFile": true,
-        "createDir": true,
-        "readDir": true,
-        "exists": true,
-        "scope": [
-          "$DOCUMENT/*",
-          "$DOCUMENT/Arcavigi Interactive/*",
-          "$DOCUMENT/Arcavigi Interactive/dispond/*",
-          "$DOCUMENT/Arcavigi Interactive/dispond/saves/*",
-          "$DOCUMENT/Arcavigi Interactive/dispond/saves/data/*",
-          "$DOCUMENT/Arcavigi Interactive/dispond/saves/*/*",
-          "$DOCUMENT/Arcavigi Interactive/dispond/saves/*/*/*"
-        ]
-      }
+  "bundle": {
+    "active": true,
+    "category": "Game",
+    "copyright": "",
+    "targets": "all",
+    "externalBin": [],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "certificateThumbprint": null,
+      "digestAlgorithm": "sha256",
+      "timestampUrl": ""
     },
-    "bundle": {
-      "active": true,
-      "category": "Game",
-      "copyright": "",
+    "longDescription": "",
+    "macOS": {
+      "entitlements": null,
+      "exceptionDomain": "",
+      "frameworks": [],
+      "providerShortName": null,
+      "signingIdentity": null
+    },
+    "resources": [
+      "data"
+    ],
+    "shortDescription": "",
+    "linux": {
       "deb": {
         "depends": []
-      },
-      "externalBin": [],
-      "icon": [
-        "icons/32x32.png",
-        "icons/128x128.png",
-        "icons/128x128@2x.png",
-        "icons/icon.icns",
-        "icons/icon.ico"
-      ],
-      "identifier": "com.arcavigi.net",
-      "longDescription": "",
-      "macOS": {
-        "entitlements": null,
-        "exceptionDomain": "",
-        "frameworks": [],
-        "providerShortName": null,
-        "signingIdentity": null
-      },
-      "resources": [
-        "data"
-      ],
-      "shortDescription": "",
-      "targets": "all",
-      "windows": {
-        "certificateThumbprint": null,
-        "digestAlgorithm": "sha256",
-        "timestampUrl": ""
       }
-    },
-    "security": {
-      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'"
-    },
-    "updater": {
-      "active": false
-    },
+    }
+  },
+  "productName": "dispond",
+  "mainBinaryName": "dispond",
+  "version": "0.5.0",
+  "identifier": "com.arcavigi.net",
+  "plugins": {},
+  "app": {
+    "withGlobalTauri": true,
     "windows": [
       {
         "fullscreen": false,
         "resizable": true,
         "maximized": true,
         "decorations": false,
-        "title": "dispond v0.4.0"
+        "title": "dispond v0.4.0",
+        "useHttpsScheme": true
       }
-    ]
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src ipc: http://ipc.localhost"
+    }
   }
 }

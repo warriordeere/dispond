@@ -1,0 +1,38 @@
+{
+  "identifier": "migrated",
+  "description": "permissions that were migrated from v1",
+  "local": true,
+  "windows": [
+    "main"
+  ],
+  "permissions": [
+    "core:default",
+    "fs:allow-read-file",
+    "fs:allow-write-file",
+    "fs:allow-read-dir",
+    "fs:allow-mkdir",
+    "fs:allow-exists",
+    {
+      "identifier": "fs:scope",
+      "allow": [
+        "$DOCUMENT/*",
+        "$DOCUMENT/Arcavigi Interactive/*",
+        "$DOCUMENT/Arcavigi Interactive/dispond/*",
+        "$DOCUMENT/Arcavigi Interactive/dispond/saves/*",
+        "$DOCUMENT/Arcavigi Interactive/dispond/saves/data/*",
+        "$DOCUMENT/Arcavigi Interactive/dispond/saves/*/*",
+        "$DOCUMENT/Arcavigi Interactive/dispond/saves/*/*/*"
+      ]
+    },
+    "core:window:allow-maximize",
+    "core:window:allow-unmaximize",
+    "core:window:allow-minimize",
+    "core:window:allow-unminimize",
+    "core:window:allow-show",
+    "core:window:allow-hide",
+    "core:window:allow-close",
+    "core:window:allow-set-position",
+    "core:window:allow-start-dragging",
+    "fs:default"
+  ]
+}
