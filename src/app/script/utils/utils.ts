@@ -1,4 +1,4 @@
-import { invoke } from "@tauri-apps/api/tauri";
+import { invoke } from "@tauri-apps/api/core";
 
 import { GeometryData } from "@shared/types/ttcst.types";
 import { PresenceData, PresenceInterface } from "@shared/types/utils.types";
