@@ -2,7 +2,7 @@
 
 import '@shared/style/globals.css'
 
-import { App } from '@script/utils/app';
+import { coreApp } from '@/app/script/core/app';
 import { postDB } from '@script/utils/idb';
 import { DEBUG_ONLY_fc } from '@/app/tests';
 import { GameEmitter } from '@script/utils/emitter';
@@ -128,17 +128,17 @@ export function DebugMenu() {
                         <summary>Functions</summary>
                         <div className="dbgm-wrapper">
                             <div>
-                                <button onClick={App.initMap}>[DEBUG] module:new_setup.ts App.initMap()</button>
+                                <button onClick={coreApp.initMap}>[DEBUG] module:new_setup.ts App.initMap()</button>
                             </div>
                         </div>
                         <div className="dbgm-wrapper">
                             <div>
-                                <button onClick={App.initBuildings}>[DEBUG] module:new_setup.ts App.initBuildings()</button>
+                                <button onClick={coreApp.initBuildings}>[DEBUG] module:new_setup.ts App.initBuildings()</button>
                             </div>
                         </div>
                         <div className="dbgm-wrapper">
                             <div>
-                                <button onClick={App.summonDispatch}>[DEBUG] module:new_setup.ts App.dispatchSummoning()</button>
+                                <button onClick={coreApp.summonDispatch}>[DEBUG] module:new_setup.ts App.dispatchSummoning()</button>
                             </div>
                         </div>
                     </details>

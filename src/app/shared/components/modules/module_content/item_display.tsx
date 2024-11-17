@@ -56,18 +56,18 @@ export function ItemDisplayContentModule({ item, type }: { item: string, type: S
                 <summary>
                     <h2>Item: {item}</h2>
                 </summary>
-                <p>
+                <div>
                     {
                         itemData.map((foo) => {
                             if (foo) {
-                                return <>{foo.id}</>
+                                return <p key={foo.id}>{foo.id}</p>
                             }
                             else {
-                                return <StatusDisplayBox http_status_code={500} />
+                                return <StatusDisplayBox key={crypto.randomUUID()} http_status_code={500} />
                             }
                         })
                     }
-                </p>
+                </div>
             </details>
         </div >
     )

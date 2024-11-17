@@ -10,16 +10,16 @@ import { GameEmitter } from "../script/utils/emitter";
 import RadioMenu from '../shared/components/modules/radio_module';
 import { MenuWrapper } from '../shared/components/modules/menu_module';
 import Toolbox from "../shared/components/toolbox";
-import { App } from '../script/utils/app';
+import { coreApp } from '../script/core/app';
 
-import dynamic from 'next/dynamic';
-const TTMap = dynamic(() => import('../shared/components/map'), { ssr: false });
+import { coreMap } from '../script/core/map';
+import TTMap from '../shared/components/map';
 
 export default function Page() {
     useEffect(() => {
-        App.initMap();
-        App.initBuildings();
-        App.loadActiveDispatches();
+        coreMap.init();
+        coreApp.initBuildings();
+        coreApp.loadActiveDispatches();
 
         const session = crypto.randomUUID();
         const game_data = {

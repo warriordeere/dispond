@@ -17,8 +17,8 @@ import { DatabaseGetOptions } from "@shared/types/idb.types";
 import { VehicleTypeOptions } from '@shared/types/vehicle.types';
 import { DispatchFileObject, DispatchInterface, DispatchTypeOptions } from "@shared/types/dispatches.types";
 import { MenuEmitter } from '@/app/script/utils/emitter';
-import { map_inst } from '../../map';
 import { ModuleHeader } from './base';
+import { coreMap } from '@/app/script/core/map';
 
 export function DispatchContentModule() {
 
@@ -97,11 +97,13 @@ function DispatchContentItem({ data }: { data: DispatchInterface }) {
             }}
             onClick={
                 () => {
-                    map_inst.easeTo({
-                        center: data.location.coords,
-                        zoom: 12,
-                        duration: 1000
-                    })
+                    if (coreMap.InternalMap) {
+                        coreMap.InternalMap.easeTo({
+                            center: data.location.coords,
+                            zoom: 12,
+                            duration: 1000
+                        });
+                    }
                 }
             }
         >

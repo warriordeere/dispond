@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 
-import { map_inst } from "../../map";
 import { ModuleHeader } from "./base";
 
 import { getDB } from "@script/utils/idb";
@@ -14,6 +13,7 @@ import { BuildingInterface, BuildingTypeOptions } from "@shared/types/building.t
 import { ImFire } from "react-icons/im";
 import { RiPoliceBadgeFill } from "react-icons/ri";
 import { MdAdd, MdModeEdit, MdOutlineQuestionMark } from "react-icons/md";
+import { coreMap } from "@/app/script/core/map";
 
 export function BuildingMenuContentModule() {
 
@@ -97,11 +97,13 @@ function BuildingContentItem({ data }: { data: BuildingInterface }) {
             }}
             onClick={
                 () => {
-                    map_inst.easeTo({
-                        center: data.location.coords,
-                        zoom: 12,
-                        duration: 1000
-                    })
+                    if (coreMap.InternalMap) {
+                        coreMap.InternalMap.easeTo({
+                            center: data.location.coords,
+                            zoom: 12,
+                            duration: 1000
+                        });
+                    }
                 }
             }
         >

@@ -1,7 +1,6 @@
 import { API_KEY } from "@/app/page";
 
 import { LngLatLike } from "@tomtom-international/web-sdk-maps";
-import tt from "@tomtom-international/web-sdk-services";
 
 import * as turf_bbox from '@turf/bbox';
 import * as turf_boolean_point_in_polygon from '@turf/boolean-point-in-polygon';
@@ -13,6 +12,7 @@ import { MissionEmitter } from "@/app/script/utils/emitter";
 import { DispatchFileObject, DispatchInterface, DispatchTypeOptions, ClientObject } from "@shared/types/dispatches.types";
 import { NamesFile } from "@shared/types/savegame.types";
 import { GeometryData } from "@shared/types/ttcst.types";
+import { coreMap } from "../core/map";
 
 export async function generateMissionData(area: GeometryData): Promise<DispatchInterface> {
     async function randomMission(): Promise<DispatchTypeOptions> {
@@ -66,9 +66,11 @@ export async function generateMissionData(area: GeometryData): Promise<DispatchI
         return fp;
     }
 
+    const tt = await coreMap.loadServiceSDK();
+
     const lcd = await createMissionLocation(area);
     const rev = tt.services.reverseGeocode({ key: API_KEY!, position: lcd })
-        .then((r) => {
+        .then((r: any) => {
             return r.addresses[0].address;
         });
     const geo_result = await rev;
