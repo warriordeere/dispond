@@ -22,7 +22,7 @@ export default function Landing() {
 
     useEffect(() => {
         async function fetchSpawnPoint() {
-            const spawnPoint = (await fetch('api/data/saves?filter=spawn'))
+            const spawnPoint = (await fetch('api/v1/data/saves?filter=spawn'))
                 .json()
                 .then((r) => {
                     return r[0] as [number, number];
@@ -30,7 +30,7 @@ export default function Landing() {
 
             const coords = tt.LngLat.convert(await spawnPoint);
 
-            setStaticMapSrc(`https://api.tomtom.com/map/1/staticimage?layer=hybrid&style=main&format=png&key=${API_KEY}&zoom=12&center=${coords.lng},${coords.lat}&width=800&height=500&language=NGT`);
+            setStaticMapSrc(`https://api.tomtom.com/map/1/staticimage?layer=basic&style=main&format=png&key=${API_KEY}&zoom=12&center=${coords.lng},${coords.lat}&width=800&height=500&language=NGT`);
         }
 
         fetchSpawnPoint();

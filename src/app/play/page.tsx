@@ -6,11 +6,14 @@ import '@shared/style/game.css'
 import { useEffect } from "react";
 import { GameEmitter } from "../script/utils/emitter";
 
-import TTMap from "../shared/components/map";
+
 import RadioMenu from '../shared/components/modules/radio_module';
 import { MenuWrapper } from '../shared/components/modules/menu_module';
 import Toolbox from "../shared/components/toolbox";
 import { App } from '../script/utils/app';
+
+import dynamic from 'next/dynamic';
+const TTMap = dynamic(() => import('../shared/components/map'), { ssr: false });
 
 export default function Page() {
     useEffect(() => {
