@@ -11,6 +11,7 @@ import { ModuleFooterButtonInterface } from "@shared/types/modules.types";
 
 import { MdAdd, MdModeEdit } from "react-icons/md";
 import { vehicleTypeToString } from "@/app/script/utils/utils";
+import { coreMap } from "@/app/script/core/map";
 
 export function VehicleContentModule() {
     const [vehicleData, setVehicleData] = useState<VehicleInterface[]>([]);
@@ -88,9 +89,18 @@ function VehicleContentItem({ data }: { data: VehicleInterface }) {
     return (
         <button
             className="building-item menu-item"
+            onDoubleClick={() => {
+                handleItemViewRequest(data.id)
+            }}
             onClick={
                 () => {
-                    handleItemViewRequest(data.id)
+                    if (coreMap.InternalMap) {
+                        coreMap.InternalMap.easeTo({
+                            center: data.positon,
+                            zoom: 12,
+                            duration: 1000
+                        });
+                    }
                 }
             }
         >

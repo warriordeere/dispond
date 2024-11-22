@@ -1,9 +1,7 @@
-import { map_inst } from "../../shared/components/map";
-
-import tt from "@tomtom-international/web-sdk-maps";
+'use client'
 
 import { Dispatch, generateMissionData } from "../gen/mission";
-import { getDB } from "./idb";
+import { getDB } from "../utils/idb";
 
 import { BuildingInterface } from "@shared/types/building.types";
 import { DatabaseGetOptions } from "@shared/types/idb.types";
@@ -11,9 +9,13 @@ import { GeometryData } from "@shared/types/ttcst.types";
 import { AppMetaData } from "@shared/types/app.types";
 import { LanguageString } from "@shared/types/types";
 import { DispatchInterface } from "@/app/shared/types/dispatches.types";
-import { dispatchTypeToString } from "./utils";
+import { dispatchTypeToString } from "../utils/utils";
+import { coreMap } from "./map";
 
-export const App = new class INTERNAL_APP_CLASS {
+// import dynamic from 'next/dynamic';
+// const map_inst = dynamic(() => import('../../shared/components/map'), { ssr: false });
+
+export const coreApp = new class CORE_CLASS_APP {
 
     async metadata(): Promise<AppMetaData> {
         return {
@@ -24,15 +26,8 @@ export const App = new class INTERNAL_APP_CLASS {
         };
     }
 
-    async initMap() {
-        const spawnPoint = (await fetch('api/v1/data/saves?filter=spawn'))
-            .json()
-            .then((r) => {
-                return r[0] as [number, number];
-            });
+    async init() {
 
-        const coords = tt.LngLat.convert(await spawnPoint);
-        map_inst.easeTo({ center: coords });
     }
 
     async initBuildings() {
@@ -49,7 +44,9 @@ export const App = new class INTERNAL_APP_CLASS {
             return console.warn(`[WARN] No Buildings Found To Initialize`);
         }
 
-        allBuildings.forEach((building: BuildingInterface) => {
+        allBuildings.forEach(async (building: BuildingInterface) => {
+            const tt = await coreMap.loadMapSDK();
+
             const marker = new tt.Marker({ draggable: false, color: '#ff0000' });
             const popup = new tt.Popup({ anchor: 'top', closeButton: false })
 
@@ -57,16 +54,20 @@ export const App = new class INTERNAL_APP_CLASS {
                 throw new Error(`[ERROR] Unexpected Value`);
             }
 
-            marker.setLngLat(building.location.coords);
-            marker.addTo(map_inst);
+            if (coreMap.InternalMap) {
+                marker.setLngLat(building.location.coords);
+                marker.addTo(coreMap.InternalMap);
 
-            popup.setText(building.name);
-            popup.addTo(map_inst);
+                popup.setText(building.name);
+                popup.addTo(coreMap.InternalMap);
 
-            marker.setPopup(popup);
-            marker.togglePopup();
+                marker.setPopup(popup);
+                marker.togglePopup();
 
-            console.log(`[DEBUG] Spawned Building: ${building.id}@${building.location.coords}`);
+                console.debug(`[DEBUG] Attached Building To Map: ${building.id}@${building.location.coords}`);
+            } else {
+                console.warn(`[DEBUG] Could Not Attach Building To Map: ${building.id}@${building.location.coords}`);
+            }
         });
     }
 
@@ -105,7 +106,6 @@ export const App = new class INTERNAL_APP_CLASS {
             i = 1;
         }
 
-
         i++;
 
         localStorage.setItem('active_missions', i.toString());
@@ -122,21 +122,29 @@ export const App = new class INTERNAL_APP_CLASS {
         const dispatchAry = await getDB(db_opt);
         dispatchAry.forEach((dispatch: DispatchInterface) => {
             this.loadDispatchUI(dispatch);
-            console.log(`[DEBUG] Spawned Active Dispatch: ${dispatch.id}@${dispatch.location.coords}`);
         });
     }
 
     private async loadDispatchUI(dispatch: DispatchInterface) {
+        const tt = await coreMap.loadMapSDK();
+
         const mrk = new tt.Marker({ draggable: false, color: 'orange' });
         const pup = new tt.Popup({ anchor: 'top', closeButton: false });
 
-        mrk.setLngLat(dispatch.location.coords);
-        mrk.addTo(map_inst);
+        if (coreMap.InternalMap) {
+            mrk.setLngLat(dispatch.location.coords);
+            mrk.addTo(coreMap.InternalMap);
 
-        pup.setHTML(`<strong>${await dispatchTypeToString(dispatch.type)}</strong><br>${dispatch.location.free_address}`);
-        pup.addTo(map_inst);
+            pup.setHTML(`<strong>${await dispatchTypeToString(dispatch.type)}</strong><br>${dispatch.location.free_address}`);
+            pup.addTo(coreMap.InternalMap);
 
-        mrk.setPopup(pup);
-        mrk.togglePopup();
+            mrk.setPopup(pup);
+            mrk.togglePopup();
+
+            console.debug(`[DEBUG] Attached Dispatch To Map: ${dispatch.id}@${dispatch.location.coords}`);
+        }
+        else {
+            console.warn(`[DEBUG] Could Not Attach Dispatch To Map: ${dispatch.id}@${dispatch.location.coords}`);
+        }
     }
 }

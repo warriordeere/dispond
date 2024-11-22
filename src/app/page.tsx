@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Landing from "@shared//components/landing";
-import { App } from "./script/utils/app";
+import { coreMap } from "./script/core/map";
 
 export const API_KEY = process.env.TOMTOM_API_KEY
 export const RPC_CLIENT_ID = process.env.RPC_CLIENT_ID
@@ -10,7 +10,7 @@ export const RPC_CLIENT_ID = process.env.RPC_CLIENT_ID
 export default function page() {
 
     useEffect(() => {
-        App.initMap();
+        coreMap.init();
     }, [])
 
     return (

@@ -5,7 +5,7 @@ import { API_KEY } from '@/app/page';
 import '@shared/style/landing.css';
 import '@shared/style/globals.css';
 
-import tt from '@tomtom-international/web-sdk-maps';
+// import tt from '@tomtom-international/web-sdk-maps';
 import { useRouter } from 'next/navigation';
 
 import { LuGamepad2 } from "react-icons/lu";
@@ -22,15 +22,11 @@ export default function Landing() {
 
     useEffect(() => {
         async function fetchSpawnPoint() {
-            const spawnPoint = (await fetch('api/v1/data/saves?filter=spawn'))
-                .json()
-                .then((r) => {
-                    return r[0] as [number, number];
+            await fetch('api/v1/data/saves?filter=spawn')
+                .then(async (r) => {
+                    const coords: any = await r.json();
+                    setStaticMapSrc(`https://api.tomtom.com/map/1/staticimage?layer=basic&style=main&format=png&key=${API_KEY}&zoom=12&center=${coords[0].lng},${coords[0].lat}&width=800&height=500&language=NGT`);
                 });
-
-            const coords = tt.LngLat.convert(await spawnPoint);
-
-            setStaticMapSrc(`https://api.tomtom.com/map/1/staticimage?layer=basic&style=main&format=png&key=${API_KEY}&zoom=12&center=${coords.lng},${coords.lat}&width=800&height=500&language=NGT`);
         }
 
         fetchSpawnPoint();
