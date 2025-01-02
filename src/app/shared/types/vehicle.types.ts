@@ -36,7 +36,7 @@ export interface VehicleFileObject {
         [LanguageString.LANGUAGE_STRING_DE_DE]: string,
         [LanguageString.LANGUAGE_STRING_EN_US]: string
     },
-    clothing: ClothingTypes[]
+    clothing?: ClothingTypes[]
     perks: VehiclePerksObject
 }
 
@@ -50,9 +50,9 @@ export interface VehiclePerksObject {
 }
 
 export interface LoadoutItems {
-    item_fire_fighting: ItemFireFightingTypes[]
-    item_assistance: ItemAssistanceTypes[]
-    item_misc: ItemMiscTypes[]
+    item_fire_fighting?: ItemFireFightingTypes[]
+    item_assistance?: ItemAssistanceTypes[]
+    item_misc?: ItemMiscTypes[]
 }
 
 export type ClothingTypes = "CLOTHING_SCBA" | "CLOTHING_HAZMAT"

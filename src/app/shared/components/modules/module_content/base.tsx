@@ -15,7 +15,7 @@ export function ModuleHeader({ data }: ModuleHeaderInterface) {
                 <h2>{data.title}</h2>
             </div>
             <div className="menu-ui">
-                <button>
+                {/* <button>
                     <BsFillGrid3X3GapFill />
                 </button>
                 <button>
@@ -23,7 +23,7 @@ export function ModuleHeader({ data }: ModuleHeaderInterface) {
                 </button>
                 <button>
                     <TbArrowsExchange />
-                </button>
+                </button> */}
             </div>
         </div>
     );

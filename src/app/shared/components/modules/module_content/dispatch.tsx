@@ -7,11 +7,9 @@ import { dispatchDescToString, dispatchTypeToString } from '@script/utils/utils'
 
 import { useEffect, useState } from "react";
 
-import { TbArrowsExchange } from "react-icons/tb";
-import { FaThList } from "react-icons/fa";
-import { BsFillGrid3X3GapFill, BsTools } from "react-icons/bs";
+import { BsTools } from "react-icons/bs";
 import { ImFire } from "react-icons/im";
-import { MdOutlineQuestionMark } from "react-icons/md";
+import { MdLocationPin, MdOutlineQuestionMark, MdPhoneInTalk } from "react-icons/md";
 
 import { DatabaseGetOptions } from "@shared/types/idb.types";
 import { VehicleTypeOptions } from '@shared/types/vehicle.types';
@@ -90,12 +88,35 @@ function DispatchContentItem({ data }: { data: DispatchInterface }) {
     }, [unitSet]);
 
     return (
-        <button
-            className="dispatch-item menu-item"
-            onDoubleClick={() => {
+        <div className="dispatch-item menu-item">
+            <div className='dispatch-item-content'>
+                <div className="dispatch-icon menu-item-icon">
+                    <DispatchIcon type={data.type} />
+                </div>
+                <h3 className="dispatch-title">
+                    {dispatchCategory}
+                </h3>
+                <p className="dispatch-detail">
+                    {dispatchDesc}
+                </p>
+                <div className="dispatch-unit-set">
+                    {
+                        unitSet ? (
+                            unitSet.map((unit) => {
+                                return (
+                                    <DispatchUnitSetItem recommended_unit={unit} />
+                                );
+                            })
+                        ) : null
+                    }
+                </div>
+            </div>
+            <button className='dispatch-ui-btn' onClick={() => {
                 handleItemViewRequest(data.id)
-            }}
-            onClick={
+            }}>
+                <MdPhoneInTalk />
+            </button>
+            <button className="dispatch-ui-btn" onClick={
                 () => {
                     if (coreMap.InternalMap) {
                         coreMap.InternalMap.easeTo({
@@ -105,29 +126,10 @@ function DispatchContentItem({ data }: { data: DispatchInterface }) {
                         });
                     }
                 }
-            }
-        >
-            <div className="dispatch-icon menu-item-icon">
-                <DispatchIcon type={data.type} />
-            </div>
-            <h3 className="dispatch-title">
-                {dispatchCategory}
-            </h3>
-            <p className="dispatch-detail">
-                {dispatchDesc}
-            </p>
-            <div className="dispatch-unit-set">
-                {
-                    unitSet ? (
-                        unitSet.map((unit) => {
-                            return (
-                                <DispatchUnitSetItem recommended_unit={unit} />
-                            );
-                        })
-                    ) : null
-                }
-            </div>
-        </button>
+            }>
+                <MdLocationPin />
+            </button>
+        </div>
     );
 }
 

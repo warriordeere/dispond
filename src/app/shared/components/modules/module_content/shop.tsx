@@ -173,10 +173,18 @@ function VehicleCard({ vhc }: { vhc: VehicleFileObject }) {
                     <p>Löschmittel: {vhc.perks.extinguishing_cap}</p>
                     <p>Stauraum: {vhc.perks.loadout_cap}</p>
                     <p>Besatzung: {vhc.perks.units}</p>
-                    <p>Bekleidung: {vhc.clothing.map((item) => clothingTypeToString(item))}</p>
-                    <p>Ausrüstung Technische Hilfe: {vhc.perks.loadout_items.item_assistance.map((item) => loadoutTypeToString(item))}</p>
-                    <p>Ausrüstung Feuerbekämpfung: {vhc.perks.loadout_items.item_fire_fighting.map((item) => loadoutTypeToString(item))}</p>
-                    <p>Ausrüstung Sonstige: {vhc.perks.loadout_items.item_misc.map((item) => loadoutTypeToString(item))}</p>
+                    <p>Bekleidung: {vhc.clothing?.map((item, index) => (
+                        <span key={index}>{clothingTypeToString(item)}</span>
+                    ))}</p>
+                    <p>Ausrüstung Technische Hilfe: {vhc.perks.loadout_items?.item_assistance?.map((item, index) => (
+                        <span key={index}>{loadoutTypeToString(item)}</span>
+                    ))}</p>
+                    <p>Ausrüstung Feuerbekämpfung: {vhc.perks.loadout_items?.item_fire_fighting?.map((item, index) => (
+                        <span key={index}>{loadoutTypeToString(item)}</span>
+                    ))}</p>
+                    <p>Ausrüstung Sonstige: {vhc.perks.loadout_items?.item_misc?.map((item, index) => (
+                        <span key={index}>{loadoutTypeToString(item)}</span>
+                    ))}</p>
                     <hr />
                     <button onClick={handleVehicleBtn} className="vehicle-btn-buy">Kaufen</button>
                 </details>

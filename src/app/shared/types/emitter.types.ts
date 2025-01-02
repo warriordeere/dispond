@@ -1,8 +1,8 @@
 import { LngLatLike } from "@tomtom-international/web-sdk-maps"
 import { savegameInterface } from "./savegame.types"
-import { ShopItemData } from "./types"
 import { BuildingInterface, MissionRespondData } from "./building.types"
 import { DispatchInterface } from "./dispatches.types"
+import { VehicleInterface } from "./vehicle.types"
 
 export type MenuEventTypes =
     "EVENT_MENU_BUILDING_OPEN" | "EVENT_MENU_VEHICLE_OPEN" | "EVENT_MENU_SHOP_OPEN" | "EVENT_MENU_UNIT_OPEN"
@@ -26,7 +26,7 @@ export interface GameEvents {
 }
 
 export interface VehicleEvents {
-    on(eventName: 'EVENT_VEHICLE_PURCHASE', handler: (data: ShopItemData) => void): void
+    on(eventName: 'EVENT_VEHICLE_PURCHASE', handler: (data: VehicleInterface) => void): void
     emit(eventName: 'EVENT_VEHICLE_PURCHASE', data: savegameInterface): void
 }
 

@@ -113,9 +113,6 @@ function BuildingContentItem({ data }: { data: BuildingInterface }) {
             <div className="building-name">
                 <h3>{data.name}</h3>
             </div>
-            <div className="building-type">
-                <p>{buildingType}</p>
-            </div>
             <div className="building-address">
                 <p>{data.location.free_address}</p>
             </div>

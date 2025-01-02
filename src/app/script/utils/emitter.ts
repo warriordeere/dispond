@@ -1,12 +1,8 @@
-import { API_KEY } from "../../page";
-
 import { postDB } from "./idb";
-import { animateRespond } from "./utils";
 import EventEmitter from "events";
 
 import { VehicleEvents, BuildingEvents, GameEvents, MissionEvents, MenuEvents } from "../../shared/types/emitter.types";
 import { DatabasePostOptions } from "@shared/types/idb.types";
-import { VehicleInterface } from "@/app/shared/types/vehicle.types";
 
 export const VehicleEmitter: VehicleEvents = new EventEmitter();
 export const BuildingEmitter: BuildingEvents = new EventEmitter();
