@@ -1,3 +1,5 @@
+# The project has been discontinued due to TomTom deprecating its Web SDK service within February 1st, 2026, on which this project heavily relied.
+
 # Dispond
 
 Dispond is **your** management-simulation to take on the role of a dispatch center, coordinating a bright variety of realistic emergency's. Manage and operate fire departments, medical services, police units, and any other technical relief organizations you can imagine to respond to incidents and keep your city safe.
