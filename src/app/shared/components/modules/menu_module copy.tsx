@@ -12,90 +12,97 @@ import { DispatchContentModule } from "./module_content/dispatch";
 import { ItemDisplayContentModule } from "./module_content/item_display";
 import { UnitContentModule } from "./module_content/unit";
 
+import { isMenuOptionDouble, isMenuOptionSingle } from "@script/utils/type_guard";
 import { MenuEmitter } from "@script/utils/emitter";
 
-import { MenuContentInterface, MenuModuleContentTypes, LargeMenuModuleContentTypes } from "@shared/types/modules.types";
+import { MenuModuleTypes, MenuContentInterface, MenuModuleContentTypes, LargeMenuModuleContentTypes, MenuWrapperSetOptionDouble, MenuWrapperSetOptionSingle } from "@shared/types/modules.types";
 import { VehicleContentModule } from "./module_content/vehicle";
 import { ShopContentModule } from "./module_content/shop";
 
-import { ItemDisplayTypes } from '@shared/types/types';
+export function MenuWrapper() {
 
-interface MenuState {
-    primary?: MenuModuleContentTypes;
-    secondary?: MenuModuleContentTypes;
-    large?: LargeMenuModuleContentTypes;
-    item_display_type?: ItemDisplayTypes;
-    item_id?: string;
-}
-
-const initialMenuState: MenuState = {};
-
-const MenuModule = () => {
-    const [menuState, setMenuState] = useState<MenuState>(initialMenuState);
+    const [menuWrapperSet, setMenuWrapperSet] = useState<MenuWrapperSetOptionDouble | MenuWrapperSetOptionSingle>();
 
     useEffect(() => {
+
         MenuEmitter.on('EVENT_MENU_BUILDING_OPEN', () => {
-            setMenuState({
+            setMenuWrapperSet({
                 primary: MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_DISPATCH_MENU,
                 secondary: MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_BUILDING_MENU
             });
         });
 
         MenuEmitter.on('EVENT_MENU_SHOP_OPEN', () => {
-            setMenuState({
+            setMenuWrapperSet({
                 large: LargeMenuModuleContentTypes.LARGE_MENU_MODULE_CONTENT_TYPE_SHOP_MENU
             });
         });
 
         MenuEmitter.on('EVENT_MENU_VEHICLE_OPEN', () => {
-            setMenuState({
+            setMenuWrapperSet({
                 primary: MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_DISPATCH_MENU,
                 secondary: MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_VEHICLE_MENU
             });
         });
 
         MenuEmitter.on('EVENT_MENU_UNIT_OPEN', () => {
-            setMenuState({
+            setMenuWrapperSet({
                 primary: MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_DISPATCH_MENU,
                 secondary: MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_UNIT_OVERVIEW
             });
         });
 
-        MenuEmitter.on('EVENT_MENU_ITEM_DISPLAY_OPEN', (item_id: string, item_display_type: ItemDisplayTypes) => {
-            setMenuState({
+        MenuEmitter.on('EVENT_MENU_ITEM_DISPLAY_OPEN', (item_id) => {
+            setMenuWrapperSet({
                 primary: MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_DISPATCH_MENU,
                 secondary: MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_ITEM_DISPLAY,
-                item_id: item_id,
-                item_display_type: item_display_type
+                item_id: item_id
             });
         });
+
     }, []);
 
+    if (isMenuOptionSingle(menuWrapperSet)) {
+        return (
+            <>
+                <MenuModule module_type="MENU_MODULE_TYPE_LARGE" module_content={menuWrapperSet.large} />
+            </>
+        );
+    }
+    else if (isMenuOptionDouble(menuWrapperSet)) {
+        return (
+            <>
+                <MenuModule module_type="MENU_MODULE_TYPE_PRIMARY" module_content={menuWrapperSet.primary} item_id={menuWrapperSet.item_id} />
+                <MenuModule module_type="MENU_MODULE_TYPE_SECONDARY" module_content={menuWrapperSet.secondary} item_id={menuWrapperSet.item_id} />
+            </>
+        );
+    } else {
+        return (
+            <>
+                <MenuModule module_type="MENU_MODULE_TYPE_PRIMARY" module_content={MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_DISPATCH_MENU} />
+                {/* <MenuModule module_type="MENU_MODULE_TYPE_SECONDARY" module_content={MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_UNIT_OVERVIEW} /> */}
+                <MenuModule module_type="MENU_MODULE_TYPE_SECONDARY" module_content={MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_BUILDING_MENU} />
+            </>
+        );
+    }
+}
+
+function MenuModule({ module_type, module_content, item_id }:
+    {
+        module_type: MenuModuleTypes,
+        module_content: MenuModuleContentTypes | LargeMenuModuleContentTypes,
+        item_id?: string
+    }) {
+
+    const styleClassString = module_type.toLowerCase().slice(17);
+
     return (
-        <div className="menu-wrapper">
-            {menuState.primary && <PrimaryMenu contentType={menuState.primary} />}
-            {menuState.secondary && <SecondaryMenu contentType={menuState.secondary} itemId={menuState.item_id} itemDisplayType={menuState.item_display_type} />}
-            {menuState.large && <LargeMenu contentType={menuState.large} />}
-        </div>
-    );
-};
+        <section className={`${styleClassString}-menu menu-container`}>
+            <MenuContent content_type={module_content} />
+        </section>
+    )
+}
 
-const PrimaryMenu = ({ contentType }: { contentType: MenuModuleContentTypes }) => {
-    // Render primary menu based on contentType
-    return <div>{contentType}</div>;
-};
-
-const SecondaryMenu = ({ contentType, itemId, itemDisplayType }: { contentType: MenuModuleContentTypes, itemId?: string, itemDisplayType?: ItemDisplayTypes }) => {
-    // Render secondary menu based on contentType, itemId, and itemDisplayType
-    return <div>{contentType} - {itemId} - {itemDisplayType}</div>;
-};
-
-const LargeMenu = ({ contentType }: { contentType: LargeMenuModuleContentTypes }) => {
-    // Render large menu based on contentType
-    return <div>{contentType}</div>;
-};
-
-export default MenuModule;
 
 function MenuContent({ content_type }: MenuContentInterface) {
     switch (content_type) {

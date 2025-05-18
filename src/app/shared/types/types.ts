@@ -9,7 +9,7 @@ export type locationObject = {
     street_n_number: string
 }
 
-export type ShopCategoryTypes = "SHOP_ITEM_TYPE_VEHICLE" | "SHOP_ITEM_TYPE_BUILDING"
+export type ItemDisplayTypes = "ITEM_DISPLAY_TYPE_VEHICLE" | "ITEM_DISPLAY_TYPE_BUILDING" | "ITEM_DISPLAY_TYPE_DISPATCH";
 
 export type VersionString = `${number}.${number}.${number}` | `pre-${number}.${number}.${number}` | `beta-${number}.${number}.${number}`
 

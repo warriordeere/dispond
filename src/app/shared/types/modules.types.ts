@@ -1,4 +1,5 @@
 import React from "react"
+import { ItemDisplayTypes } from './types';
 
 export enum MenuModuleContentTypes {
     "MENU_MODULE_CONTENT_TYPE_DISPATCH_MENU" = "type_dispatch_menu",
@@ -24,10 +25,17 @@ export enum SearchParamsOptions {
     "SEARCHPARAMS_DISPLAY_ITEM_TYPE" = "type",
 }
 
-export interface MenuContentInterface {
-    content_type: MenuModuleContentTypes | LargeMenuModuleContentTypes
-    item?: string
+export interface MenuContentInterfaceBase {
+    content_type: MenuModuleContentTypes | LargeMenuModuleContentTypes;
 }
+
+export interface ItemDisplayMenuContentInterface extends MenuContentInterfaceBase {
+    content_type: MenuModuleContentTypes.MENU_MODULE_CONTENT_TYPE_ITEM_DISPLAY;
+    item_display_type: ItemDisplayTypes;
+    item_id: string;
+}
+
+export type MenuContentInterface = MenuContentInterfaceBase | ItemDisplayMenuContentInterface;
 
 export type ToolboxButtonTypes = "TB_BTN_BUILDING_MENU" | "TB_BTN_VEHICLE_MENU" | "TB_DRP_ADD_MENU" | "TB_BTN_ITEM_SHOP" | "TB_BTN_UNIT_MENU"
 
